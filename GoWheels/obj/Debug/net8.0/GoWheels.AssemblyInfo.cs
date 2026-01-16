@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("GoWheels")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aac3680e7c279446a676bc40d73078f992cd0033")]
 [assembly: System.Reflection.AssemblyProductAttribute("GoWheels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GoWheels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

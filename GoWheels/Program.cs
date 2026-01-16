@@ -1,7 +1,27 @@
+using Microsoft.EntityFrameworkCore;
+using GoWheels.Data;
+using GoWheels.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+
+//Linking the DataBase:
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+builder.Services.AddDbContext<GoWheelsDbContext>(options =>
+    options.UseNpgsql(connectionString)); // Use Postgres
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<GoWheelsDbContext>();
+
+
+
+
 
 var app = builder.Build();
 
