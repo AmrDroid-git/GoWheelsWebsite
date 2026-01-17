@@ -4,13 +4,27 @@ using Microsoft.EntityFrameworkCore; // Needed for Index attribute
 
 namespace GoWheels.Models
 {
+    
+    public enum PostStatus
+    {
+        Pending,
+        Accepted,
+        Rejected,
+        Deleted
+    }
+    
     [Microsoft.EntityFrameworkCore.Index(nameof(Constructor))] // Explicitly specify the namespace
     [Microsoft.EntityFrameworkCore.Index(nameof(ModelName))]
     [Microsoft.EntityFrameworkCore.Index(nameof(ReleaseYear))]
+    
+    
     public class Post
     {
         [Key]
         public int Id { get; set; }
+        
+        // By default, a new post is always "Pending"
+        public PostStatus Status { get; set; } = PostStatus.Pending;
 
         // --- Car Details ---
         [Required]
