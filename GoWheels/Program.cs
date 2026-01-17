@@ -23,7 +23,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 
 // Register the Service
-builder.Services.AddScoped<IPostsService, PostsService>();
+//builder.Services.AddScoped<IPostsService, PostsService>();
 
 
 var app = builder.Build();

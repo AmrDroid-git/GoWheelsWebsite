@@ -41,6 +41,11 @@ namespace GoWheels.Models
         public decimal Price { get; set; }
 
         public Dictionary<string, string> Specifications { get; set; } = new Dictionary<string, string>();
+        public string ImageUrl { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+        public string DetailUrl { get; set; } = string.Empty;
+        // Optionnel (pas Required)
+        public string? PhoneNumber { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
