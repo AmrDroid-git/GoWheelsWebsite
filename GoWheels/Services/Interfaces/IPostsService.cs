@@ -4,7 +4,7 @@ namespace GoWheels.Services.Interfaces
 {
     public interface IPostsService
     {
-        Task<Post?> GetPostByIdAsync(int id);
+        Task<Post?> GetPostByIdAsync(int id); //use it to print comments of post
         Task<bool> AddPostAsync(Post post);
         Task<bool> UpdatePostAsync(Post post);
         Task<bool> DeletePostAsync(int id);
