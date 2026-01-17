@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
+/*
 
 //Linking the DataBase:
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
@@ -22,9 +23,10 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<GoWheelsDbContext>();
 
 
+
 // Register the Service
 builder.Services.AddScoped<IPostsService, PostsService>();
-
+*/
 
 var app = builder.Build();
 
