@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using GoWheels.Data;
 using GoWheels.Models;
+using GoWheels.Services;
+using GoWheels.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +22,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<GoWheelsDbContext>();
 
 
-
+// Register the Service
+builder.Services.AddScoped<IPostsService, PostsService>();
 
 
 var app = builder.Build();
