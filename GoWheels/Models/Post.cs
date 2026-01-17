@@ -45,7 +45,7 @@ namespace GoWheels.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
 
-        public float RateAverage { get; set; }
+        public float RateAverage { get; set; } = 0f;
 
         // --- Relationships ---
         [Required]
