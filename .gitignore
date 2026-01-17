@@ -1,0 +1,41 @@
+## Core .NET ignores
+# This will now catch bin/obj in the GoWheels subfolder and any others
+**/bin/
+**/obj/
+publish/
+out/
+
+## Rider / JetBrains / Visual Studio
+# This now correctly targets the .idea folder in the root
+.idea/
+.vscode/
+*.sln.iml
+*.swp
+*.user
+*.suo
+
+## Sensitive files (Secrets)
+# Ignoring environment-specific settings to prevent credential leaks
+#appsettings.Development.json
+#appsettings.Local.json
+*.pfx
+*.publishsettings
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## Databases & Logging
+*.log
+*.db
+*.db-shm
+*.db-wal
+
+## NuGet & Dependencies
+packages/
+node_modules/
+.librarymanager/
+
+## Test Results & Coverage
+TestResults/
+*.sequenced
