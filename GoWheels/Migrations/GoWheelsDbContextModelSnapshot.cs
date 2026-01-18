@@ -48,7 +48,6 @@ namespace GoWheels.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Location")

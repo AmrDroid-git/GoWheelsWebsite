@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GoWheels.Migrations
 {
     [DbContext(typeof(GoWheelsDbContext))]
-    [Migration("20260118221141_InitMigration")]
-    partial class InitMigration
+    [Migration("20260118231311_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,6 @@ namespace GoWheels.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Location")

@@ -20,7 +20,7 @@ namespace GoWheels.Models
         [MaxLength(100)]
         public string Location { get; set; } = null!;
 
-        public string ImageUrl { get; set; } = null!;
+        public string? ImageUrl { get; set; }
 
         // --- User's Average Rating (as a Seller) ---
         public float RateAverage { get; set; }

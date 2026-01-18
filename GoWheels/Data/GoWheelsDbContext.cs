@@ -26,7 +26,6 @@ namespace GoWheels.Data
                 .Property(p => p.Specifications)
                 .HasColumnType("jsonb");
 
-            // ✅ DEFAULT CreatedAt
             builder.Entity<Post>()
                 .Property(p => p.CreatedAt)
                 .HasDefaultValueSql("NOW()");

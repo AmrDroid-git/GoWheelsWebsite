@@ -21,7 +21,16 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Posts\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Posts\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Posts\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Posts\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Posts\Index.cshtml" />
     </ItemGroup>
 
 </Project>

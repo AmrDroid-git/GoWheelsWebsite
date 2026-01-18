@@ -7,37 +7,62 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// DataBase:
+builder.Services.AddDbContext<GoWheelsDbContext>(
+    options => options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+        )
+    );
 
-
-
-
-//Linking the DataBase:
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-builder.Services.AddDbContext<GoWheelsDbContext>(options =>
-    options.UseNpgsql(connectionString)); // Use Postgres
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+// Identity
+builder.Services.AddDefaultIdentity<ApplicationUser>(
+        options => options.SignIn.RequireConfirmedAccount = false
+        )
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<GoWheelsDbContext>();
 
+// // Registering Services
+// builder.Services.AddScoped<IPostsService, PostsService>();
+// builder.Services.AddScoped<IUsersService, UsersService>();
+// builder.Services.AddScoped<ICommentsService, CommentsService>();
+// builder.Services.AddScoped<IRatingsService, RatingsService>();
 
+// Controllers
+builder.Services.AddControllersWithViews();
 
-/*
-// Register the Service
-//builder.Services.AddScoped<IPostsService, PostsService>();
-
-
-// Register the Services
-builder.Services.AddScoped<IPostsService, PostsService>();
-builder.Services.AddScoped<IUsersService, UsersService>();
-builder.Services.AddScoped<ICommentsService, CommentsService>();
-builder.Services.AddScoped<IRatingsService, RatingsService>();
-*/
-
+// Application 
 var app = builder.Build();
+
+// Initialization
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
+    // Create Roles
+    var roles = new List<string> { "ADMIN", "EXPERT", "USER" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+
+    // Create Default Users
+    var names = new List<string> { "admin", "expert", "user" };
+    foreach (var name in names)
+    {
+        if (await userManager.FindByNameAsync(name) == null)
+        {
+            var user = new ApplicationUser { UserName = name, Email = $"{name}@{name}.com", EmailConfirmed = true, PhoneNumber = "98756683", Location = "CUN"};
+            var result = await userManager.CreateAsync(user, "Password123!"); // Identity usually requires a strong password
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, name.ToUpper());
+            }
+        }
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -47,21 +72,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    
-    // Check if Expert Role exists, if not, create it
-    if (!await roleManager.RoleExistsAsync("Expert"))
-    {
-        await roleManager.CreateAsync(new IdentityRole("Expert"));
-    }
-}
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

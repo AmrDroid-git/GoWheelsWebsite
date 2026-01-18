@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GoWheels.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,7 @@ namespace GoWheels.Migrations
                     Address = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     Location = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
                     RateAverage = table.Column<float>(type: "real", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
