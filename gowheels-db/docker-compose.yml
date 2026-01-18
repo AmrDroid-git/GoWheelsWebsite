@@ -5,19 +5,14 @@ services:
     image: postgres:15
     container_name: gowheels_postgres
     restart: unless-stopped
-
     environment:
       POSTGRES_DB: gowheels_db
       POSTGRES_USER: gowheels_user
-      POSTGRES_PASSWORD: gowheels_password
-
+      POSTGRES_PASSWORD: gowheels_pass
     ports:
       - "5432:5432"
-
     volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./init:/docker-entrypoint-initdb.d:ro
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  pgdata:
-
+  postgres_data:
