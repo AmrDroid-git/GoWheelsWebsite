@@ -40,9 +40,9 @@
 
 # For LINUX
 - \GoWheelsWebsite> cd gowheels-db
-- /gowheels-db$ docker compose up -d
+- /gowheels-db$ sudo docker compose up -d
 - Pour vérifier que docker a bien lancé:
-  - docker ps
+  - sudo docker ps
 - /gowheels-db$ cd ..
 - cd GoWheels
 - \GoWheelsWebsite\GoWheels> dotnet ef database update
@@ -50,7 +50,7 @@
 - cd ..
 - cd gowheels-db
 - cd init
-- docker exec -i gowheels_postgres psql   -U gowheels_user -d gowheels_db < seed_users_and_posts.sql
+- sudo docker exec -i gowheels_postgres psql   -U gowheels_user -d gowheels_db < seed_users_and_posts.sql
   - (il doit appraitre :
     INSERT 0 1
     INSERT 0 1
@@ -63,13 +63,13 @@
     INSERT 0 1
     COMMIT)
 - Pour entrer la db :
-  - docker exec -i gowheels_postgres psql   -U gowheels_user -d gowheels_db
+  - sudo docker exec -i gowheels_postgres psql   -U gowheels_user -d gowheels_db
 - Pour visualiser les données à partir du cli:
   - \dt
   - SELECT COUNT(*) FROM "AspNetUsers";
   - SELECT COUNT(*) FROM "Posts";
 ## To restart a container and delete its volume
-  - docker compose down -v
+  - sudo docker compose down -v
 ## Pour visualiser les données dans rider
     - va à droite et cliquer sur l'icone de database
     - cliquer sur New (se trouve en haut , 2nd icon)
