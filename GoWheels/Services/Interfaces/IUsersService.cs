@@ -31,5 +31,12 @@ namespace GoWheels.Services.Interfaces
         // Call this method whenever a new rating is added to 'ReceivedRatings'.
         // It should calculate the average of all ReceivedRatings and save it to RateAverage.
         Task<bool> UpdateUserRatingAverageAsync(string userId);
+        
+        // --- Authentication ---
+        // Returns true if login is successful (email & password match)
+        Task<bool> LoginUserAsync(string email, string password);
+        
+        // Optional: Good practice to have a Logout method here too
+        Task LogoutUserAsync();
     }
 }

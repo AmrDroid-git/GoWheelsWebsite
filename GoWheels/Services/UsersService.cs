@@ -10,15 +10,19 @@ namespace GoWheels.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly GoWheelsDbContext _context;
+        
 
         public UsersService(
             UserManager<ApplicationUser> userManager, 
             RoleManager<IdentityRole> roleManager,
+            SignInManager<ApplicationUser> signInManager,
             GoWheelsDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
             _context = context;
         }
 
@@ -168,6 +172,31 @@ namespace GoWheels.Services
                 Console.WriteLine($"Error updating user rating: {ex.Message}");
                 return false;
             }
+        }
+        
+        // ==========================================================
+        // 6. AUTHENTICATION (Login / Logout)
+        // ==========================================================
+
+        public async Task<bool> LoginUserAsync(string email, string password)
+        {
+            // 1. Find the user by Email first
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return false; // User not found
+            }
+
+            // 2. Attempt to sign in
+            // Parameters: User, Password, IsPersistent (Remember Me), LockoutOnFailure
+            var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
+
+            return result.Succeeded;
+        }
+
+        public async Task LogoutUserAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }
