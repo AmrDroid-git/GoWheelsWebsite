@@ -3,6 +3,7 @@ using GoWheels.Data;
 using GoWheels.Models;
 using GoWheels.Services;
 using GoWheels.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,17 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    
+    // Check if Expert Role exists, if not, create it
+    if (!await roleManager.RoleExistsAsync("Expert"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("Expert"));
+    }
 }
 
 app.UseHttpsRedirection();

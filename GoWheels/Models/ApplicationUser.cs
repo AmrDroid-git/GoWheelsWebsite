@@ -12,7 +12,17 @@ namespace GoWheels.Models
         [MaxLength(100)]
         public string Address { get; set; } = string.Empty;
 
-        // User's Average Rating (as a Seller) ---
+        [Required]
+        [Length(8, 15)]
+        public string PhoneNumber { get; set; } = null!;
+        
+        [Required]
+        [MaxLength(100)]
+        public string Location { get; set; } = null!;
+
+        public string ImageUrl { get; set; } = null!;
+
+        // --- User's Average Rating (as a Seller) ---
         public float RateAverage { get; set; }
 
         // --- Relationships ---

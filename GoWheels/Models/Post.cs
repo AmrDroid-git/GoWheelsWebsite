@@ -17,12 +17,21 @@ namespace GoWheels.Models
     [Index(nameof(ReleaseDate))]
     public class Post
     {
+        // --- General ---
         [Key]
         [MaxLength(128)]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
+        [Display(Name = "Created At")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
+        
         public PostStatus Status { get; set; } = PostStatus.Pending;
+        
+        public float RateAverage { get; set; } = 0f;
 
+        public ICollection<PostImage> PostImages { get; set; } = new List<PostImage>();
+        
         // --- Vehicle Details ---
         [Required]
         [MaxLength(100)]
@@ -47,18 +56,6 @@ namespace GoWheels.Models
         public decimal Price { get; set; }
 
         public Dictionary<string, string> Specifications { get; set; } = new Dictionary<string, string>();
-        public string ImageUrl { get; set; } = string.Empty;
-        public string Location { get; set; } = string.Empty;
-        public string DetailUrl { get; set; } = string.Empty;
-        // Optionnel (pas Required)
-        public string? PhoneNumber { get; set; }
-
-        [Display(Name = "Created At")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedAt { get; set; }
-
-
-        public float RateAverage { get; set; } = 0f;
 
         // --- Relationships ---
         [Required]
