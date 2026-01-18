@@ -46,6 +46,7 @@
 - /gowheels-db$ cd ..
 - cd GoWheels
 - \GoWheelsWebsite\GoWheels> dotnet ef database update
+  - (il didn't work , open another terminal in the same folder , and reexecute the command (HORS WSL))
 - cd ..
 - cd gowheels-db
 - cd init
@@ -67,6 +68,16 @@
   - \dt
   - SELECT COUNT(*) FROM "AspNetUsers";
   - SELECT COUNT(*) FROM "Posts";
-- To restart a container and delete its volume
+## To restart a container and delete its volume
   - docker compose down -v
+## Pour visualiser les données dans rider
+    - va à droite et cliquer sur l'icone de database
+    - cliquer sur New (se trouve en haut , 2nd icon)
+    - cliquer sur Connect to Database
+    - choisir ,Database type: PostgreSQL
+    - cliquer sur "Connect to Database"
+    - attend un peu et c bon ,
+    - cliquer sur gowheels_db@localhost
+    - va vers gowheels_db/public/tables/Posts
+    - cliquer sur Posts double fois et un nouveau onglet va s'ouvrir , contient un tableau avec les données 
 
