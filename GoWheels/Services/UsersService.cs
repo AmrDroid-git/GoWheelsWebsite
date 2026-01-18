@@ -140,7 +140,7 @@ namespace GoWheels.Services
             {
                 // 1. Fetch all ratings received by this user
                 // We use _context directly because UserManager doesn't handle custom tables like Ratings
-                var ratings = await _context.Set<RatingUser>()
+                var ratings = await _context.UsersRatings
                     .Where(r => r.RatedUserId == userId)
                     .ToListAsync();
 

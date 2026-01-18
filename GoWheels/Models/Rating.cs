@@ -7,14 +7,16 @@ namespace GoWheels.Models
     public abstract class Rating
     {
         [Key]
-        public int Id { get; set; }
+        [MaxLength(128)]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Range(0, 5)]
         public float Value { get; set; } // 0, 0.5, ... 5
 
         // The person GIVING the rating
         [Required]
-        public string OwnerId { get; set; }
+        [MaxLength(128)]
+        public string OwnerId { get; set; } = null!;
         [ForeignKey("OwnerId")]
         public ApplicationUser Owner { get; set; } = null!;
     }
@@ -23,7 +25,9 @@ namespace GoWheels.Models
     public class RatingUser : Rating
     {
         // The person BEING rated
-        public string RatedUserId { get; set; }
+        [Required]
+        [MaxLength(128)]
+        public string RatedUserId { get; set; } = null!;
         [ForeignKey("RatedUserId")]
         public ApplicationUser RatedUser { get; set; } = null!;
     }
@@ -32,7 +36,9 @@ namespace GoWheels.Models
     public class RatingPost : Rating
     {
         // The post BEING rated
-        public int RatedPostId { get; set; }
+        [Required]
+        [MaxLength(128)]
+        public string RatedPostId { get; set; } = null!;
         [ForeignKey("RatedPostId")]
         public Post RatedPost { get; set; } = null!;
     }

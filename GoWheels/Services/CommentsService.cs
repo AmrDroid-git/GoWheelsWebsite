@@ -72,7 +72,7 @@ namespace GoWheels.Services
         // ==========================================================
 
         // 1. Get by ID
-        public async Task<Comment?> GetCommentByIdAsync(Guid id)
+        public async Task<Comment?> GetCommentByIdAsync(string id)
         {
             return await _context.Comments
                 .Include(c => c.User) // Load the Author
@@ -94,7 +94,7 @@ namespace GoWheels.Services
         }
 
         // 3. Get by Post ID
-        public async Task<List<Comment>> GetCommentsByPostIdAsync(int postId)
+        public async Task<List<Comment>> GetCommentsByPostIdAsync(string postId)
         {
             return await _context.Comments
                 .Where(c => c.PostId == postId)

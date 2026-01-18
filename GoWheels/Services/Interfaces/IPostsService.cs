@@ -4,14 +4,14 @@ namespace GoWheels.Services.Interfaces
 {
     public interface IPostsService
     {
-        Task<Post?> GetPostByIdAsync(int id); //use it to print comments of post
+        Task<Post?> GetPostByIdAsync(string id); //use it to print comments of post
         Task<bool> AddPostAsync(Post post);
         Task<bool> UpdatePostAsync(Post post);
-        Task<bool> DeletePostAsync(int id);
+        Task<bool> DeletePostAsync(string id);
         
         //work for a specific post
-        Task<List<Comment>> GetCommentsByPostIdAsync(int postId);
-        Task<List<RatingPost>> GetRatingsByPostIdAsync(int postId);
+        Task<List<Comment>> GetCommentsByPostIdAsync(string postId);
+        Task<List<RatingPost>> GetRatingsByPostIdAsync(string postId);
 
         Task<List<Post>> SearchPostsAsync(string keyword);
         Task<List<Post>> GetPostsByPriceRangeAsync(decimal? minPrice, decimal? maxPrice);
@@ -26,12 +26,12 @@ namespace GoWheels.Services.Interfaces
         Task<List<Post>> GetTopRatedPostsAsync(int count);
 
         Task<List<Post>> GetPostsByStateAsync(PostStatus status);
-        Task<bool> ValidatePostAsync(int postId, PostStatus status, string expertId);
+        Task<bool> ValidatePostAsync(string postId, PostStatus status, string expertId);
         Task<List<Post>> GetPostsByOwnerAsync(string userId);
         
         
         // --- Utilities ---
-        // Takes a list of lists (e.g. results from Price filter, Year filter, Model filter...)
+        // Takes a list of lists (e.g., results from Price filter, Year filter, Model filter...)
         // Returns only the posts that exist in ALL of them.
         List<Post> IntersectPosts(List<List<Post>> listsOfPosts);
         

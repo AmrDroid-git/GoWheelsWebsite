@@ -17,7 +17,7 @@ namespace GoWheels.Services
         // ==========================================================
         // 1. GET POST BY ID
         // ==========================================================
-        public async Task<Post?> GetPostByIdAsync(int id)
+        public async Task<Post?> GetPostByIdAsync(string id)
         {
             return await _context.Posts
                 .Include(p => p.Owner) // Load the Seller info
@@ -76,7 +76,7 @@ namespace GoWheels.Services
         // ==========================================================
         // 4. DELETE POST
         // ==========================================================
-        public async Task<bool> DeletePostAsync(int id)
+        public async Task<bool> DeletePostAsync(string id)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace GoWheels.Services
         // ==========================================================
         // 5. GET COMMENTS FOR A POST
         // ==========================================================
-        public async Task<List<Comment>> GetCommentsByPostIdAsync(int postId)
+        public async Task<List<Comment>> GetCommentsByPostIdAsync(string postId)
         {
             return await _context.Comments
                 .Where(c => c.PostId == postId)
@@ -112,10 +112,9 @@ namespace GoWheels.Services
         // ==========================================================
         // 6. GET RATINGS FOR A POST
         // ==========================================================
-        public async Task<List<RatingPost>> GetRatingsByPostIdAsync(int postId)
+        public async Task<List<RatingPost>> GetRatingsByPostIdAsync(string postId)
         {
-            // Note: We use Set<RatingPost>() or your specific DbSet name (e.g. _context.PostRatings)
-            return await _context.Set<RatingPost>() 
+            return await _context.PostsRatings 
                 .Where(r => r.RatedPostId == postId)
                 .Include(r => r.Owner)
                 .OrderByDescending(r => r.Id)
@@ -136,8 +135,7 @@ namespace GoWheels.Services
             return await _context.Posts
                 .Include(p => p.Owner)
                 .Where(p => p.Constructor.ToLower().Contains(keyword) || 
-                            p.ModelName.ToLower().Contains(keyword) ||
-                            p.Title.ToLower().Contains(keyword))
+                            p.ModelName.ToLower().Contains(keyword))
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
         }
@@ -204,12 +202,12 @@ namespace GoWheels.Services
             var query = _context.Posts.Include(p => p.Owner).AsQueryable();
 
             if (minYear.HasValue)
-                query = query.Where(p => p.ReleaseYear >= minYear.Value);
+                query = query.Where(p => p.ReleaseDate >= new DateOnly(minYear.Value, 1, 1));
 
             if (maxYear.HasValue)
-                query = query.Where(p => p.ReleaseYear <= maxYear.Value);
+                query = query.Where(p => p.ReleaseDate <= new DateOnly(maxYear.Value, 12, 31));
 
-            return await query.OrderByDescending(p => p.ReleaseYear).ToListAsync();
+            return await query.OrderByDescending(p => p.ReleaseDate).ToListAsync();
         }
 
         public async Task<List<Post>> GetPostsByDateRangeAsync(DateTime startDate, DateTime endDate)
@@ -274,7 +272,7 @@ namespace GoWheels.Services
         // 11. ROLE-BASED LOGIC (Validation & Owner)
         // ==========================================================
 
-        public async Task<bool> ValidatePostAsync(int postId, PostStatus status, string expertId)
+        public async Task<bool> ValidatePostAsync(string postId, PostStatus status, string expertId)
         {
             try
             {

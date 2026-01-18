@@ -11,13 +11,13 @@ namespace GoWheels.Services.Interfaces
         Task<bool> DeleteRatingAsync(int ratingId, bool isPostRating); // ID might duplicate across tables, so we need the type
 
         // --- Retrieval by ID ---
-        Task<RatingPost?> GetPostRatingByIdAsync(int id);
-        Task<RatingUser?> GetUserRatingByIdAsync(int id);
+        Task<RatingPost?> GetPostRatingByIdAsync(string id);
+        Task<RatingUser?> GetUserRatingByIdAsync(string id);
 
         // --- Retrieval by Context (Received Ratings) ---
         
         // 1. Get all ratings received by a specific Post
-        Task<List<RatingPost>> GetRatingsForPostAsync(int postId);
+        Task<List<RatingPost>> GetRatingsForPostAsync(string postId);
 
         // 2. Get all ratings received by a specific User (Seller)
         Task<List<RatingUser>> GetRatingsForUserAsync(string userId);

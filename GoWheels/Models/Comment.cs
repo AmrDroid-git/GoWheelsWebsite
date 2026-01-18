@@ -6,22 +6,28 @@ namespace GoWheels.Models
     public class Comment
     {
         [Key]
-        public Guid Id { get; set; } // You requested GUID
+        [MaxLength(128)]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
+        [MaxLength(600)]
         public string Body { get; set; } = string.Empty;
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
+        [Display(Name = "Created At")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
 
         // --- Relationships ---
 
         // Link to Post
-        public int PostId { get; set; }
+        [MaxLength(128)]
+        public string PostId { get; set; } = null!;
         [ForeignKey("PostId")]
         public Post Post { get; set; } = null!;
 
         // Link to User (Author)
-        public string UserId { get; set; }
+        [MaxLength(128)]
+        public string UserId { get; set; } = null!;
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; } = null!;
     }

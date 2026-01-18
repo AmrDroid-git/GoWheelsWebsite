@@ -14,42 +14,51 @@ namespace GoWheels.Models
     
     [Index(nameof(Constructor))]
     [Index(nameof(ModelName))]
-    [Index(nameof(ReleaseYear))]
+    [Index(nameof(ReleaseDate))]
     public class Post
     {
         [Key]
-        public int Id { get; set; }
-        
-        [Required]
-        [MaxLength(100)]
-        public string Title { get; set; } = string.Empty;
+        [MaxLength(128)]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public PostStatus Status { get; set; } = PostStatus.Pending;
 
-        // --- Car Details ---
+        // --- Vehicle Details ---
         [Required]
+        [MaxLength(100)]
         public string Constructor { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(100)]
         public string ModelName { get; set; } = string.Empty;
 
-        public int ReleaseYear { get; set; }
-        public int BoughtYear { get; set; }
+        [DataType(DataType.Date)]
+        public DateOnly ReleaseDate { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateOnly PurchaseDate { get; set; }
+
         public int Kilometrage { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
+        [Required]
+        [Column(TypeName = "decimal(18,3)")] // (dinars,millimes)
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:N3} DT", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
 
         public Dictionary<string, string> Specifications { get; set; } = new Dictionary<string, string>();
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        [Display(Name = "Created At")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
 
 
         public float RateAverage { get; set; } = 0f;
 
         // --- Relationships ---
         [Required]
-        public string OwnerId { get; set; }
+        [MaxLength(128)]
+        public string OwnerId { get; set; } = string.Empty;
         [ForeignKey("OwnerId")]
         public ApplicationUser Owner { get; set; } = null!;
 

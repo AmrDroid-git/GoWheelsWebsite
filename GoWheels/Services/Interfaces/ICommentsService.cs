@@ -12,13 +12,13 @@ namespace GoWheels.Services.Interfaces
         // --- Retrieval Methods (Requested) ---
         
         // 1. Get a single comment by ID
-        Task<Comment?> GetCommentByIdAsync(Guid id);
+        Task<Comment?> GetCommentByIdAsync(string id);
 
         // 2. Search all comments containing a specific text
         Task<List<Comment>> SearchCommentsBodyAsync(string keyword);
 
         // 3. Get all comments for a specific POST
-        Task<List<Comment>> GetCommentsByPostIdAsync(int postId);
+        Task<List<Comment>> GetCommentsByPostIdAsync(string postId);
 
         // 4. Get all comments for a specific USER
         Task<List<Comment>> GetCommentsByUserIdAsync(string userId);
