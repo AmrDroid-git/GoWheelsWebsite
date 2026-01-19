@@ -93,12 +93,16 @@ namespace GoWheels.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser
                 {
-                    UserName = Input.Name,
-                    Email = Input.Email,
+                    // 1. UserName: Replaces spaces with underscores (e.g. "Amr Slama" -> "Amr_Slama")
+                    UserName = Input.Name.Replace(" ", "_"),
+                    
+                    // 2. Name: Keeps the original name with spaces (e.g. "Amr Slama")
                     Name = Input.Name,
+                    
+                    Email = Input.Email,
                     PhoneNumber = Input.PhoneNumber,
-                    Address = Input.Address,
-                    Location = Input.Address 
+                    
+                    Address = Input.Address 
                 };
 
                 var (success, errorMessage) = await _usersService.CreateUserAsync(user, Input.Password);

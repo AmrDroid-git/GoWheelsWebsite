@@ -34,7 +34,7 @@ namespace GoWheels.Services.Interfaces
         
         // --- Authentication ---
         // Returns true if login is successful (email & password match)
-        Task<bool> LoginUserAsync(string email, string password);
+        Task<bool> LoginUserAsync(string email, string password, bool rememberMe);
         
         // Optional: Good practice to have a Logout method here too
         Task LogoutUserAsync();
