@@ -76,6 +76,7 @@
     "ModelName": "Grand i10 GLS",
     "ReleaseDate": "2016-01-01",
     "PurchaseDate": "2017-01-01",
+    "IsForRent": true,
     "Kilometrage": 185000,
     "Price": 28500,
     "Specifications": {
@@ -2077,6 +2078,7 @@
     "ModelName": "Leon Référence",
     "ReleaseDate": "2021-12-01",
     "PurchaseDate": "2022-01-01",
+    "IsForRent": true,
     "Kilometrage": 156000,
     "Price": 68500,
     "Specifications": {

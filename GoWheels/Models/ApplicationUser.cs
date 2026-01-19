@@ -16,9 +16,6 @@ namespace GoWheels.Models
         [Length(8, 15)]
         public override string  PhoneNumber { get; set; }
         
-        [Required]
-        [MaxLength(100)]
-        public string Location { get; set; } = null!;
 
         public string? ImageUrl { get; set; }
 

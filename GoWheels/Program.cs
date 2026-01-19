@@ -57,7 +57,7 @@ using (var scope = app.Services.CreateScope())
     {
         if (await userManager.FindByNameAsync(name) == null)
         {
-            var user = new ApplicationUser { UserName = name, Email = $"{name}@{name}.com", EmailConfirmed = true, PhoneNumber = "98756683", Location = "CUN"};
+            var user = new ApplicationUser { UserName = name, Email = $"{name}@{name}.com", EmailConfirmed = true, PhoneNumber = "98756683", Address = "CUN"};
             var result = await userManager.CreateAsync(user, "Password123!"); // Identity usually requires a strong password
             if (result.Succeeded)
             {

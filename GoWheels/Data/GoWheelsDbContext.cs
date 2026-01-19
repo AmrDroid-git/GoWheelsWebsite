@@ -23,33 +23,38 @@ namespace GoWheels.Data
         {
             base.OnModelCreating(builder);
 
-
-
-            // Configure Specifications as JSON using a value converter
-            var dictConverter = new ValueConverter<Dictionary<string,string>, string>(
-                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                v => JsonSerializer.Deserialize<Dictionary<string,string>>(v, (JsonSerializerOptions)null) ?? new Dictionary<string,string>()
-            );
-
+            // ----------------------------
+            // Specifications (Dictionary → jsonb)
+            // ----------------------------
+            var dictConverter =
+                new ValueConverter<Dictionary<string, string>, string>(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions)null)
+                         ?? new Dictionary<string, string>()
+                );
 
             builder.Entity<Post>()
                 .Property(p => p.Specifications)
                 .HasConversion(dictConverter)
-                .HasColumnType("jsonb"); // tells PostgreSQL to store as jsonb
+                .HasColumnType("jsonb");
 
+            // ----------------------------
+            // Defaults DB
+            // ----------------------------
             builder.Entity<Post>()
                 .Property(p => p.CreatedAt)
                 .HasDefaultValueSql("NOW()");
 
-            // ----------------------------
-            // Comment configuration
-            // ----------------------------
+            builder.Entity<Post>()
+                .Property(p => p.IsForRent)
+                .HasDefaultValue(false);
+
             builder.Entity<Comment>()
                 .Property(c => c.CreatedAt)
                 .HasDefaultValueSql("NOW()");
 
             // ----------------------------
-            // Rating (TPT)
+            // Rating TPT
             // ----------------------------
             builder.Entity<RatingUser>().ToTable("UserRatings");
             builder.Entity<RatingPost>().ToTable("PostRatings");
@@ -71,7 +76,6 @@ namespace GoWheels.Data
 
             var usersPath      = Path.Combine(basePath, "users.json");
             var postsPath      = Path.Combine(basePath, "posts_clean.json");
-            var postImagesPath = Path.Combine(basePath, "post_images.json");
             var commentsPath   = Path.Combine(basePath, "comments_seed.json");
             var ratingsPath    = Path.Combine(basePath, "ratings_posts.json");
 
@@ -93,15 +97,6 @@ namespace GoWheels.Data
                     builder.Entity<Post>().HasData(p);
             }
 
-            if (File.Exists(postImagesPath))
-            {
-                var images = JsonSerializer.Deserialize<List<PostImage>>(
-                    File.ReadAllText(postImagesPath), options) ?? new();
-
-                foreach (var img in images)
-                    builder.Entity<PostImage>().HasData(img);
-            }
-
             if (File.Exists(commentsPath))
             {
                 var comments = JsonSerializer.Deserialize<List<Comment>>(
@@ -109,7 +104,6 @@ namespace GoWheels.Data
 
                 foreach (var c in comments)
                 {
-                    // IMPORTANT : CreatedAt NON injecté
                     builder.Entity<Comment>().HasData(new
                     {
                         c.Id,
