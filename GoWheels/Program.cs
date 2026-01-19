@@ -30,6 +30,9 @@ builder.Services.AddScoped<IRatingsService, RatingsService>();
 // Controllers
 builder.Services.AddControllersWithViews();
 
+// Add Razor Pages support
+builder.Services.AddRazorPages();
+
 // Application 
 var app = builder.Build();
 
@@ -84,5 +87,25 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Map Razor Pages
+app.MapRazorPages();
+
+// Temporary: list all endpoints
+app.MapGet("/endpoints", () =>
+{
+    var endpointDataSource = app.Services.GetRequiredService<EndpointDataSource>();
+
+    var endpoints = endpointDataSource.Endpoints
+        .OfType<RouteEndpoint>()
+        .Select(e => new
+        {
+            e.DisplayName,
+            Route = e.RoutePattern.RawText
+        });
+
+    return Results.Json(endpoints);
+});
+
 
 app.Run();
