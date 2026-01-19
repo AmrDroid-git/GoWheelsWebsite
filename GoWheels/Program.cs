@@ -21,11 +21,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<GoWheelsDbContext>();
 
-// // Registering Services
-// builder.Services.AddScoped<IPostsService, PostsService>();
-// builder.Services.AddScoped<IUsersService, UsersService>();
-// builder.Services.AddScoped<ICommentsService, CommentsService>();
-// builder.Services.AddScoped<IRatingsService, RatingsService>();
+// Registering Services
+builder.Services.AddScoped<IPostsService, PostsService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<ICommentsService, CommentsService>();
+builder.Services.AddScoped<IRatingsService, RatingsService>();
 
 // Controllers
 builder.Services.AddControllersWithViews();
