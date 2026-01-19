@@ -12,9 +12,9 @@ namespace GoWheels.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly GoWheelsDbContext _context;
-        
+
         public UsersService(
-            UserManager<ApplicationUser> userManager, 
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
             GoWheelsDbContext context)
@@ -46,18 +46,18 @@ namespace GoWheels.Services
             return await _context.Comments
                 .Where(c => c.UserId == userId)
                 .Include(c => c.Post)
-                    .ThenInclude(p => p.PostImages)
+                .ThenInclude(p => p.PostImages)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
         }
-        
+
         public async Task<List<Post>> GetPostsByUserIdAsync(string userId)
         {
             return await _context.Posts
                 .Where(p => p.OwnerId == userId)
-                .Include(p => p.Owner) 
+                .Include(p => p.Owner)
                 .Include(p => p.PostImages)
-                .OrderByDescending(p => p.CreatedAt) 
+                .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
         }
 
@@ -89,7 +89,7 @@ namespace GoWheels.Services
 
             if (!await _roleManager.RoleExistsAsync(newRole))
             {
-                return false; 
+                return false;
             }
 
             var currentRoles = await _userManager.GetRolesAsync(user);
@@ -130,9 +130,9 @@ namespace GoWheels.Services
                 if (user == null) return false;
 
                 user.RateAverage = newAverage;
-                
+
                 var result = await _userManager.UpdateAsync(user);
-                
+
                 return result.Succeeded;
             }
             catch (Exception)
@@ -149,7 +149,8 @@ namespace GoWheels.Services
                 return false;
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
+            var result =
+                await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
 
             return result.Succeeded;
         }
@@ -157,6 +158,64 @@ namespace GoWheels.Services
         public async Task LogoutUserAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+
+        // ==========================================================
+        // CREATE USER LOGIC (Added per request)
+        // ==========================================================
+        public async Task<(bool Success, string ErrorMessage)> CreateUserAsync(ApplicationUser user, string password)
+        {
+            try
+            {
+                // 1. UNIQUE EMAIL CHECK
+                var existingEmail = await _userManager.FindByEmailAsync(user.Email);
+                if (existingEmail != null)
+                {
+                    return (false, "This email address is already in use.");
+                }
+
+                // 2. UNIQUE PHONE NUMBER CHECK
+                // Identity doesn't check this automatically, so we query the db manually
+                if (!string.IsNullOrEmpty(user.PhoneNumber))
+                {
+                    var existingPhone = await _userManager.Users
+                        .FirstOrDefaultAsync(u => u.PhoneNumber == user.PhoneNumber);
+
+                    if (existingPhone != null)
+                    {
+                        return (false, "This phone number is already registered.");
+                    }
+                }
+
+                // 3. CREATE THE USER IN DB
+                var result = await _userManager.CreateAsync(user, password);
+
+                if (result.Succeeded)
+                {
+                    // 4. ASSIGN "USER" ROLE
+                    var roleResult = await _userManager.AddToRoleAsync(user, "USER");
+
+                    if (!roleResult.Succeeded)
+                    {
+                        // Optional: You could delete the user here if role assignment fails to keep data clean
+                        return (true, "User created, but role assignment failed.");
+                    }
+
+                    return (true, string.Empty);
+                }
+                else
+                {
+                    // Combine all identity errors into one string
+                    var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                    return (false, errors);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating user: {ex.Message}");
+                return (false, "An unexpected error occurred while creating the user.");
+            }
         }
     }
 }

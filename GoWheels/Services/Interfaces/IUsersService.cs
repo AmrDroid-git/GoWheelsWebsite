@@ -38,5 +38,7 @@ namespace GoWheels.Services.Interfaces
         
         // Optional: Good practice to have a Logout method here too
         Task LogoutUserAsync();
+        
+        Task<(bool Success, string ErrorMessage)> CreateUserAsync(ApplicationUser user, string password);
     }
 }
