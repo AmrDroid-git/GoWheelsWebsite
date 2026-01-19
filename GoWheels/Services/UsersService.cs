@@ -13,7 +13,6 @@ namespace GoWheels.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly GoWheelsDbContext _context;
         
-
         public UsersService(
             UserManager<ApplicationUser> userManager, 
             RoleManager<IdentityRole> roleManager,
@@ -26,10 +25,6 @@ namespace GoWheels.Services
             _context = context;
         }
 
-        // ==========================================================
-        // 1. RETRIEVAL METHODS
-        // ==========================================================
-
         public async Task<ApplicationUser?> GetUserByIdAsync(string id)
         {
             return await _userManager.FindByIdAsync(id);
@@ -40,26 +35,18 @@ namespace GoWheels.Services
             return await _userManager.Users.ToListAsync();
         }
 
-        // ==========================================================
-        // 2. ROLE-BASED RETRIEVAL
-        // ==========================================================
-
         public async Task<List<ApplicationUser>> GetUsersByRoleAsync(string role)
         {
-            // Identity returns an IList, so we convert it to a standard List
             var users = await _userManager.GetUsersInRoleAsync(role);
             return users.ToList();
         }
-
-        // ==========================================================
-        // 3. USER DATA RETRIEVAL (Comments)
-        // ==========================================================
 
         public async Task<List<Comment>> GetCommentsByUserIdAsync(string userId)
         {
             return await _context.Comments
                 .Where(c => c.UserId == userId)
-                .Include(c => c.Post) // Include the Post so we know WHERE they commented
+                .Include(c => c.Post)
+                    .ThenInclude(p => p.PostImages)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
         }
@@ -68,35 +55,29 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Where(p => p.OwnerId == userId)
-                .Include(p => p.Owner) // Include Owner details (optional but good for display)
-                .OrderByDescending(p => p.CreatedAt) // Show newest posts first
+                .Include(p => p.Owner) 
+                .Include(p => p.PostImages)
+                .OrderByDescending(p => p.CreatedAt) 
                 .ToListAsync();
         }
-
-        // ==========================================================
-        // 4. MANAGEMENT & UPDATES
-        // ==========================================================
 
         public async Task<bool> UpdateUserProfileAsync(ApplicationUser user)
         {
             try
             {
-                // Verify user exists first
                 var existingUser = await _userManager.FindByIdAsync(user.Id);
                 if (existingUser == null) return false;
 
-                // Update fields
                 existingUser.Name = user.Name;
                 existingUser.Address = user.Address;
                 existingUser.PhoneNumber = user.PhoneNumber;
-                existingUser.RateAverage = user.RateAverage; // Ensure rating is preserved/updated
+                existingUser.RateAverage = user.RateAverage;
 
                 var result = await _userManager.UpdateAsync(existingUser);
                 return result.Succeeded;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error updating user profile: {ex.Message}");
                 return false;
             }
         }
@@ -106,13 +87,11 @@ namespace GoWheels.Services
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) return false;
 
-            // 1. Check if the new role exists in the database
             if (!await _roleManager.RoleExistsAsync(newRole))
             {
                 return false; 
             }
 
-            // 2. Remove all existing roles (User should have only one primary role)
             var currentRoles = await _userManager.GetRolesAsync(user);
             if (currentRoles.Any())
             {
@@ -120,7 +99,6 @@ namespace GoWheels.Services
                 if (!removeResult.Succeeded) return false;
             }
 
-            // 3. Add the new role
             var addResult = await _userManager.AddToRoleAsync(user, newRole);
             return addResult.Succeeded;
         }
@@ -134,61 +112,43 @@ namespace GoWheels.Services
             return result.Succeeded;
         }
 
-        // ==========================================================
-        // 5. RATING LOGIC
-        // ==========================================================
-
         public async Task<bool> UpdateUserRatingAverageAsync(string userId)
         {
             try
             {
-                // 1. Fetch all ratings received by this user
-                // We use _context directly because UserManager doesn't handle custom tables like Ratings
                 var ratings = await _context.UsersRatings
                     .Where(r => r.RatedUserId == userId)
                     .ToListAsync();
 
-                // 2. Calculate Average
                 float newAverage = 0f;
                 if (ratings.Any())
                 {
                     newAverage = ratings.Average(r => r.Value);
                 }
 
-                // 3. Fetch the user to update
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user == null) return false;
 
-                // 4. Update and Save
                 user.RateAverage = newAverage;
                 
-                // We use UpdateAsync from UserManager to ensure Identity creates the SQL update correctly
                 var result = await _userManager.UpdateAsync(user);
                 
                 return result.Succeeded;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine($"Error updating user rating: {ex.Message}");
                 return false;
             }
         }
-        
-        // ==========================================================
-        // 6. AUTHENTICATION (Login / Logout)
-        // ==========================================================
 
         public async Task<bool> LoginUserAsync(string email, string password)
         {
-            // 1. Find the user by Email first
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return false; // User not found
+                return false;
             }
 
-            // 2. Attempt to sign in
-            // Parameters: User, Password, IsPersistent (Remember Me), LockoutOnFailure
             var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
 
             return result.Succeeded;

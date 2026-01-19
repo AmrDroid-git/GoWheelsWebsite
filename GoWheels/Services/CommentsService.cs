@@ -18,11 +18,12 @@ namespace GoWheels.Services
         // CORE OPERATIONS
         // ==========================================================
 
+        // Adds a new comment to the database and sets the creation time
         public async Task<bool> AddCommentAsync(Comment comment)
         {
             try
             {
-                comment.CreatedAt = DateTime.UtcNow; // Ensure date is set
+                comment.CreatedAt = DateTime.UtcNow; 
                 _context.Comments.Add(comment);
                 await _context.SaveChangesAsync();
                 return true;
@@ -34,6 +35,7 @@ namespace GoWheels.Services
             }
         }
 
+        // Updates the content of an existing comment
         public async Task<bool> UpdateCommentAsync(Comment comment)
         {
             try
@@ -49,11 +51,13 @@ namespace GoWheels.Services
             }
         }
 
+        // Deletes a comment by its ID (Interface asks for Guid, DB uses String, so we convert)
         public async Task<bool> DeleteCommentAsync(Guid id)
         {
             try
             {
-                var comment = await _context.Comments.FindAsync(id);
+                // We convert the Guid to a String because your Model defines Id as a String
+                var comment = await _context.Comments.FindAsync(id.ToString());
                 if (comment == null) return false;
 
                 _context.Comments.Remove(comment);
@@ -71,16 +75,17 @@ namespace GoWheels.Services
         // RETRIEVAL METHODS
         // ==========================================================
 
-        // 1. Get by ID
+        // Retrieves a single comment by ID, including the Author, Post, and the Post's images
         public async Task<Comment?> GetCommentByIdAsync(string id)
         {
             return await _context.Comments
-                .Include(c => c.User) // Load the Author
-                .Include(c => c.Post) // Load the Post
+                .Include(c => c.User)
+                .Include(c => c.Post)
+                    .ThenInclude(p => p.PostImages) 
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        // 2. Search Body (Global Search)
+        // Searches for comments containing specific text, including Author and Post details with images
         public async Task<List<Comment>> SearchCommentsBodyAsync(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword)) return new List<Comment>();
@@ -88,37 +93,40 @@ namespace GoWheels.Services
             return await _context.Comments
                 .Include(c => c.User)
                 .Include(c => c.Post)
+                    .ThenInclude(p => p.PostImages) 
                 .Where(c => c.Body.ToLower().Contains(keyword.ToLower()))
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
         }
 
-        // 3. Get by Post ID
+        // Gets all comments for a specific post (Images NOT needed here as the car is already visible on the page)
         public async Task<List<Comment>> GetCommentsByPostIdAsync(string postId)
         {
             return await _context.Comments
                 .Where(c => c.PostId == postId)
-                .Include(c => c.User) // We need the user to show WHO commented
+                .Include(c => c.User)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
         }
 
-        // 4. Get by User ID
+        // Gets all comments made by a specific user, including the Post thumbnail so they see what they commented on
         public async Task<List<Comment>> GetCommentsByUserIdAsync(string userId)
         {
             return await _context.Comments
                 .Where(c => c.UserId == userId)
-                .Include(c => c.Post) // We need the post to show WHERE they commented
+                .Include(c => c.Post)
+                    .ThenInclude(p => p.PostImages) 
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
         }
 
-        // 5. Filter by Date Range
+        // Filters comments within a specific date range, useful for admin reports
         public async Task<List<Comment>> GetCommentsByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
             return await _context.Comments
                 .Include(c => c.User)
                 .Include(c => c.Post)
+                    .ThenInclude(p => p.PostImages) 
                 .Where(c => c.CreatedAt >= startDate && c.CreatedAt <= endDate)
                 .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();

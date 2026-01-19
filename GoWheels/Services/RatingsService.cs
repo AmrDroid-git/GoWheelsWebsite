@@ -52,7 +52,6 @@ namespace GoWheels.Services
         {
             try
             {
-                // We must know WHICH table to delete from
                 if (isPostRating)
                 {
                     var r = await _context.PostsRatings.FindAsync(ratingId);
@@ -77,15 +76,17 @@ namespace GoWheels.Services
         }
 
         // ==========================================================
-        // GET BY ID
+        // RETRIEVAL BY ID
         // ==========================================================
 
         public async Task<RatingPost?> GetPostRatingByIdAsync(string id)
         {
+            
             return await _context.PostsRatings
                 .Include(r => r.Owner)
                 .Include(r => r.RatedPost)
-                .FirstOrDefaultAsync(r => r.Id == id);
+                .ThenInclude(p => p.PostImages) 
+                .FirstOrDefaultAsync(r => r.Id == id); // Compares string == string
         }
 
         public async Task<RatingUser?> GetUserRatingByIdAsync(string id)
@@ -97,52 +98,53 @@ namespace GoWheels.Services
         }
 
         // ==========================================================
-        // GET RECEIVED RATINGS (Target Specific)
+        // RETRIEVAL BY CONTEXT (Received Ratings)
         // ==========================================================
 
+        // Get all ratings for a specific car (Images not needed, we are already on the car page)
         public async Task<List<RatingPost>> GetRatingsForPostAsync(string postId)
         {
             return await _context.PostsRatings
                 .Where(r => r.RatedPostId == postId)
-                .Include(r => r.Owner) // To show WHO rated
-                .OrderByDescending(r => r.Id) // Newest first (using ID as proxy for time if no CreatedAt)
+                .Include(r => r.Owner)
+                .OrderByDescending(r => r.Id)
                 .ToListAsync();
         }
 
+        // Get all ratings for a seller (User)
         public async Task<List<RatingUser>> GetRatingsForUserAsync(string userId)
         {
             return await _context.UsersRatings
                 .Where(r => r.RatedUserId == userId)
-                .Include(r => r.Owner) // To show WHO rated
+                .Include(r => r.Owner)
                 .OrderByDescending(r => r.Id)
                 .ToListAsync();
         }
 
         // ==========================================================
-        // GET GIVEN RATINGS (User History)
+        // RETRIEVAL BY OWNER (Given Ratings - History)
         // ==========================================================
 
         public async Task<List<Rating>> GetAllRatingsGivenByUserAsync(string userId)
         {
-            // 1. Get Post Ratings given by this user
+            // 1. Get Post Ratings (With Car Images for the list)
             var postRatings = await _context.PostsRatings
                 .Where(r => r.OwnerId == userId)
-                .Include(r => r.RatedPost) // Include what they rated
+                .Include(r => r.RatedPost)
+                    .ThenInclude(p => p.PostImages) // <--- CRITICAL: Show thumbnail
                 .ToListAsync();
 
-            // 2. Get User Ratings given by this user
+            // 2. Get User Ratings
             var userRatings = await _context.UsersRatings
                 .Where(r => r.OwnerId == userId)
-                .Include(r => r.RatedUser) // Include whom they rated
+                .Include(r => r.RatedUser)
                 .ToListAsync();
 
-            // 3. Combine them into one polymorphic list
-            // We cast both to the base 'Rating' class
+            // 3. Combine and Sort
             var allRatings = new List<Rating>();
             allRatings.AddRange(postRatings);
             allRatings.AddRange(userRatings);
 
-            // Optional: Sort combined list by ID (most recent)
             return allRatings.OrderByDescending(r => r.Id).ToList();
         }
     }
