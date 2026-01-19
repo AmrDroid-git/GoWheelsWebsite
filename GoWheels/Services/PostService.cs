@@ -20,9 +20,12 @@ namespace GoWheels.Services
         public async Task<Post?> GetPostByIdAsync(string id)
         {
             return await _context.Posts
-                .Include(p => p.Owner) // Load the Seller info
-                .Include(p => p.Comments) // Load Comments
-                .Include(p => p.Ratings) // Load Ratings
+                .Include(p => p.Owner)
+                .Include(p => p.Comments)
+                    .ThenInclude(c => c.User)
+                .Include(p => p.PostImages)
+                .Include(p => p.Ratings)
+                    .ThenInclude(r => r.Owner)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -33,7 +36,6 @@ namespace GoWheels.Services
         {
             try
             {
-                // Set defaults if missing
                 if (post.Status == 0) post.Status = PostStatus.Pending;
                 post.CreatedAt = DateTime.UtcNow;
 
@@ -55,13 +57,11 @@ namespace GoWheels.Services
         {
             try
             {
-                // We check if the post actually exists first
                 if (!_context.Posts.Any(p => p.Id == post.Id))
                 {
                     return false;
                 }
 
-                // This tells EF Core to look at the ID inside 'post' and update that record
                 _context.Posts.Update(post);
                 await _context.SaveChangesAsync();
                 return true;
@@ -83,7 +83,7 @@ namespace GoWheels.Services
                 var post = await _context.Posts.FindAsync(id);
                 if (post == null)
                 {
-                    return false; // Post not found
+                    return false;
                 }
 
                 _context.Posts.Remove(post);
@@ -104,8 +104,8 @@ namespace GoWheels.Services
         {
             return await _context.Comments
                 .Where(c => c.PostId == postId)
-                .Include(c => c.User)      // Load the Author of the comment
-                .OrderByDescending(c => c.CreatedAt) // Newest comments first
+                .Include(c => c.User)
+                .OrderByDescending(c => c.CreatedAt)
                 .ToListAsync();
         }
 
@@ -134,6 +134,7 @@ namespace GoWheels.Services
 
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.Constructor.ToLower().Contains(keyword) || 
                             p.ModelName.ToLower().Contains(keyword))
                 .OrderByDescending(p => p.CreatedAt)
@@ -144,6 +145,7 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.Constructor.ToLower().Contains(constructor.ToLower()))
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
@@ -153,6 +155,7 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.ModelName.ToLower().Contains(model.ToLower()))
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
@@ -166,6 +169,7 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.OwnerId == userId)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
@@ -173,7 +177,10 @@ namespace GoWheels.Services
 
         public async Task<List<Post>> GetPostsByPriceRangeAsync(decimal? minPrice, decimal? maxPrice)
         {
-            var query = _context.Posts.Include(p => p.Owner).AsQueryable();
+            var query = _context.Posts
+                .Include(p => p.Owner)
+                .Include(p => p.PostImages)
+                .AsQueryable();
 
             if (minPrice.HasValue)
                 query = query.Where(p => p.Price >= minPrice.Value);
@@ -186,7 +193,10 @@ namespace GoWheels.Services
 
         public async Task<List<Post>> GetPostsByKilometrageRangeAsync(int? minKm, int? maxKm)
         {
-            var query = _context.Posts.Include(p => p.Owner).AsQueryable();
+            var query = _context.Posts
+                .Include(p => p.Owner)
+                .Include(p => p.PostImages)
+                .AsQueryable();
 
             if (minKm.HasValue)
                 query = query.Where(p => p.Kilometrage >= minKm.Value);
@@ -199,7 +209,10 @@ namespace GoWheels.Services
 
         public async Task<List<Post>> GetPostsByYearRangeAsync(int? minYear, int? maxYear)
         {
-            var query = _context.Posts.Include(p => p.Owner).AsQueryable();
+            var query = _context.Posts
+                .Include(p => p.Owner)
+                .Include(p => p.PostImages)
+                .AsQueryable();
 
             if (minYear.HasValue)
                 query = query.Where(p => p.ReleaseDate >= new DateOnly(minYear.Value, 1, 1));
@@ -214,6 +227,7 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.CreatedAt >= startDate && p.CreatedAt <= endDate)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
@@ -225,11 +239,9 @@ namespace GoWheels.Services
 
         public async Task<List<Post>> GetPostsBySpecificationAsync(string specKey, string specValue)
         {
-            // Note: This relies on EF Core translation for Dictionary/JSON. 
-            // If using standard Npgsql JSONB mapping, this usually works in newer versions.
-            // If it fails, we might need to fetch all and filter in memory (slower) or use raw SQL.
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.Specifications[specKey] == specValue)
                 .ToListAsync();
         }
@@ -238,6 +250,7 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.Status == status)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
@@ -251,7 +264,8 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Include(p => p.Owner)
-                .Where(p => p.Status == PostStatus.Accepted) // Usually we only show accepted posts on Home
+                .Include(p => p.PostImages)
+                .Where(p => p.Status == PostStatus.Accepted)
                 .OrderByDescending(p => p.CreatedAt)
                 .Take(count)
                 .ToListAsync();
@@ -261,12 +275,12 @@ namespace GoWheels.Services
         {
             return await _context.Posts
                 .Include(p => p.Owner)
+                .Include(p => p.PostImages)
                 .Where(p => p.Status == PostStatus.Accepted)
-                .OrderByDescending(p => p.RateAverage) // Uses the calculated column we added
+                .OrderByDescending(p => p.RateAverage)
                 .Take(count)
                 .ToListAsync();
         }
-        
         
         // ==========================================================
         // 11. ROLE-BASED LOGIC (Validation & Owner)
@@ -279,12 +293,7 @@ namespace GoWheels.Services
                 var post = await _context.Posts.FindAsync(postId);
                 if (post == null) return false;
 
-                // Update the status
                 post.Status = status;
-
-                // OPTIONAL: If you add a 'ValidatedBy' field to your Post model later, save the expertId here:
-                // post.ValidatedBy = expertId; 
-
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -301,22 +310,17 @@ namespace GoWheels.Services
 
         public List<Post> IntersectPosts(List<List<Post>> listsOfPosts)
         {
-            // If the input is empty or null, return nothing
             if (listsOfPosts == null || !listsOfPosts.Any())
             {
                 return new List<Post>();
             }
 
-            // Start with the first list
             var intersection = listsOfPosts[0];
 
-            // Loop through the rest and keep only the common items
-            // We compare based on ID to be safe
             for (int i = 1; i < listsOfPosts.Count; i++)
             {
                 var currentList = listsOfPosts[i];
                 
-                // Keep only posts where the ID exists in the current list
                 intersection = intersection
                     .Where(p => currentList.Any(x => x.Id == p.Id))
                     .ToList();
@@ -324,7 +328,5 @@ namespace GoWheels.Services
 
             return intersection;
         }
-        
-        
     }
 }
