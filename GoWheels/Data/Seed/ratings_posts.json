@@ -1,0 +1,1046 @@
+[
+  {
+    "Id": "c51e561d-c961-42ab-8b7b-81fb72dbf332",
+    "Value": 4.0,
+    "OwnerId": "bee504ce-feeb-4398-81f7-1d80b2420813",
+    "RatedPostId": "924324e2-c841-4107-87e0-8049963bcee8"
+  },
+  {
+    "Id": "f3e26869-d50d-4795-b367-8a22356bba68",
+    "Value": 4.2,
+    "OwnerId": "9d085831-9df7-4627-8891-65636fe88937",
+    "RatedPostId": "924324e2-c841-4107-87e0-8049963bcee8"
+  },
+  {
+    "Id": "87ea4e0d-fa46-4a82-a9aa-b1b3da1bfb11",
+    "Value": 4.4,
+    "OwnerId": "ca619259-02ca-4a66-a243-7ffa312abfb4",
+    "RatedPostId": "924324e2-c841-4107-87e0-8049963bcee8"
+  },
+  {
+    "Id": "9a7b63f7-dae9-4c40-b156-f6da8bfbec44",
+    "Value": 3.7,
+    "OwnerId": "2bc99e89-d436-4fe6-b082-e8235768ff8f",
+    "RatedPostId": "1885cb20-cdfe-44ed-9dff-78cf2d4299ec"
+  },
+  {
+    "Id": "88f80321-a098-42a4-aa51-c322128e1e78",
+    "Value": 3.1,
+    "OwnerId": "32a6763f-47db-470a-8c78-9b741fd42ba7",
+    "RatedPostId": "1885cb20-cdfe-44ed-9dff-78cf2d4299ec"
+  },
+  {
+    "Id": "feb94577-d3f7-403b-aaeb-73bd0b1936f3",
+    "Value": 3.9,
+    "OwnerId": "dd58f620-f425-4c5f-8ee4-b228bcd543bb",
+    "RatedPostId": "1885cb20-cdfe-44ed-9dff-78cf2d4299ec"
+  },
+  {
+    "Id": "3b7b7edb-b30f-4030-bef2-1233fd3b3e05",
+    "Value": 5.0,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "a1bd4fff-74ad-4103-a618-00afea22fe2e"
+  },
+  {
+    "Id": "574db473-990a-48b3-bbf2-a4bd0feae69f",
+    "Value": 4.6,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "a1bd4fff-74ad-4103-a618-00afea22fe2e"
+  },
+  {
+    "Id": "c1e81df0-40ff-4fe5-afc0-54a024888feb",
+    "Value": 4.6,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "a1bd4fff-74ad-4103-a618-00afea22fe2e"
+  },
+  {
+    "Id": "768bf047-027c-4f9b-a9b3-11caba4aeb01",
+    "Value": 3.4,
+    "OwnerId": "6686836f-d127-4e58-9910-29ba78f0e6cb",
+    "RatedPostId": "f8733355-3047-4b80-9a6e-41aea2d07f2c"
+  },
+  {
+    "Id": "b2931456-3472-438b-9433-1498ca854f5d",
+    "Value": 3.8,
+    "OwnerId": "f6d12f0e-4cc5-43cc-bbd6-b27f99ba4e8c",
+    "RatedPostId": "f8733355-3047-4b80-9a6e-41aea2d07f2c"
+  },
+  {
+    "Id": "b02cc065-b611-43f8-8913-13e7be2a1a85",
+    "Value": 3.9,
+    "OwnerId": "88bdb147-9542-4172-8ed9-4a0b602c2f6c",
+    "RatedPostId": "f8733355-3047-4b80-9a6e-41aea2d07f2c"
+  },
+  {
+    "Id": "8d6e1801-7dce-4919-b4ea-20173f61db66",
+    "Value": 3.6,
+    "OwnerId": "2766a0fc-d152-4d72-b445-0920cebc1fb4",
+    "RatedPostId": "2d2608f5-3d88-4a4f-b949-329c9f640904"
+  },
+  {
+    "Id": "81f4017e-7d79-4b58-9231-ce1f87fa6952",
+    "Value": 3.1,
+    "OwnerId": "acdd21f8-fa53-45a4-97d1-8c3d9737b507",
+    "RatedPostId": "2d2608f5-3d88-4a4f-b949-329c9f640904"
+  },
+  {
+    "Id": "7da864d5-f8b2-49fe-b87c-04ebd03e850d",
+    "Value": 3.5,
+    "OwnerId": "aab21791-5c61-4711-a512-cb794c3a1d9f",
+    "RatedPostId": "2d2608f5-3d88-4a4f-b949-329c9f640904"
+  },
+  {
+    "Id": "0b4a1701-436f-4b68-bf41-95eeb27ea7c9",
+    "Value": 4.1,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "4a41a575-a7ba-4c98-ab94-6b1d36b9875b"
+  },
+  {
+    "Id": "895c9069-5d46-4207-8be3-6d09d94fd396",
+    "Value": 4.4,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "4a41a575-a7ba-4c98-ab94-6b1d36b9875b"
+  },
+  {
+    "Id": "968ac0ff-16e4-48fe-b5b2-4b7fc130314f",
+    "Value": 4.1,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "4a41a575-a7ba-4c98-ab94-6b1d36b9875b"
+  },
+  {
+    "Id": "08e9f6ce-a51b-4332-9441-2190984f51e5",
+    "Value": 4.4,
+    "OwnerId": "d3eb2a48-b2a4-46b5-a858-c9090e2e6a53",
+    "RatedPostId": "1b57a1b2-39b4-4fda-b3eb-9911348915c4"
+  },
+  {
+    "Id": "f870e208-94d3-4560-8482-3d22d52e52db",
+    "Value": 4.5,
+    "OwnerId": "d5e732bc-4cb0-42c2-a00a-32971bf2ae39",
+    "RatedPostId": "1b57a1b2-39b4-4fda-b3eb-9911348915c4"
+  },
+  {
+    "Id": "94b1e1d1-cc10-42d4-844d-bf293960314a",
+    "Value": 4.1,
+    "OwnerId": "344b79f9-f6cc-4a1f-847e-6ded06d6acb6",
+    "RatedPostId": "1b57a1b2-39b4-4fda-b3eb-9911348915c4"
+  },
+  {
+    "Id": "790293ff-58b2-412e-918c-1ee445e72bf8",
+    "Value": 3.3,
+    "OwnerId": "7247168e-4f10-45b3-8e12-9928ded2f277",
+    "RatedPostId": "ef085b11-8318-42af-83cc-005d9cf07334"
+  },
+  {
+    "Id": "bd92e5b8-6da9-433b-91b3-ef67bfea55a1",
+    "Value": 3.1,
+    "OwnerId": "b59d1079-58c4-4a29-8524-8bda099df9a3",
+    "RatedPostId": "ef085b11-8318-42af-83cc-005d9cf07334"
+  },
+  {
+    "Id": "0b2e10c2-816c-408d-9a06-43b7644881ad",
+    "Value": 3.7,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "ef085b11-8318-42af-83cc-005d9cf07334"
+  },
+  {
+    "Id": "2530e344-ad00-4250-b629-7543c63711a0",
+    "Value": 4.3,
+    "OwnerId": "6686836f-d127-4e58-9910-29ba78f0e6cb",
+    "RatedPostId": "60897123-8ad3-4878-8998-2a74da8757e4"
+  },
+  {
+    "Id": "3b2c1e8a-0967-4537-85f3-091eb695f0d2",
+    "Value": 4.2,
+    "OwnerId": "f6d12f0e-4cc5-43cc-bbd6-b27f99ba4e8c",
+    "RatedPostId": "60897123-8ad3-4878-8998-2a74da8757e4"
+  },
+  {
+    "Id": "60f6cf14-a6ff-46aa-a7fb-0711cc5ba662",
+    "Value": 4.3,
+    "OwnerId": "88bdb147-9542-4172-8ed9-4a0b602c2f6c",
+    "RatedPostId": "60897123-8ad3-4878-8998-2a74da8757e4"
+  },
+  {
+    "Id": "50a546d4-6492-4437-a6b2-a31c7d21fef0",
+    "Value": 3.9,
+    "OwnerId": "8f684d19-b3df-41bb-81b5-431879514cc8",
+    "RatedPostId": "6a45bfb2-6aaa-4c5a-a77d-5a8dfff81048"
+  },
+  {
+    "Id": "da99c319-21ea-4ea2-9c9f-e38c9df13cdc",
+    "Value": 3.5,
+    "OwnerId": "789ebdbf-46cd-4352-bdd7-71ad113e19a8",
+    "RatedPostId": "6a45bfb2-6aaa-4c5a-a77d-5a8dfff81048"
+  },
+  {
+    "Id": "1d9259da-4f02-45a0-8957-e4667e00c101",
+    "Value": 3.4,
+    "OwnerId": "8f684d19-b3df-41bb-81b5-431879514cc8",
+    "RatedPostId": "6a45bfb2-6aaa-4c5a-a77d-5a8dfff81048"
+  },
+  {
+    "Id": "8c0753b2-dc94-4ac4-a5c6-371062c86698",
+    "Value": 3.4,
+    "OwnerId": "85af29e8-24f3-4f3b-9481-8b43b95ee0a9",
+    "RatedPostId": "7b66f530-e772-435f-8d84-e6fecdfbf995"
+  },
+  {
+    "Id": "f7416eac-9967-4139-9df6-1cbd6e850d2a",
+    "Value": 3.6,
+    "OwnerId": "0450ce2d-9470-4f43-b776-d433a96c2147",
+    "RatedPostId": "7b66f530-e772-435f-8d84-e6fecdfbf995"
+  },
+  {
+    "Id": "1b41e354-c2b4-4063-85a7-56b5b8928026",
+    "Value": 4.0,
+    "OwnerId": "a17a7831-2374-442b-930b-af8292120b8e",
+    "RatedPostId": "7b66f530-e772-435f-8d84-e6fecdfbf995"
+  },
+  {
+    "Id": "66f25162-8f85-4e0a-b6d4-42b34185c691",
+    "Value": 4.3,
+    "OwnerId": "f8699239-1dd7-486a-a25f-fb71cfedef91",
+    "RatedPostId": "57b3b520-379f-4d58-8313-19a0b7e9cdfe"
+  },
+  {
+    "Id": "67129504-aed1-40a3-b737-133d071da1d0",
+    "Value": 4.3,
+    "OwnerId": "8bc4491a-0bd9-4e1a-8407-47642ace8c31",
+    "RatedPostId": "57b3b520-379f-4d58-8313-19a0b7e9cdfe"
+  },
+  {
+    "Id": "0b311353-ec9d-43c1-9ec9-49af2104f543",
+    "Value": 3.2,
+    "OwnerId": "a5da249c-73c1-4ace-bdd5-b3d330ff546e",
+    "RatedPostId": "233f0e40-8c66-48c2-a13b-0b5177d38554"
+  },
+  {
+    "Id": "896a1562-db14-4e13-9990-d623cd6f1077",
+    "Value": 3.6,
+    "OwnerId": "a5da249c-73c1-4ace-bdd5-b3d330ff546e",
+    "RatedPostId": "233f0e40-8c66-48c2-a13b-0b5177d38554"
+  },
+  {
+    "Id": "b35f97aa-c0f4-4bef-a033-efc53fda812e",
+    "Value": 3.7,
+    "OwnerId": "d57f8e85-98f3-49e8-96d8-49efcf28a3fd",
+    "RatedPostId": "233f0e40-8c66-48c2-a13b-0b5177d38554"
+  },
+  {
+    "Id": "2ffd43d9-d680-4384-a084-28b15ccba33f",
+    "Value": 3.1,
+    "OwnerId": "559ae6de-4c29-4acf-8f6b-d8ab0a07b2d9",
+    "RatedPostId": "3a221f4f-caa6-4f49-94ef-83a01d72844e"
+  },
+  {
+    "Id": "015c429f-3151-4267-a945-0ec54b75b54a",
+    "Value": 3.3,
+    "OwnerId": "559ae6de-4c29-4acf-8f6b-d8ab0a07b2d9",
+    "RatedPostId": "3a221f4f-caa6-4f49-94ef-83a01d72844e"
+  },
+  {
+    "Id": "d7693403-c72a-4dc2-97eb-d7ee9d178b8a",
+    "Value": 3.5,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "f4640103-562b-4091-b014-3651c8f8fc97"
+  },
+  {
+    "Id": "bb067b16-7954-48cd-bfa0-6df6fc1c435d",
+    "Value": 3.3,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "f4640103-562b-4091-b014-3651c8f8fc97"
+  },
+  {
+    "Id": "ef7fdf0a-4e2d-4006-b760-82ce607defaa",
+    "Value": 3.1,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "f4640103-562b-4091-b014-3651c8f8fc97"
+  },
+  {
+    "Id": "8e827b70-89a8-4484-b227-1cb328180d12",
+    "Value": 4.8,
+    "OwnerId": "62306c37-93bb-4c7b-827d-10421173ad03",
+    "RatedPostId": "1daef2ce-b74b-4f11-beac-b3f94528996a"
+  },
+  {
+    "Id": "371b8bb5-a525-4ebe-9e80-7628cdc45b72",
+    "Value": 4.6,
+    "OwnerId": "789ebdbf-46cd-4352-bdd7-71ad113e19a8",
+    "RatedPostId": "1daef2ce-b74b-4f11-beac-b3f94528996a"
+  },
+  {
+    "Id": "5b66be94-d7c6-435c-98fe-81516fa7e813",
+    "Value": 4.7,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "1daef2ce-b74b-4f11-beac-b3f94528996a"
+  },
+  {
+    "Id": "7ebc4135-adfb-4b03-a26b-e8f13d10762c",
+    "Value": 4.1,
+    "OwnerId": "d3eb2a48-b2a4-46b5-a858-c9090e2e6a53",
+    "RatedPostId": "8ceba275-f60c-49ce-b81d-04c2d4f9a5a2"
+  },
+  {
+    "Id": "5dd83dda-1e77-4673-968c-c6d2a552f152",
+    "Value": 4.3,
+    "OwnerId": "d5e732bc-4cb0-42c2-a00a-32971bf2ae39",
+    "RatedPostId": "8ceba275-f60c-49ce-b81d-04c2d4f9a5a2"
+  },
+  {
+    "Id": "2954e998-72dc-4e00-990a-a6d4a6676082",
+    "Value": 4.0,
+    "OwnerId": "344b79f9-f6cc-4a1f-847e-6ded06d6acb6",
+    "RatedPostId": "8ceba275-f60c-49ce-b81d-04c2d4f9a5a2"
+  },
+  {
+    "Id": "02e898d3-97bc-4679-85ac-b6e04a4aaf04",
+    "Value": 4.6,
+    "OwnerId": "7f2bdf17-9f40-4d85-a6dc-9a3420ab507b",
+    "RatedPostId": "e5e2355a-1f22-440c-b457-8b2e7f47a0e8"
+  },
+  {
+    "Id": "64f23c9c-91fe-4e0d-a4d0-030ef1fb6ad0",
+    "Value": 4.8,
+    "OwnerId": "5f08d655-6668-4373-aaa0-ebc95eb6d6cd",
+    "RatedPostId": "e5e2355a-1f22-440c-b457-8b2e7f47a0e8"
+  },
+  {
+    "Id": "080497a5-3929-49ee-9865-e8c476592bac",
+    "Value": 4.9,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "e5e2355a-1f22-440c-b457-8b2e7f47a0e8"
+  },
+  {
+    "Id": "420b951c-ad33-424d-b609-ef3da7b6f3a7",
+    "Value": 3.5,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "b32ee226-bca3-4b1c-bf46-b89fc7c8c747"
+  },
+  {
+    "Id": "a0ab0026-9598-4bae-bdcb-fbf993a2d81d",
+    "Value": 3.4,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "b32ee226-bca3-4b1c-bf46-b89fc7c8c747"
+  },
+  {
+    "Id": "c1c1cbb5-5fe8-481b-8b69-57be743ce579",
+    "Value": 3.2,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "b32ee226-bca3-4b1c-bf46-b89fc7c8c747"
+  },
+  {
+    "Id": "dde904fb-de2c-43a0-a3c9-639ed3d5a4d8",
+    "Value": 3.6,
+    "OwnerId": "fef0f74b-deee-453a-aa42-674b26dda781",
+    "RatedPostId": "44176b5e-42ac-4b08-a9d5-48c0a754e8fd"
+  },
+  {
+    "Id": "f54e9eec-54d9-427a-9331-5c3f345d2666",
+    "Value": 3.9,
+    "OwnerId": "59e656ef-082f-4e06-a494-02ab945bfcd5",
+    "RatedPostId": "44176b5e-42ac-4b08-a9d5-48c0a754e8fd"
+  },
+  {
+    "Id": "1202dfe4-17df-479d-9fb5-688ed42222e6",
+    "Value": 3.0,
+    "OwnerId": "f393415e-4a4b-48f1-b329-76eb20be1cfd",
+    "RatedPostId": "44176b5e-42ac-4b08-a9d5-48c0a754e8fd"
+  },
+  {
+    "Id": "46305b2d-6d1c-4e4c-9ab3-6932f4bae091",
+    "Value": 3.3,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "f037ab9a-046d-4166-9627-1ec66049b77e"
+  },
+  {
+    "Id": "200da7c8-55e5-4dfa-84f0-cec1462d7f9d",
+    "Value": 3.5,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "f037ab9a-046d-4166-9627-1ec66049b77e"
+  },
+  {
+    "Id": "f7db63ce-e7e2-45e7-8cf0-7eff0a54a5d0",
+    "Value": 3.3,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "f037ab9a-046d-4166-9627-1ec66049b77e"
+  },
+  {
+    "Id": "f3592be7-68b2-455f-bdd0-71de6c97ad91",
+    "Value": 3.7,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "69e4294b-4eb4-470a-9161-ea9f5206e267"
+  },
+  {
+    "Id": "90880c88-f833-4939-8619-ca9a3bf74e20",
+    "Value": 3.4,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "69e4294b-4eb4-470a-9161-ea9f5206e267"
+  },
+  {
+    "Id": "9d570065-c437-497e-9039-f39493aae0e3",
+    "Value": 3.3,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "69e4294b-4eb4-470a-9161-ea9f5206e267"
+  },
+  {
+    "Id": "70fb0bcb-4081-4a8c-8a3f-90436be85465",
+    "Value": 4.1,
+    "OwnerId": "f564db11-4558-4eec-b10f-fc32ba939b35",
+    "RatedPostId": "48199801-6ab4-4002-841f-085acca06da2"
+  },
+  {
+    "Id": "5eae4500-7440-4021-9f16-3921e3324937",
+    "Value": 4.2,
+    "OwnerId": "c9b7b1ac-ac64-4773-8f13-23b3a530df01",
+    "RatedPostId": "48199801-6ab4-4002-841f-085acca06da2"
+  },
+  {
+    "Id": "1c7fecea-b72f-49db-a35e-cc00aa560f90",
+    "Value": 4.2,
+    "OwnerId": "641623cb-affe-4e88-8cf8-e7e70d361777",
+    "RatedPostId": "48199801-6ab4-4002-841f-085acca06da2"
+  },
+  {
+    "Id": "2e84d7d3-3c57-4af6-98ff-ccb18227ce51",
+    "Value": 3.2,
+    "OwnerId": "630a8951-d80e-49b3-a797-1ed6903bf1db",
+    "RatedPostId": "b7e76ee4-95e3-45fc-96ad-fc142aea41cf"
+  },
+  {
+    "Id": "a2a5f24e-5e6b-4ced-bd3c-98cf761d42d7",
+    "Value": 3.4,
+    "OwnerId": "bac4aa49-5f29-4a33-9fd5-0e1c865eb41f",
+    "RatedPostId": "b7e76ee4-95e3-45fc-96ad-fc142aea41cf"
+  },
+  {
+    "Id": "38491753-a4af-4a7b-8109-626be4b9c838",
+    "Value": 3.8,
+    "OwnerId": "53740776-136a-4599-8bf5-c1c59e1ca541",
+    "RatedPostId": "b7e76ee4-95e3-45fc-96ad-fc142aea41cf"
+  },
+  {
+    "Id": "87e40d78-64fc-46a6-96b5-6b5d8db6fa13",
+    "Value": 4.4,
+    "OwnerId": "8a03b34e-a3c8-403f-abec-56120e34aade",
+    "RatedPostId": "5bb480a5-faf1-49bd-9742-ede013f1e553"
+  },
+  {
+    "Id": "5f0f02cb-bcd6-43f8-806e-52dec4a57dab",
+    "Value": 4.3,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "5bb480a5-faf1-49bd-9742-ede013f1e553"
+  },
+  {
+    "Id": "fe8dcf17-84a2-4ea1-9781-d63a5cd68156",
+    "Value": 4.1,
+    "OwnerId": "da6c9860-134d-4371-a146-08c36e553c35",
+    "RatedPostId": "5bb480a5-faf1-49bd-9742-ede013f1e553"
+  },
+  {
+    "Id": "e4acabd6-2acc-4a79-8a6c-a5645c90d7e8",
+    "Value": 3.9,
+    "OwnerId": "2766a0fc-d152-4d72-b445-0920cebc1fb4",
+    "RatedPostId": "987217b2-a65a-40d5-b6b0-37ee7899676a"
+  },
+  {
+    "Id": "7c10634e-a37a-444f-ab63-e9ec80b12135",
+    "Value": 3.8,
+    "OwnerId": "acdd21f8-fa53-45a4-97d1-8c3d9737b507",
+    "RatedPostId": "987217b2-a65a-40d5-b6b0-37ee7899676a"
+  },
+  {
+    "Id": "789cb867-a89b-49c3-b392-f52313c38363",
+    "Value": 3.6,
+    "OwnerId": "aab21791-5c61-4711-a512-cb794c3a1d9f",
+    "RatedPostId": "987217b2-a65a-40d5-b6b0-37ee7899676a"
+  },
+  {
+    "Id": "1aa03f2e-c42b-4d05-9d4a-73c4c9f5d683",
+    "Value": 4.5,
+    "OwnerId": "ee593970-ad74-4281-93f7-1759b0f0cf0b",
+    "RatedPostId": "ea3762d2-001b-4e2c-9d5b-afc96322f949"
+  },
+  {
+    "Id": "9548c29d-8592-4459-9608-705704b4a054",
+    "Value": 4.2,
+    "OwnerId": "789ebdbf-46cd-4352-bdd7-71ad113e19a8",
+    "RatedPostId": "ea3762d2-001b-4e2c-9d5b-afc96322f949"
+  },
+  {
+    "Id": "184e11af-df62-485c-8820-039e722da740",
+    "Value": 4.3,
+    "OwnerId": "e793fb43-b2d9-4f0c-9137-1d2fbca2e81a",
+    "RatedPostId": "ea3762d2-001b-4e2c-9d5b-afc96322f949"
+  },
+  {
+    "Id": "cbd6818d-2a68-40ee-9766-92eef651dce2",
+    "Value": 3.7,
+    "OwnerId": "630a8951-d80e-49b3-a797-1ed6903bf1db",
+    "RatedPostId": "80b3b070-237e-426e-84c8-2571cafb9c49"
+  },
+  {
+    "Id": "0fa92078-b157-46b7-98b6-e98a6794fb29",
+    "Value": 3.2,
+    "OwnerId": "bac4aa49-5f29-4a33-9fd5-0e1c865eb41f",
+    "RatedPostId": "80b3b070-237e-426e-84c8-2571cafb9c49"
+  },
+  {
+    "Id": "b85931ac-673e-45b6-87ae-f6556457f7a5",
+    "Value": 3.3,
+    "OwnerId": "53740776-136a-4599-8bf5-c1c59e1ca541",
+    "RatedPostId": "80b3b070-237e-426e-84c8-2571cafb9c49"
+  },
+  {
+    "Id": "69da8119-4e3c-4eb2-b66c-184bac378b4e",
+    "Value": 3.5,
+    "OwnerId": "8f684d19-b3df-41bb-81b5-431879514cc8",
+    "RatedPostId": "02a877f2-8105-40dc-90fc-9ecb79e6deb7"
+  },
+  {
+    "Id": "eca71a56-cee2-45e0-8e13-010749108ea1",
+    "Value": 3.2,
+    "OwnerId": "789ebdbf-46cd-4352-bdd7-71ad113e19a8",
+    "RatedPostId": "02a877f2-8105-40dc-90fc-9ecb79e6deb7"
+  },
+  {
+    "Id": "e7ebc48f-fa8c-4e06-92ae-f76e2d950a5e",
+    "Value": 3.3,
+    "OwnerId": "8f684d19-b3df-41bb-81b5-431879514cc8",
+    "RatedPostId": "02a877f2-8105-40dc-90fc-9ecb79e6deb7"
+  },
+  {
+    "Id": "8ac9b314-16bc-48a2-8d04-c5152af07e76",
+    "Value": 4.8,
+    "OwnerId": "d3eb2a48-b2a4-46b5-a858-c9090e2e6a53",
+    "RatedPostId": "3c64cb27-ab2b-4d6e-8e47-087dd685fbb5"
+  },
+  {
+    "Id": "d5538cd6-aa96-49c2-8e67-385e8f65a28f",
+    "Value": 4.8,
+    "OwnerId": "d5e732bc-4cb0-42c2-a00a-32971bf2ae39",
+    "RatedPostId": "3c64cb27-ab2b-4d6e-8e47-087dd685fbb5"
+  },
+  {
+    "Id": "83ae4678-f469-4f43-ac89-1e0a0b7b6415",
+    "Value": 4.7,
+    "OwnerId": "344b79f9-f6cc-4a1f-847e-6ded06d6acb6",
+    "RatedPostId": "3c64cb27-ab2b-4d6e-8e47-087dd685fbb5"
+  },
+  {
+    "Id": "c96fe0f3-d830-4d17-b36c-2d1914925ed1",
+    "Value": 3.6,
+    "OwnerId": "ff9baf34-8be7-4a76-9b7c-280aa56e382e",
+    "RatedPostId": "01f1675d-de03-4d06-8674-069a6dc63f14"
+  },
+  {
+    "Id": "98f99a4d-a62b-44b1-b921-0acb08570337",
+    "Value": 3.6,
+    "OwnerId": "09541add-9785-46be-a982-cb6bfdf4f1fa",
+    "RatedPostId": "01f1675d-de03-4d06-8674-069a6dc63f14"
+  },
+  {
+    "Id": "08106145-fe91-4bf0-98bb-76a8e2d10d14",
+    "Value": 3.8,
+    "OwnerId": "e8b05d47-99f8-49d4-8bcb-88b5b4adb126",
+    "RatedPostId": "01f1675d-de03-4d06-8674-069a6dc63f14"
+  },
+  {
+    "Id": "8ef51000-3d9d-42c3-981f-6c5cca440d40",
+    "Value": 4.2,
+    "OwnerId": "7247168e-4f10-45b3-8e12-9928ded2f277",
+    "RatedPostId": "a6d2f37e-caf0-488c-a9e9-6f256f48356d"
+  },
+  {
+    "Id": "5cc27d8b-0f98-4d14-9a40-26f5b6912c11",
+    "Value": 4.5,
+    "OwnerId": "b59d1079-58c4-4a29-8524-8bda099df9a3",
+    "RatedPostId": "a6d2f37e-caf0-488c-a9e9-6f256f48356d"
+  },
+  {
+    "Id": "61111416-e772-4ad9-9ce7-609945fac593",
+    "Value": 4.3,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "a6d2f37e-caf0-488c-a9e9-6f256f48356d"
+  },
+  {
+    "Id": "b0697fdc-6610-451e-821c-74f13e77db20",
+    "Value": 4.0,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "b5db855a-7f1a-41b2-a54a-e1a5cfccbac0"
+  },
+  {
+    "Id": "b99e1771-58c3-44c3-941e-ddbed1ffd64b",
+    "Value": 4.5,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "b5db855a-7f1a-41b2-a54a-e1a5cfccbac0"
+  },
+  {
+    "Id": "ec7750c3-b361-4d04-b9eb-0f75a96e38c6",
+    "Value": 4.2,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "b5db855a-7f1a-41b2-a54a-e1a5cfccbac0"
+  },
+  {
+    "Id": "1d7f94e4-ab10-43d1-b4a3-162d37effdaf",
+    "Value": 3.5,
+    "OwnerId": "6a4c56e2-d634-4174-8ece-437abaa3e6f4",
+    "RatedPostId": "705412b7-7e33-4681-a625-356906f607e2"
+  },
+  {
+    "Id": "dfa881ed-78ef-40f7-a7fb-19bb68d18320",
+    "Value": 3.0,
+    "OwnerId": "2961c4f6-218d-4dc9-8139-0bf892883924",
+    "RatedPostId": "705412b7-7e33-4681-a625-356906f607e2"
+  },
+  {
+    "Id": "530662f4-f124-4b94-ac6b-afe29cbd5af5",
+    "Value": 3.9,
+    "OwnerId": "76b47285-d44d-4fa6-8120-9e832d90d046",
+    "RatedPostId": "705412b7-7e33-4681-a625-356906f607e2"
+  },
+  {
+    "Id": "868a8d48-50dd-40af-9d1e-062ba6b55e37",
+    "Value": 3.3,
+    "OwnerId": "6686836f-d127-4e58-9910-29ba78f0e6cb",
+    "RatedPostId": "664b9d18-a3ba-464a-acfc-78db8d49d2b2"
+  },
+  {
+    "Id": "60d53cd5-aa6d-45a1-a09a-05837f26d996",
+    "Value": 3.9,
+    "OwnerId": "f6d12f0e-4cc5-43cc-bbd6-b27f99ba4e8c",
+    "RatedPostId": "664b9d18-a3ba-464a-acfc-78db8d49d2b2"
+  },
+  {
+    "Id": "9d7b5d3b-7694-4461-9691-31b27d5f9a73",
+    "Value": 3.2,
+    "OwnerId": "88bdb147-9542-4172-8ed9-4a0b602c2f6c",
+    "RatedPostId": "664b9d18-a3ba-464a-acfc-78db8d49d2b2"
+  },
+  {
+    "Id": "dd15ea65-7ca1-48aa-82e4-4cc10e3d25a6",
+    "Value": 3.2,
+    "OwnerId": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
+    "RatedPostId": "d202f8dc-e5ec-416a-ba5b-31a8fd920968"
+  },
+  {
+    "Id": "7b1bfd6e-df7f-4284-89e1-716c7b6e22ff",
+    "Value": 3.3,
+    "OwnerId": "f4fd2882-bba9-4003-a694-f956650e8a33",
+    "RatedPostId": "d202f8dc-e5ec-416a-ba5b-31a8fd920968"
+  },
+  {
+    "Id": "4b4654f6-933a-4d20-87f3-333bfc8b4a97",
+    "Value": 3.5,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "d202f8dc-e5ec-416a-ba5b-31a8fd920968"
+  },
+  {
+    "Id": "9e7b578a-1bf4-4fe8-bb67-c55e85bd12a9",
+    "Value": 3.9,
+    "OwnerId": "6a4c56e2-d634-4174-8ece-437abaa3e6f4",
+    "RatedPostId": "2be2df0c-1b1c-47f8-8a14-1d01bdc7dcba"
+  },
+  {
+    "Id": "b50947ca-a95d-416f-976e-88f363c158e2",
+    "Value": 3.7,
+    "OwnerId": "2961c4f6-218d-4dc9-8139-0bf892883924",
+    "RatedPostId": "2be2df0c-1b1c-47f8-8a14-1d01bdc7dcba"
+  },
+  {
+    "Id": "3ffc26ed-a973-4e0a-a82c-38921353ca7c",
+    "Value": 3.4,
+    "OwnerId": "76b47285-d44d-4fa6-8120-9e832d90d046",
+    "RatedPostId": "2be2df0c-1b1c-47f8-8a14-1d01bdc7dcba"
+  },
+  {
+    "Id": "0847247b-f882-453b-9ce9-8c868d2e861e",
+    "Value": 3.5,
+    "OwnerId": "f8699239-1dd7-486a-a25f-fb71cfedef91",
+    "RatedPostId": "deeca84d-9153-46f6-a860-31632f72c1d3"
+  },
+  {
+    "Id": "7ffbc8c3-32c1-4977-8d80-232dcc1bf9b5",
+    "Value": 3.2,
+    "OwnerId": "8bc4491a-0bd9-4e1a-8407-47642ace8c31",
+    "RatedPostId": "deeca84d-9153-46f6-a860-31632f72c1d3"
+  },
+  {
+    "Id": "bca2a1aa-7c6b-42c5-86ea-d1096a4e1ee4",
+    "Value": 3.3,
+    "OwnerId": "ba28d6b8-a4fa-4b90-935e-2d77736d261d",
+    "RatedPostId": "16180f9a-7609-484a-8da5-ce62f119817c"
+  },
+  {
+    "Id": "e8cde12d-2c3e-40f2-84b2-490d3d1b38f5",
+    "Value": 4.0,
+    "OwnerId": "969652d1-5aa6-45f9-ba04-2bc0affce12b",
+    "RatedPostId": "16180f9a-7609-484a-8da5-ce62f119817c"
+  },
+  {
+    "Id": "66d2f664-74b4-4f8d-b7a5-46cd8ed3a240",
+    "Value": 3.2,
+    "OwnerId": "6a4c56e2-d634-4174-8ece-437abaa3e6f4",
+    "RatedPostId": "4c824c73-1a28-46d1-afea-4e24923401bd"
+  },
+  {
+    "Id": "044a0d37-420d-4c36-b231-cff6cfef9d3b",
+    "Value": 3.3,
+    "OwnerId": "2961c4f6-218d-4dc9-8139-0bf892883924",
+    "RatedPostId": "4c824c73-1a28-46d1-afea-4e24923401bd"
+  },
+  {
+    "Id": "7a305af7-2aa7-42ea-b3e8-1af7f37af84a",
+    "Value": 3.8,
+    "OwnerId": "76b47285-d44d-4fa6-8120-9e832d90d046",
+    "RatedPostId": "4c824c73-1a28-46d1-afea-4e24923401bd"
+  },
+  {
+    "Id": "7d19b006-dd96-46b2-a335-950724e95b08",
+    "Value": 4.6,
+    "OwnerId": "f8699239-1dd7-486a-a25f-fb71cfedef91",
+    "RatedPostId": "43fa27b0-6bec-418a-a24d-f77a23a7486e"
+  },
+  {
+    "Id": "8650fb9b-4044-4fef-8b92-635a7223418d",
+    "Value": 4.5,
+    "OwnerId": "8bc4491a-0bd9-4e1a-8407-47642ace8c31",
+    "RatedPostId": "43fa27b0-6bec-418a-a24d-f77a23a7486e"
+  },
+  {
+    "Id": "429f93c7-ad42-4b8f-a73e-6e6b47fe50e6",
+    "Value": 3.7,
+    "OwnerId": "e01d1eac-2df8-4db2-a831-50cc240441f1",
+    "RatedPostId": "01da63ca-3ec5-4e21-8b35-42bdf5894536"
+  },
+  {
+    "Id": "1a8f494b-7f0c-4f02-8ab0-854cf3020173",
+    "Value": 3.2,
+    "OwnerId": "cf7e513f-8091-4d2e-bff0-782d424e4c36",
+    "RatedPostId": "01da63ca-3ec5-4e21-8b35-42bdf5894536"
+  },
+  {
+    "Id": "1e256a16-218f-4d6e-9399-faf0a4802fde",
+    "Value": 3.2,
+    "OwnerId": "e01d1eac-2df8-4db2-a831-50cc240441f1",
+    "RatedPostId": "01da63ca-3ec5-4e21-8b35-42bdf5894536"
+  },
+  {
+    "Id": "fb471d2a-1cdc-423a-8ac6-00afa8cb99c3",
+    "Value": 4.2,
+    "OwnerId": "d8b32940-d3d4-4af4-9cc9-1adfb3a8faea",
+    "RatedPostId": "71767780-7bac-4d3a-8fcb-b0853aa39337"
+  },
+  {
+    "Id": "4aa4d167-ca37-4706-80eb-44e0bf5a75fc",
+    "Value": 4.2,
+    "OwnerId": "b55e5dc9-251f-4124-a855-4845c6c0a42b",
+    "RatedPostId": "71767780-7bac-4d3a-8fcb-b0853aa39337"
+  },
+  {
+    "Id": "014f0e4b-2c40-4759-a000-c19674e5c833",
+    "Value": 4.3,
+    "OwnerId": "6d99911c-2bee-40c9-837c-d08cbebb12aa",
+    "RatedPostId": "71767780-7bac-4d3a-8fcb-b0853aa39337"
+  },
+  {
+    "Id": "ca6b4d8d-78bf-4ccc-b552-05663aeced75",
+    "Value": 3.3,
+    "OwnerId": "f564db11-4558-4eec-b10f-fc32ba939b35",
+    "RatedPostId": "8d4d8ce3-e97b-4cf0-92ae-71d9e75e022c"
+  },
+  {
+    "Id": "98a714ba-7d59-4f4b-a1b6-7af2861db062",
+    "Value": 3.6,
+    "OwnerId": "c9b7b1ac-ac64-4773-8f13-23b3a530df01",
+    "RatedPostId": "8d4d8ce3-e97b-4cf0-92ae-71d9e75e022c"
+  },
+  {
+    "Id": "6cb0072c-22cf-4385-ba6b-84c102d1c1c5",
+    "Value": 3.0,
+    "OwnerId": "641623cb-affe-4e88-8cf8-e7e70d361777",
+    "RatedPostId": "8d4d8ce3-e97b-4cf0-92ae-71d9e75e022c"
+  },
+  {
+    "Id": "8a88ad44-30f3-4319-b0b4-35bddd21a1e5",
+    "Value": 3.3,
+    "OwnerId": "f564db11-4558-4eec-b10f-fc32ba939b35",
+    "RatedPostId": "0cbdc2ff-9dc4-4786-87ba-6bc852c41376"
+  },
+  {
+    "Id": "862939a9-d189-4bdd-a795-755208259dba",
+    "Value": 3.0,
+    "OwnerId": "c9b7b1ac-ac64-4773-8f13-23b3a530df01",
+    "RatedPostId": "0cbdc2ff-9dc4-4786-87ba-6bc852c41376"
+  },
+  {
+    "Id": "cf302122-d131-4b4a-90fc-0ce1f237a854",
+    "Value": 3.4,
+    "OwnerId": "641623cb-affe-4e88-8cf8-e7e70d361777",
+    "RatedPostId": "0cbdc2ff-9dc4-4786-87ba-6bc852c41376"
+  },
+  {
+    "Id": "0bfa327a-262c-440d-a71f-70f93c14f52a",
+    "Value": 3.4,
+    "OwnerId": "8a03b34e-a3c8-403f-abec-56120e34aade",
+    "RatedPostId": "2e23acd3-de2d-46ce-a931-ace17c79be5a"
+  },
+  {
+    "Id": "1a4e6b56-3478-46ea-a47e-df5ba02c36c0",
+    "Value": 3.2,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "2e23acd3-de2d-46ce-a931-ace17c79be5a"
+  },
+  {
+    "Id": "a0c2e99b-2056-4702-8922-d22b66a6bb29",
+    "Value": 3.2,
+    "OwnerId": "da6c9860-134d-4371-a146-08c36e553c35",
+    "RatedPostId": "2e23acd3-de2d-46ce-a931-ace17c79be5a"
+  },
+  {
+    "Id": "fb3021dc-aec4-46a9-94c1-700284db7e44",
+    "Value": 3.5,
+    "OwnerId": "cb51d3d7-a8b9-4890-99ab-d98065e5107f",
+    "RatedPostId": "cdcfa7d3-aa74-423c-8e70-056fc088b22b"
+  },
+  {
+    "Id": "636e5436-b6f2-4017-8a8c-f2cee96a520a",
+    "Value": 3.9,
+    "OwnerId": "6c0926dc-3b92-45ea-a5f9-fd0831120b4e",
+    "RatedPostId": "cdcfa7d3-aa74-423c-8e70-056fc088b22b"
+  },
+  {
+    "Id": "2e424b84-4481-4174-945e-53b7d306bd6e",
+    "Value": 3.3,
+    "OwnerId": "da6c9860-134d-4371-a146-08c36e553c35",
+    "RatedPostId": "cdcfa7d3-aa74-423c-8e70-056fc088b22b"
+  },
+  {
+    "Id": "aed2465f-2f75-4e0b-b9dc-37ab39e9a246",
+    "Value": 4.8,
+    "OwnerId": "ba28d6b8-a4fa-4b90-935e-2d77736d261d",
+    "RatedPostId": "7f99196c-6a1a-4467-8c63-a1745b0d3f98"
+  },
+  {
+    "Id": "39d45546-9f44-40c9-b7f1-0a44033ac412",
+    "Value": 4.7,
+    "OwnerId": "969652d1-5aa6-45f9-ba04-2bc0affce12b",
+    "RatedPostId": "7f99196c-6a1a-4467-8c63-a1745b0d3f98"
+  },
+  {
+    "Id": "69f0358d-44a6-471a-bd36-f0b1d35ce1bc",
+    "Value": 3.6,
+    "OwnerId": "f564db11-4558-4eec-b10f-fc32ba939b35",
+    "RatedPostId": "7a3a3e69-cc68-4e2f-87f0-3e995ec1add0"
+  },
+  {
+    "Id": "088f2f41-e579-404f-93fa-ffb3e721cb1d",
+    "Value": 3.4,
+    "OwnerId": "c9b7b1ac-ac64-4773-8f13-23b3a530df01",
+    "RatedPostId": "7a3a3e69-cc68-4e2f-87f0-3e995ec1add0"
+  },
+  {
+    "Id": "e930ca23-c5c7-4ee6-9cfb-556dd1ed59f6",
+    "Value": 3.1,
+    "OwnerId": "641623cb-affe-4e88-8cf8-e7e70d361777",
+    "RatedPostId": "7a3a3e69-cc68-4e2f-87f0-3e995ec1add0"
+  },
+  {
+    "Id": "d11b43bc-bea9-4b39-a013-31e51c9562d9",
+    "Value": 4.4,
+    "OwnerId": "a17a7831-2374-442b-930b-af8292120b8e",
+    "RatedPostId": "59037657-0e0d-4fd4-b0e4-928ac4f095c0"
+  },
+  {
+    "Id": "ba7f682d-7b35-4ec5-9627-a07eb6c68cf2",
+    "Value": 4.0,
+    "OwnerId": "663aa98e-4abd-4664-b2e9-95450d4a570a",
+    "RatedPostId": "59037657-0e0d-4fd4-b0e4-928ac4f095c0"
+  },
+  {
+    "Id": "c274ee15-ef56-4794-8b31-a7ceb47e8472",
+    "Value": 4.1,
+    "OwnerId": "d61009ed-e61a-4906-8e1e-21a3da705a5e",
+    "RatedPostId": "59037657-0e0d-4fd4-b0e4-928ac4f095c0"
+  },
+  {
+    "Id": "dcd1e47d-5c0b-4603-92d9-5724feb59216",
+    "Value": 4.0,
+    "OwnerId": "6a4c56e2-d634-4174-8ece-437abaa3e6f4",
+    "RatedPostId": "ab1b3adc-4cc3-4535-93a5-63554cd647b6"
+  },
+  {
+    "Id": "c06f0a29-e643-42ca-814b-92b4c41764ce",
+    "Value": 3.6,
+    "OwnerId": "2961c4f6-218d-4dc9-8139-0bf892883924",
+    "RatedPostId": "ab1b3adc-4cc3-4535-93a5-63554cd647b6"
+  },
+  {
+    "Id": "6cb80c8e-c309-4d6d-a3c3-ac47f1431f6c",
+    "Value": 3.0,
+    "OwnerId": "76b47285-d44d-4fa6-8120-9e832d90d046",
+    "RatedPostId": "ab1b3adc-4cc3-4535-93a5-63554cd647b6"
+  },
+  {
+    "Id": "67450baf-ed48-4041-908c-a0e605bda39d",
+    "Value": 4.4,
+    "OwnerId": "f8699239-1dd7-486a-a25f-fb71cfedef91",
+    "RatedPostId": "4993dcb2-f611-4489-937e-d2ac0a6ac703"
+  },
+  {
+    "Id": "50926fcf-bd08-4b51-92de-1a04948b9f08",
+    "Value": 4.0,
+    "OwnerId": "8bc4491a-0bd9-4e1a-8407-47642ace8c31",
+    "RatedPostId": "4993dcb2-f611-4489-937e-d2ac0a6ac703"
+  },
+  {
+    "Id": "370ce062-672b-4024-9a67-6cc63b59a6fd",
+    "Value": 4.9,
+    "OwnerId": "ba28d6b8-a4fa-4b90-935e-2d77736d261d",
+    "RatedPostId": "cab11dab-cccd-4bb9-8a50-3d266e5feb66"
+  },
+  {
+    "Id": "1ce93f6e-e2b4-4022-8f80-92a7faded1e4",
+    "Value": 4.8,
+    "OwnerId": "969652d1-5aa6-45f9-ba04-2bc0affce12b",
+    "RatedPostId": "cab11dab-cccd-4bb9-8a50-3d266e5feb66"
+  },
+  {
+    "Id": "12d36478-2fac-4281-9ab3-a38cc5808ea3",
+    "Value": 4.3,
+    "OwnerId": "a5da249c-73c1-4ace-bdd5-b3d330ff546e",
+    "RatedPostId": "101cc6b2-a32d-4a7d-b34b-4224717fc476"
+  },
+  {
+    "Id": "256494fb-410b-40ec-8f36-f6e396b92227",
+    "Value": 4.0,
+    "OwnerId": "a5da249c-73c1-4ace-bdd5-b3d330ff546e",
+    "RatedPostId": "101cc6b2-a32d-4a7d-b34b-4224717fc476"
+  },
+  {
+    "Id": "5caf2001-07bb-4ffa-9a29-ec2b9807a0eb",
+    "Value": 4.1,
+    "OwnerId": "d57f8e85-98f3-49e8-96d8-49efcf28a3fd",
+    "RatedPostId": "101cc6b2-a32d-4a7d-b34b-4224717fc476"
+  },
+  {
+    "Id": "d327fbfb-b32d-4488-82c5-638abe16e353",
+    "Value": 3.5,
+    "OwnerId": "2c3b7b23-a3c4-415e-bfec-8fb4f552d232",
+    "RatedPostId": "8decdbfb-d17e-46ee-b78e-6948d6b8d8e5"
+  },
+  {
+    "Id": "7a0afa6d-8261-40e6-9fda-e23a46385d13",
+    "Value": 3.0,
+    "OwnerId": "e219d568-6f02-40a3-bb76-2ffbb119d1a3",
+    "RatedPostId": "8decdbfb-d17e-46ee-b78e-6948d6b8d8e5"
+  },
+  {
+    "Id": "3ffcb932-d278-4481-b5f3-a3bab7d5b5c7",
+    "Value": 3.4,
+    "OwnerId": "8f55bc03-e6ab-409c-8710-1c92ce244643",
+    "RatedPostId": "8decdbfb-d17e-46ee-b78e-6948d6b8d8e5"
+  },
+  {
+    "Id": "2b6a6e4a-95d2-4649-a820-e4644388ba92",
+    "Value": 4.0,
+    "OwnerId": "f564db11-4558-4eec-b10f-fc32ba939b35",
+    "RatedPostId": "f593b52b-b795-46c7-bdfe-c12e0538cc8b"
+  },
+  {
+    "Id": "f610f9c6-bc0f-4aa5-97e9-967020a1a257",
+    "Value": 4.4,
+    "OwnerId": "c9b7b1ac-ac64-4773-8f13-23b3a530df01",
+    "RatedPostId": "f593b52b-b795-46c7-bdfe-c12e0538cc8b"
+  },
+  {
+    "Id": "e9d05e15-161b-4d18-bd2b-1ca9eb5d27ac",
+    "Value": 4.5,
+    "OwnerId": "641623cb-affe-4e88-8cf8-e7e70d361777",
+    "RatedPostId": "f593b52b-b795-46c7-bdfe-c12e0538cc8b"
+  },
+  {
+    "Id": "17de13a8-7e28-4045-a6fe-ac04d20e2fde",
+    "Value": 4.9,
+    "OwnerId": "6276768f-2b2b-4944-8879-14f1ee5a6588",
+    "RatedPostId": "5c78e08d-7727-4c1c-b3aa-9722b59ca427"
+  },
+  {
+    "Id": "9bcaacc6-15d9-4f7c-bd38-882a5321eebf",
+    "Value": 5.0,
+    "OwnerId": "65a19208-bd29-4b28-ab0a-fbc6b5eeb804",
+    "RatedPostId": "5c78e08d-7727-4c1c-b3aa-9722b59ca427"
+  },
+  {
+    "Id": "a4ec900f-c66f-4d5e-ac35-0cfaedd40f7c",
+    "Value": 4.9,
+    "OwnerId": "7469e69c-eb74-45be-abac-cee643c54bd2",
+    "RatedPostId": "5c78e08d-7727-4c1c-b3aa-9722b59ca427"
+  },
+  {
+    "Id": "407943f8-e3c6-425b-806e-f74a57f05ae6",
+    "Value": 4.5,
+    "OwnerId": "4df9b8ef-3f4b-407a-b6eb-6eb8662cb771",
+    "RatedPostId": "352251f7-67d9-4bdd-83dd-d8e690c965cd"
+  },
+  {
+    "Id": "df6af3bb-4477-4203-a6ee-42951a383fcb",
+    "Value": 4.8,
+    "OwnerId": "63471918-ac21-4857-bfad-71860a1ad8c8",
+    "RatedPostId": "352251f7-67d9-4bdd-83dd-d8e690c965cd"
+  },
+  {
+    "Id": "187a36f8-a597-47c5-978c-c8afcea5cfa3",
+    "Value": 4.5,
+    "OwnerId": "2766a0fc-d152-4d72-b445-0920cebc1fb4",
+    "RatedPostId": "e005cbb6-e4ea-4bd2-bfba-51d6471f0576"
+  },
+  {
+    "Id": "4be71669-7fef-4cb2-b8fb-3b81f74c12ab",
+    "Value": 4.9,
+    "OwnerId": "acdd21f8-fa53-45a4-97d1-8c3d9737b507",
+    "RatedPostId": "e005cbb6-e4ea-4bd2-bfba-51d6471f0576"
+  },
+  {
+    "Id": "9e9f9e9f-acca-4ae6-aeb2-d7a33001fa55",
+    "Value": 4.9,
+    "OwnerId": "aab21791-5c61-4711-a512-cb794c3a1d9f",
+    "RatedPostId": "e005cbb6-e4ea-4bd2-bfba-51d6471f0576"
+  },
+  {
+    "Id": "2e72908c-890e-4618-a939-3888cba55c48",
+    "Value": 3.0,
+    "OwnerId": "f564db11-4558-4eec-b10f-fc32ba939b35",
+    "RatedPostId": "329666b5-058b-4732-9b04-4196365e3da6"
+  },
+  {
+    "Id": "3e502d50-c225-4c30-b0a9-ed8791520912",
+    "Value": 3.0,
+    "OwnerId": "c9b7b1ac-ac64-4773-8f13-23b3a530df01",
+    "RatedPostId": "329666b5-058b-4732-9b04-4196365e3da6"
+  },
+  {
+    "Id": "d8a0e42c-b650-4a41-a08a-b5a20f3adc53",
+    "Value": 3.4,
+    "OwnerId": "641623cb-affe-4e88-8cf8-e7e70d361777",
+    "RatedPostId": "329666b5-058b-4732-9b04-4196365e3da6"
+  },
+  {
+    "Id": "e664fe2c-edda-4f9c-acd4-4ebb68d78ba4",
+    "Value": 4.0,
+    "OwnerId": "8a03b34e-a3c8-403f-abec-56120e34aade",
+    "RatedPostId": "42939115-362c-4904-b9cd-1150b2c78ce6"
+  },
+  {
+    "Id": "9f68e789-17b3-47a7-af35-2fb398bebee6",
+    "Value": 3.2,
+    "OwnerId": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
+    "RatedPostId": "42939115-362c-4904-b9cd-1150b2c78ce6"
+  },
+  {
+    "Id": "01dae50d-22a1-4876-9917-5fc28aad0bc5",
+    "Value": 3.7,
+    "OwnerId": "da6c9860-134d-4371-a146-08c36e553c35",
+    "RatedPostId": "42939115-362c-4904-b9cd-1150b2c78ce6"
+  }
+]

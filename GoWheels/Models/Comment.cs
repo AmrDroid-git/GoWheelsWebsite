@@ -10,7 +10,7 @@ namespace GoWheels.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
-        [MaxLength(600)]
+        [MaxLength(2000)]
         public string Body { get; set; } = string.Empty;
         
         [Display(Name = "Created At")]
