@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using GoWheels.Models;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GoWheels.Data
 {
@@ -22,9 +23,17 @@ namespace GoWheels.Data
         {
             base.OnModelCreating(builder);
 
+
+            // Configure Specifications as JSON using a value converter
+            var dictConverter = new ValueConverter<Dictionary<string,string>, string>(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                v => JsonSerializer.Deserialize<Dictionary<string,string>>(v, (JsonSerializerOptions)null) ?? new Dictionary<string,string>()
+            );
+
             builder.Entity<Post>()
                 .Property(p => p.Specifications)
-                .HasColumnType("jsonb");
+                .HasConversion(dictConverter)
+                .HasColumnType("jsonb"); // tells PostgreSQL to store as jsonb
 
             builder.Entity<Post>()
                 .Property(p => p.CreatedAt)
