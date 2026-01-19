@@ -74,8 +74,27 @@
             @Html.DisplayNameFor(model => model.Owner)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Owner.Id)
+            @Html.DisplayFor(model => model.Owner.Name)
         </dd>
+        @foreach (var postImage in Model.PostImages)
+        {
+            <div class="col-md-4 d-flex justify-content-center">
+                @if (Model.PostImages.Count > 0)
+                {
+                    <img src="@postImage.ImageUrl"
+                         alt="@Model.ModelName Image"
+                         class="img-fluid rounded"
+                         style="max-height: 300px; object-fit: cover;"/>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center justify-content-center bg-light border rounded"
+                         style="width: 100%; max-width: 250px; height: 300px;">
+                        <span class="text-muted">No Image</span>
+                    </div>
+                }
+            </div>
+        }
     </dl>
 </div>
 <div>

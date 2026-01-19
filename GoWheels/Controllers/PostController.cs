@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GoWheels.Data;
 using GoWheels.Models;
+using GoWheels.Services.Interfaces;
 
 namespace GoWheels.Controllers
 {
     public class PostController : Controller
     {
         private readonly GoWheelsDbContext _context;
+        private readonly IPostsService _postsService;
 
-        public PostController(GoWheelsDbContext context)
+        public PostController(GoWheelsDbContext context, IPostsService postsService)
         {
             _context = context;
+            _postsService = postsService;
         }
 
         // GET: Posts
@@ -34,9 +37,11 @@ namespace GoWheels.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
-                .Include(p => p.Owner)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            // var post = await _context.Posts
+            //     .Include(p => p.Owner)
+            //     .Include(p => p.PostImages)
+            //     .FirstOrDefaultAsync(m => m.Id == id);
+            var post = await _postsService.GetPostByIdAsync(id);
             if (post == null)
             {
                 return NotFound();
