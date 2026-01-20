@@ -171,7 +171,7 @@ namespace GoWheels.Services
             try
             {
                 // 1. UNIQUE EMAIL CHECK
-                var existingEmail = await _userManager.FindByEmailAsync(user.Email);
+                var existingEmail = (user.Email == null) ? null : await _userManager.FindByEmailAsync(user.Email);
                 if (existingEmail != null)
                 {
                     return (false, "This email address is already in use.");

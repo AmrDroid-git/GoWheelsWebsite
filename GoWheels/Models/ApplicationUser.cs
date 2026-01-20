@@ -11,12 +11,12 @@ namespace GoWheels.Models
 
         [MaxLength(100)]
         public string Address { get; set; } = string.Empty;
-        
+
         [Required]
         [Length(8, 15)]
-        public override string  PhoneNumber { get; set; }
-        
+        public override string? PhoneNumber { get; set; }
 
+        [MaxLength(500)]
         public string? ImageUrl { get; set; }
 
         // --- User's Average Rating (as a Seller) ---

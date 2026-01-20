@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using GoWheels.Models;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GoWheels.Data
@@ -28,15 +29,21 @@ namespace GoWheels.Data
             // ----------------------------
             var dictConverter =
                 new ValueConverter<Dictionary<string, string>, string>(
-                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                    v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions)null)
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null) ?? "{}",
+                    v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions?)null)
                          ?? new Dictionary<string, string>()
                 );
+            var dictComparer = new ValueComparer<Dictionary<string, string>>(
+                (c1, c2) => c1 != null && c2 != null ? c1.OrderBy(kv => kv.Key).SequenceEqual(c2.OrderBy(kv => kv.Key)) : c1 == c2, // Logic to check if they are equal
+                c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.Key.GetHashCode(), v.Value.GetHashCode())), // Logic to generate hash
+                c => c.ToDictionary(entry => entry.Key, entry => entry.Value) // Logic to create a deep copy
+            );
 
             builder.Entity<Post>()
                 .Property(p => p.Specifications)
                 .HasConversion(dictConverter)
-                .HasColumnType("jsonb");
+                .HasColumnType("jsonb")
+                .Metadata.SetValueComparer(dictComparer);
 
             // ----------------------------
             // Defaults DB
@@ -81,6 +88,7 @@ namespace GoWheels.Data
 
             var usersPath      = Path.Combine(basePath, "users.json");
             var postsPath      = Path.Combine(basePath, "posts_clean.json");
+            var postImagesPath = Path.Combine(basePath, "post_images.json");
             var commentsPath   = Path.Combine(basePath, "comments_seed.json");
             var ratingsPath    = Path.Combine(basePath, "ratings_posts.json");
 
@@ -100,6 +108,25 @@ namespace GoWheels.Data
 
                 foreach (var p in posts)
                     builder.Entity<Post>().HasData(p);
+            }
+            
+            if (File.Exists(postImagesPath))
+            {
+                var images = JsonSerializer.Deserialize<List<PostImage>>(
+                    File.ReadAllText(postImagesPath), options);
+
+                if (images != null)
+                {
+                    foreach (var img in images)
+                    {
+                        builder.Entity<PostImage>().HasData(new
+                        {
+                            img.Id,
+                            img.ImageUrl,
+                            img.PostId
+                        });
+                    }
+                }
             }
 
             if (File.Exists(commentsPath))
