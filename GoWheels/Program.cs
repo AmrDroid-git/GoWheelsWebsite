@@ -4,6 +4,8 @@ using GoWheels.Models;
 using GoWheels.Services;
 using GoWheels.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using GoWheels.Validators;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(
         )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<GoWheelsDbContext>();
+builder.Services.AddScoped<IUserValidator<ApplicationUser>, PhoneNumberValidator>();
+
 
 // Registering Services
 builder.Services.AddScoped<IPostsService, PostsService>();
