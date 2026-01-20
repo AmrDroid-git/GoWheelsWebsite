@@ -68,7 +68,19 @@
             @Html.DisplayNameFor(model => model.Specifications)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Specifications)
+            @if (Model.Specifications.Count != 0)
+            {
+                <ul class="list-unstyled mb-0">
+                    @foreach (var spec in Model.Specifications)
+                    {
+                        <li><strong>@spec.Key:</strong> @spec.Value</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span class="text-muted">No specifications provided.</span>
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Owner)
@@ -98,6 +110,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

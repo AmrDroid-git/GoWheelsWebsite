@@ -79,10 +79,24 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Specifications)
+                @if (item.Specifications.Count != 0)
+                {
+                    <small class="text-muted">
+                        @for (int i = 0; i < Math.Min(item.Specifications.Count,3); i++)
+                        {
+                                var element = item.Specifications.ElementAt(i);
+                                <b>@element.Key:</b> @element.Value <br/>
+                        }
+                        @(item.Specifications.Count > 3 ? "..." : "")
+                    </small>
+                }
+                else
+                {
+                    <span class="text-muted">No specifications provided.</span>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Owner.Id)
+                @Html.DisplayFor(modelItem => item.Owner.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
