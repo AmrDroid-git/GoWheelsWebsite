@@ -8924,7 +8924,7 @@ namespace GoWheels.Migrations
                     b.Property<DateOnly>("PurchaseDate")
                         .HasColumnType("date");
 
-                    b.Property<float>("RateAverage")
+                    b.Property<float?>("RateAverage")
                         .HasColumnType("real");
 
                     b.Property<DateOnly>("ReleaseDate")
@@ -8961,7 +8961,6 @@ namespace GoWheels.Migrations
                             OwnerId = "d9f61d1e-9859-4c2f-9b5f-6082f0529d53",
                             Price = 24000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"172 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Normal\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Ben Arous\"}",
                             Status = 1
@@ -8977,7 +8976,6 @@ namespace GoWheels.Migrations
                             OwnerId = "38a10ae2-e365-4ab4-8820-e8963731cd40",
                             Price = 25000m,
                             PurchaseDate = new DateOnly(2010, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2009, 6, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"211 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Ben Arous\"}",
                             Status = 1
@@ -8993,7 +8991,6 @@ namespace GoWheels.Migrations
                             OwnerId = "bd1e2ec3-5aaa-42f0-bcd9-df8c9ce22a05",
                             Price = 29500m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 6, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"88 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Ben Arous\"}",
                             Status = 1
@@ -9009,7 +9006,6 @@ namespace GoWheels.Migrations
                             OwnerId = "bd1e2ec3-5aaa-42f0-bcd9-df8c9ce22a05",
                             Price = 28500m,
                             PurchaseDate = new DateOnly(2017, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2016, 1, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"185 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9025,7 +9021,6 @@ namespace GoWheels.Migrations
                             OwnerId = "bd1e2ec3-5aaa-42f0-bcd9-df8c9ce22a05",
                             Price = 31500m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"140 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9041,7 +9036,6 @@ namespace GoWheels.Migrations
                             OwnerId = "6846ad57-8254-4e69-85e7-61e467f525ec",
                             Price = 85000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 5, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"68 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9057,7 +9051,6 @@ namespace GoWheels.Migrations
                             OwnerId = "09a4b024-238c-4177-baf6-4f68f6723bc7",
                             Price = 58000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 10, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"68 116 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Ariana\"}",
                             Status = 1
@@ -9073,7 +9066,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a78be083-cbca-43ec-b983-9a6f3b159da9",
                             Price = 50000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 5, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"103 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9089,7 +9081,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 51500m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"168 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9105,7 +9096,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 133000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 3, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"98 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9121,7 +9111,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 65000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 3, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"113 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9137,7 +9126,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 79500m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"170 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9153,7 +9141,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 31000m,
                             PurchaseDate = new DateOnly(2012, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2011, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"229 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9169,7 +9156,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 44500m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 12, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"63 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9185,7 +9171,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 64000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 6, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"76 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9201,7 +9186,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 59500m,
                             PurchaseDate = new DateOnly(2013, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2012, 12, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"230 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9217,7 +9201,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 136000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"256 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"11 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9233,7 +9216,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 97000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 7, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"149 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9249,7 +9231,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 56000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 10, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"150 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Monospace\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9265,7 +9246,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 78500m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 4, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"173 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9281,7 +9261,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 114000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 5, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"156 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9297,7 +9276,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 52000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 1, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"234 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9313,7 +9291,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 130000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 5, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"165 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9329,7 +9306,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 42000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 5, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"127 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9345,7 +9321,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 129000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"93 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9361,7 +9336,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 69000m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"208 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9377,7 +9351,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 45000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 5, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"86 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9393,7 +9366,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 180000m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"134 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"34 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9409,7 +9381,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 74000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"116 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9425,7 +9396,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 99000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"157 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9441,7 +9411,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 66000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"130 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9457,7 +9426,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 48000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 3, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"119 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9473,7 +9441,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 67000m,
                             PurchaseDate = new DateOnly(2011, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2010, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"170 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9489,7 +9456,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 64000m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"127 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9505,7 +9471,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 97000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"104 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9521,7 +9486,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 47000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 5, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"89 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9537,7 +9501,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 71000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 8, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"135 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9553,7 +9516,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 38000m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 5, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"175 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9569,7 +9531,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 47000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 7, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"89 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9585,7 +9546,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 59000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 8, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"86 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9601,7 +9561,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 92000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 8, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"59 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9617,7 +9576,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 54000m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 8, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"151 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9633,7 +9591,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 56000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"128 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9649,7 +9606,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 94000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 3, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"6 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"17 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9665,7 +9621,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 35000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 8, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"214 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Normal\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9681,7 +9636,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 89000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 2, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"118 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"11 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9697,7 +9651,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 149000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 11, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"70 000 km\",\"\\u00C9nergie\":\"Hybride rechargeable essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9713,7 +9666,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 187000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"73 000 km\",\"\\u00C9nergie\":\"Hybride rechargeable essence\",\"Puissance fiscale\":\"12 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9729,7 +9681,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 79000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 3, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"108 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"12 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9745,7 +9696,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 118000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"80 000 km\",\"\\u00C9nergie\":\"Hybride rechargeable essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9761,7 +9711,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 179000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"98 000 km\",\"\\u00C9nergie\":\"Hybride rechargeable essence\",\"Puissance fiscale\":\"11 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9777,7 +9726,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 96000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 6, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"123 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9793,7 +9741,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 123000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 7, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"80 000 km\",\"\\u00C9nergie\":\"Hybride rechargeable essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9809,7 +9756,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 65000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"143 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9825,7 +9771,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 44500m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"158 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9841,7 +9786,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ac7b640e-4f71-471e-83a9-635083a71dab",
                             Price = 95000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 3, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"108 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9857,7 +9801,6 @@ namespace GoWheels.Migrations
                             OwnerId = "d5bb8cd1-8f8d-4067-b6dc-f60bd685a696",
                             Price = 38800m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"59 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Ariana\"}",
                             Status = 1
@@ -9873,7 +9816,6 @@ namespace GoWheels.Migrations
                             OwnerId = "907ed4a4-c80c-4cca-ac2b-9b71069660fd",
                             Price = 67000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 4, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"174 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Normal\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Sousse\"}",
                             Status = 1
@@ -9889,7 +9831,6 @@ namespace GoWheels.Migrations
                             OwnerId = "6da89a02-b883-49a1-bba5-757bea9cd8a8",
                             Price = 37500m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 10, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"97 500 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9905,7 +9846,6 @@ namespace GoWheels.Migrations
                             OwnerId = "d0ecdbed-29ce-440c-8a7e-7abfcd7fe346",
                             Price = 95000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 12, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"75 600 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Ariana\"}",
                             Status = 1
@@ -9921,7 +9861,6 @@ namespace GoWheels.Migrations
                             OwnerId = "441395d4-1863-4d6b-86e7-53fcaa7e12c6",
                             Price = 37000m,
                             PurchaseDate = new DateOnly(2024, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2023, 7, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"95 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Nabeul\"}",
                             Status = 1
@@ -9937,7 +9876,6 @@ namespace GoWheels.Migrations
                             OwnerId = "68f1011c-4508-4fe4-8c8b-0cbe49a52f0a",
                             Price = 38500m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 8, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"61 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Ariana\"}",
                             Status = 1
@@ -9953,7 +9891,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a502a9b2-0f43-4ec6-aa0a-c931b94d3db0",
                             Price = 56000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 1, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"98 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Sfax\"}",
                             Status = 1
@@ -9969,7 +9906,6 @@ namespace GoWheels.Migrations
                             OwnerId = "344ed7f7-6750-4940-b474-e17759e4e80e",
                             Price = 96000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"82 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -9985,7 +9921,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 36900m,
                             PurchaseDate = new DateOnly(2011, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2010, 11, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"340 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10001,7 +9936,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 85000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 4, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"45 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10017,7 +9951,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 103000m,
                             PurchaseDate = new DateOnly(2026, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2025, 1, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"18 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10033,7 +9966,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 71000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 2, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"133 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10049,7 +9981,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 67000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"109 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10065,7 +9996,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 26000m,
                             PurchaseDate = new DateOnly(2012, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2011, 11, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"120 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10081,7 +10011,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 79000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"48 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Utilitaire\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10097,7 +10026,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 179000m,
                             PurchaseDate = new DateOnly(2015, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2014, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"173 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"34 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10113,7 +10041,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 89000m,
                             PurchaseDate = new DateOnly(2006, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2005, 6, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"50 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"20 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10129,7 +10056,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 29000m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 6, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"200 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10145,7 +10071,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 175000m,
                             PurchaseDate = new DateOnly(2016, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2015, 5, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"190 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"16 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10161,7 +10086,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 150000m,
                             PurchaseDate = new DateOnly(2012, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2011, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"100 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"30 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10177,7 +10101,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 58000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 10, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"80 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10193,7 +10116,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 35900m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 3, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"180 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10209,7 +10131,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 97000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 1, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"100 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10225,7 +10146,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 35000m,
                             PurchaseDate = new DateOnly(2009, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2008, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"160 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10241,7 +10161,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 69000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"120 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10257,7 +10176,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 58000m,
                             PurchaseDate = new DateOnly(2010, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2009, 7, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"300 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"15 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10273,7 +10191,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 35500m,
                             PurchaseDate = new DateOnly(2016, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2015, 2, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"210 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Coup\\u00E9\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10289,7 +10206,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 39500m,
                             PurchaseDate = new DateOnly(2015, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2014, 1, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"185 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10305,7 +10221,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 75000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"90 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10321,7 +10236,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 67500m,
                             PurchaseDate = new DateOnly(2016, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2015, 1, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"200 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10337,7 +10251,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 119000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 3, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"70 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10353,7 +10266,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 109000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 1, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"190 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10369,7 +10281,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 209000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 7, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"45 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"Coup\\u00E9\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10385,7 +10296,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 188000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 11, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"55 000 km\",\"\\u00C9nergie\":\"Hybride rechargeable essence\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10401,7 +10311,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 68500m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 12, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"156 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10417,7 +10326,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 54900m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 4, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"185 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10433,7 +10341,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 197000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"100 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"Coup\\u00E9\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10449,7 +10356,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 44900m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 7, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"95 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10465,7 +10371,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 68500m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 12, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"156 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10481,7 +10386,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 125000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 6, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"70 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10497,7 +10401,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 38200m,
                             PurchaseDate = new DateOnly(2024, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2023, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"15 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10513,7 +10416,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 38500m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 2, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"85 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10529,7 +10431,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 45500m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"48 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10545,7 +10446,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 40500m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 8, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"120 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10561,7 +10461,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 41500m,
                             PurchaseDate = new DateOnly(2013, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2012, 3, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"220 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10577,7 +10476,6 @@ namespace GoWheels.Migrations
                             OwnerId = "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
                             Price = 36900m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 1, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"160 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10593,7 +10491,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 45000m,
                             PurchaseDate = new DateOnly(2013, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2012, 5, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"200 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10609,7 +10506,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 134000m,
                             PurchaseDate = new DateOnly(2024, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2023, 7, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"14 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10625,7 +10521,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 35000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 7, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"80 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10641,7 +10536,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 75000m,
                             PurchaseDate = new DateOnly(2024, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2023, 3, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"57 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10657,7 +10551,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 135000m,
                             PurchaseDate = new DateOnly(2024, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2023, 3, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"56 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10673,7 +10566,6 @@ namespace GoWheels.Migrations
                             OwnerId = "4c9dcbd9-2119-49c1-b724-323fe734cafb",
                             Price = 115000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 3, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"45 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10689,7 +10581,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 42000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"87 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"4 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10705,7 +10596,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 46000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"128 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10721,7 +10611,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 41000m,
                             PurchaseDate = new DateOnly(2016, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2015, 7, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"88 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10737,7 +10626,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 50000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 1, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"85 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10753,7 +10641,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 69000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 6, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"143 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10769,7 +10656,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 155000m,
                             PurchaseDate = new DateOnly(2024, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2023, 2, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"32 000 km\",\"\\u00C9nergie\":\"Hybride essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10785,7 +10671,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 138000m,
                             PurchaseDate = new DateOnly(2020, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2019, 1, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"122 000 km\",\"\\u00C9nergie\":\"Diesel\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Pick up\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10801,7 +10686,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 63500m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 9, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"138 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10817,7 +10701,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 149000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"143 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"20 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10833,7 +10716,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 43000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(1, 1, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\"}",
                             Status = 1
@@ -10849,7 +10731,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 44000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 11, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"123 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10865,7 +10746,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 34000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 6, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"170 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10881,7 +10761,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 41000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 11, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"160 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10897,7 +10776,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 88000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"98 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10913,7 +10791,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 69000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 8, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"169 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10929,7 +10806,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 55000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 8, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"80 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10945,7 +10821,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 75000m,
                             PurchaseDate = new DateOnly(2021, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2020, 7, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"130 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10961,7 +10836,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 49500m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 10, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"128 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10977,7 +10851,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 53800m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 8, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"160 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -10993,7 +10866,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 57000m,
                             PurchaseDate = new DateOnly(2014, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2013, 1, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"146 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Normal\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11009,7 +10881,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 57000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 12, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"67 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"7 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11025,7 +10896,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 175000m,
                             PurchaseDate = new DateOnly(2026, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2025, 8, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"1 900 km\",\"\\u00C9nergie\":\"Electrique\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11041,7 +10911,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 33500m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 7, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"167 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11057,7 +10926,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 110000m,
                             PurchaseDate = new DateOnly(2017, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2016, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"187 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"10 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11073,7 +10941,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 71000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 10, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"177 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"6 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11089,7 +10956,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 119000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Int\\u00E9grale\",\"Kilom\\u00E9trage\":\"150 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"12 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11105,7 +10971,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 53000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 10, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"103 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11121,7 +10986,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 85000m,
                             PurchaseDate = new DateOnly(2018, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2017, 11, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"190 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"SUV\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"2\\u00E8me main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11137,7 +11001,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 36000m,
                             PurchaseDate = new DateOnly(2023, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2022, 11, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"98 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11153,7 +11016,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 46000m,
                             PurchaseDate = new DateOnly(2016, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2015, 9, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Propulsion\",\"Kilom\\u00E9trage\":\"138 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"11 cv\",\"Carrosserie\":\"Berline\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Normal\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11169,7 +11031,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 47000m,
                             PurchaseDate = new DateOnly(2019, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2018, 1, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"146 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"9 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11185,7 +11046,6 @@ namespace GoWheels.Migrations
                             OwnerId = "a9f37763-2792-47d1-95cb-4f59b6028c5b",
                             Price = 42000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 12, 1),
                             Specifications = "{\"Gearbox\":\"Manuelle\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"66 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"5 cv\",\"Carrosserie\":\"Citadine\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1
@@ -11201,7 +11061,6 @@ namespace GoWheels.Migrations
                             OwnerId = "ad03c284-93e0-4d2d-8863-be27b02764d8",
                             Price = 108000m,
                             PurchaseDate = new DateOnly(2022, 1, 1),
-                            RateAverage = 0f,
                             ReleaseDate = new DateOnly(2021, 11, 1),
                             Specifications = "{\"Gearbox\":\"Automatique\",\"Transmission\":\"Traction\",\"Kilom\\u00E9trage\":\"92 000 km\",\"\\u00C9nergie\":\"Essence\",\"Puissance fiscale\":\"8 cv\",\"Carrosserie\":\"Compacte\",\"\\u00C9tat g\\u00E9n\\u00E9ral\":\"Tr\\u00E8s bon\",\"Anciens propri\\u00E9taires\":\"1\\u00E8re main\",\"Gouvernorat\":\"Tunis\"}",
                             Status = 1

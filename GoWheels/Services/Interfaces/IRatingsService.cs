@@ -27,5 +27,6 @@ namespace GoWheels.Services.Interfaces
         // 3. Get ALL ratings (both Post and User ratings) done by a specific user
         // Returns a polymorphic list of the base class 'Rating'
         Task<List<Rating>> GetAllRatingsGivenByUserAsync(string userId);
+        Task RecalculateAllPostsRateAverageAsync();
     }
 }

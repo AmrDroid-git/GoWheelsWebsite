@@ -63,6 +63,11 @@ namespace GoWheels.Data
             // JSON Seed
             // ----------------------------
             SeedFromJson(builder);
+            
+            builder.Entity<Post>()
+                .Property(p => p.RateAverage)
+                .IsRequired(false);
+
         }
 
         private static void SeedFromJson(ModelBuilder builder)

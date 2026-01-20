@@ -24,6 +24,8 @@ namespace GoWheels.Services
             {
                 _context.PostsRatings.Add(rating);
                 await _context.SaveChangesAsync();
+                await UpdatePostRateAverageAsync(rating.RatedPostId);
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
@@ -56,16 +58,24 @@ namespace GoWheels.Services
                 {
                     var r = await _context.PostsRatings.FindAsync(ratingId);
                     if (r == null) return false;
+
+                    var postId = r.RatedPostId;
+
                     _context.PostsRatings.Remove(r);
+                    await _context.SaveChangesAsync();
+
+                    await UpdatePostRateAverageAsync(postId);
+                    await _context.SaveChangesAsync();
                 }
                 else
                 {
                     var r = await _context.UsersRatings.FindAsync(ratingId);
                     if (r == null) return false;
+
                     _context.UsersRatings.Remove(r);
+                    await _context.SaveChangesAsync();
                 }
 
-                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
@@ -147,5 +157,39 @@ namespace GoWheels.Services
 
             return allRatings.OrderByDescending(r => r.Id).ToList();
         }
+        //pour la mise à jour du avg rating des posts à chaque ajout et supp des posts
+        private async Task UpdatePostRateAverageAsync(string postId)
+        {
+            var average = await _context.PostsRatings
+                .Where(r => r.RatedPostId == postId)
+                .AverageAsync(r => (float?)r.Value);
+
+            var post = await _context.Posts.FindAsync(postId);
+            if (post == null) return;
+
+            post.RateAverage = average.HasValue
+                ? (float)Math.Round(average.Value, 2, MidpointRounding.AwayFromZero)
+                : null;
+        }
+        
+        // pour la mise à jour du avg rating des posts lors du lancement du serveur
+        public async Task RecalculateAllPostsRateAverageAsync()
+        {
+            var posts = await _context.Posts.ToListAsync();
+
+            foreach (var post in posts)
+            {
+                var avg = await _context.PostsRatings
+                    .Where(r => r.RatedPostId == post.Id)
+                    .AverageAsync(r => (float?)r.Value);
+
+                post.RateAverage = avg.HasValue
+                    ? (float)Math.Round(avg.Value, 2, MidpointRounding.AwayFromZero)
+                    : null;
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
