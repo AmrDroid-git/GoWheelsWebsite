@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using GoWheels.Data;
 using GoWheels.Models;
@@ -40,7 +41,12 @@ builder.Services.AddHostedService<PostRatingsStartupService>();
 
 
 // Controllers
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        // This stops the cycle by simply ignoring the repeating object
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 
 // Add Razor Pages support
 builder.Services.AddRazorPages();
