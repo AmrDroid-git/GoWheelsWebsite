@@ -61,6 +61,7 @@ using (var scope = app.Services.CreateScope())
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var context = services.GetRequiredService<GoWheelsDbContext>();
+    context.Database.EnsureDeleted();
     context.Database.EnsureCreated();
     
     // 1. Create Roles
