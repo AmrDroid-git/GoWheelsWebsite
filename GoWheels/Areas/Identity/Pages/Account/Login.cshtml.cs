@@ -89,7 +89,8 @@ namespace GoWheels.Areas.Identity.Pages.Account
                 if (succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    // CHANGE: Redirect specifically to the new test page
+                    return RedirectToPage("/TestUserLogin");
                 }
                 else
                 {
