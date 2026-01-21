@@ -20,7 +20,7 @@ namespace GoWheels.Models
         public string? ImageUrl { get; set; }
 
         // --- User's Average Rating (as a Seller) ---
-        public float RateAverage { get; set; }
+        public float? RateAverage { get; set; }
 
         // --- Relationships ---
         public ICollection<Post> Posts { get; set; } = new List<Post>();

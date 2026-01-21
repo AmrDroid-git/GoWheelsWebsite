@@ -16,7 +16,7 @@
     "Name": "Vendeur 5474",
     "Address": "Ben Arous",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "38a10ae2-e365-4ab4-8820-e8963731cd40",
@@ -35,7 +35,7 @@
     "Name": "Vendeur 7929",
     "Address": "Ben Arous",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "bd1e2ec3-5aaa-42f0-bcd9-df8c9ce22a05",
@@ -54,7 +54,7 @@
     "Name": "Vendeur 8705",
     "Address": "Ben Arous",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6846ad57-8254-4e69-85e7-61e467f525ec",
@@ -73,7 +73,7 @@
     "Name": "Vendeur 2779",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "09a4b024-238c-4177-baf6-4f68f6723bc7",
@@ -92,7 +92,7 @@
     "Name": "Vendeur 2930",
     "Address": "Ariana",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a78be083-cbca-43ec-b983-9a6f3b159da9",
@@ -111,7 +111,7 @@
     "Name": "Vendeur 0377",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ac7b640e-4f71-471e-83a9-635083a71dab",
@@ -130,7 +130,7 @@
     "Name": "Vendeur 2839",
     "Address": "Nabeul",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ad03c284-93e0-4d2d-8863-be27b02764d8",
@@ -149,7 +149,7 @@
     "Name": "Vendeur 1431",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a9f37763-2792-47d1-95cb-4f59b6028c5b",
@@ -168,7 +168,7 @@
     "Name": "Vendeur 8808",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d5bb8cd1-8f8d-4067-b6dc-f60bd685a696",
@@ -187,7 +187,7 @@
     "Name": "Vendeur 1778",
     "Address": "Ariana",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "907ed4a4-c80c-4cca-ac2b-9b71069660fd",
@@ -206,7 +206,7 @@
     "Name": "Vendeur 4166",
     "Address": "Sousse",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6da89a02-b883-49a1-bba5-757bea9cd8a8",
@@ -225,7 +225,7 @@
     "Name": "Vendeur 0448",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d0ecdbed-29ce-440c-8a7e-7abfcd7fe346",
@@ -244,7 +244,7 @@
     "Name": "Vendeur 7500",
     "Address": "Ariana",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "441395d4-1863-4d6b-86e7-53fcaa7e12c6",
@@ -263,7 +263,7 @@
     "Name": "Vendeur 0030",
     "Address": "Nabeul",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "68f1011c-4508-4fe4-8c8b-0cbe49a52f0a",
@@ -282,7 +282,7 @@
     "Name": "Vendeur 2403",
     "Address": "Ariana",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a502a9b2-0f43-4ec6-aa0a-c931b94d3db0",
@@ -301,7 +301,7 @@
     "Name": "Vendeur 0869",
     "Address": "Sfax",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "344ed7f7-6750-4940-b474-e17759e4e80e",
@@ -320,7 +320,7 @@
     "Name": "Vendeur 0854",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "351b8db2-83d6-49ed-8ed6-801b8bd47bb3",
@@ -339,7 +339,7 @@
     "Name": "Vendeur 9000",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "4c9dcbd9-2119-49c1-b724-323fe734cafb",
@@ -358,7 +358,7 @@
     "Name": "Vendeur 8716",
     "Address": "Tunis",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "bee504ce-feeb-4398-81f7-1d80b2420813",
@@ -377,7 +377,7 @@
     "Name": "Dodo sousse",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "9d085831-9df7-4627-8891-65636fe88937",
@@ -396,7 +396,7 @@
     "Name": "Las3d el melki",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ca619259-02ca-4a66-a243-7ffa312abfb4",
@@ -415,7 +415,7 @@
     "Name": "Chedia Chebli",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "4c04cae9-6163-4dab-93dd-609a06e5a6d8",
@@ -434,7 +434,7 @@
     "Name": "Salvatore liborio Pardo",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2364b95e-15f8-4c9c-9b5c-7501a27b30ce",
@@ -453,7 +453,7 @@
     "Name": "MaherT",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "fadafafc-9856-43c1-b0e9-504abd6c8dcd",
@@ -472,7 +472,7 @@
     "Name": "Nesrine G",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "603e3da2-4e80-436b-a0fb-ef1ed411b585",
@@ -491,7 +491,7 @@
     "Name": "slimane slim",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "bf386f11-f425-4dc3-a162-126b57cc7233",
@@ -510,7 +510,7 @@
     "Name": "ELII ynaber",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "cd45fa40-2182-496e-a4b7-56a4f699e510",
@@ -529,7 +529,7 @@
     "Name": "Sam Tosh",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2bc99e89-d436-4fe6-b082-e8235768ff8f",
@@ -548,7 +548,7 @@
     "Name": "Habib",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "32a6763f-47db-470a-8c78-9b741fd42ba7",
@@ -567,7 +567,7 @@
     "Name": "Maher",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "dd58f620-f425-4c5f-8ee4-b228bcd543bb",
@@ -586,7 +586,7 @@
     "Name": "Sonia",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "47d58146-1d9c-4f58-9b0b-17adc7787064",
@@ -605,7 +605,7 @@
     "Name": "sabrine",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "9a4d7922-e4ec-4e00-b8b9-8d84c01655a5",
@@ -624,7 +624,7 @@
     "Name": "sabrine LAOUINI",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e0876a6f-4192-417f-abfe-2b464d4b50da",
@@ -643,7 +643,7 @@
     "Name": "Aymen",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b6944109-dd1f-4db2-99cf-47d6ba385e57",
@@ -662,7 +662,7 @@
     "Name": "Gem ILL",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f6d12f0e-4cc5-43cc-bbd6-b27f99ba4e8c",
@@ -681,7 +681,7 @@
     "Name": "Mohamed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6988cd05-44d6-47b0-9e3a-a42eda148f17",
@@ -700,7 +700,7 @@
     "Name": "Sana Ennouri",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f4fd2882-bba9-4003-a694-f956650e8a33",
@@ -719,7 +719,7 @@
     "Name": "elGrande",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6883bc72-a882-4b7e-bdb8-3a07b1199175",
@@ -738,7 +738,7 @@
     "Name": "CarPassion",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "1966842e-77ce-48c6-b276-5124fe23b7f5",
@@ -757,7 +757,7 @@
     "Name": "Zahay Jb",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6686836f-d127-4e58-9910-29ba78f0e6cb",
@@ -776,7 +776,7 @@
     "Name": "Kimo Kimo",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "88bdb147-9542-4172-8ed9-4a0b602c2f6c",
@@ -795,7 +795,7 @@
     "Name": "Arthur",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "fbfb53fd-3457-44de-b070-8f97e68a5101",
@@ -814,7 +814,7 @@
     "Name": "samir dib",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2766a0fc-d152-4d72-b445-0920cebc1fb4",
@@ -833,7 +833,7 @@
     "Name": "Moez Haj Taieb",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "acdd21f8-fa53-45a4-97d1-8c3d9737b507",
@@ -852,7 +852,7 @@
     "Name": "Jdidi Khalil",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "aab21791-5c61-4711-a512-cb794c3a1d9f",
@@ -871,7 +871,7 @@
     "Name": "Ali Mohammed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2e2cc7a0-5eff-4481-b502-07cc398e55f4",
@@ -890,7 +890,7 @@
     "Name": "Hedi Ben",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5fb26242-0983-4721-8626-1319fc7a5a69",
@@ -909,7 +909,7 @@
     "Name": "Yanis",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "39d0c593-e1a4-464f-ab5e-36726c2dce34",
@@ -928,7 +928,7 @@
     "Name": "Alaeddine  Zakhama",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "326907c0-8d4d-4aee-9214-c9bca990b875",
@@ -947,7 +947,7 @@
     "Name": "ramzi abdelhedi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a9059a99-c5b0-4b6e-b7fe-8673e5767b1b",
@@ -966,7 +966,7 @@
     "Name": "Ahmed amine",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "75a8983b-35c6-49e4-b2aa-107cf3fa832c",
@@ -985,7 +985,7 @@
     "Name": "Ali",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "1ab9fa4a-7c6f-45ed-bae5-457f48e0d1f8",
@@ -1004,7 +1004,7 @@
     "Name": "Chaima",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f5edf071-97ad-4f9b-8712-454df213b093",
@@ -1023,7 +1023,7 @@
     "Name": "Seif",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d3eb2a48-b2a4-46b5-a858-c9090e2e6a53",
@@ -1042,7 +1042,7 @@
     "Name": "Kia 2026",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d5e732bc-4cb0-42c2-a00a-32971bf2ae39",
@@ -1061,7 +1061,7 @@
     "Name": "Chokri Arbi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "344b79f9-f6cc-4a1f-847e-6ded06d6acb6",
@@ -1080,7 +1080,7 @@
     "Name": "Dali",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a51a0d20-aa31-4aba-85bf-0d30e0bc047d",
@@ -1099,7 +1099,7 @@
     "Name": "automobile_tnModérateur",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e3a64fdc-f153-4703-99c6-6589ec73ede1",
@@ -1118,7 +1118,7 @@
     "Name": "Mohamed Ali",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "22e4c297-3ef9-4db7-92a4-5dc32c7ec070",
@@ -1137,7 +1137,7 @@
     "Name": "Bouaza Ahmed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b9e73e9f-2785-48c5-a1dd-944344decf30",
@@ -1156,7 +1156,7 @@
     "Name": "ronaldo  roberto",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "da6c9860-134d-4371-a146-08c36e553c35",
@@ -1175,7 +1175,7 @@
     "Name": "Valero",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "7247168e-4f10-45b3-8e12-9928ded2f277",
@@ -1194,7 +1194,7 @@
     "Name": "Imen",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b59d1079-58c4-4a29-8524-8bda099df9a3",
@@ -1213,7 +1213,7 @@
     "Name": "Mariem",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "8f684d19-b3df-41bb-81b5-431879514cc8",
@@ -1232,7 +1232,7 @@
     "Name": "Seifeddine Ayari",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "789ebdbf-46cd-4352-bdd7-71ad113e19a8",
@@ -1251,7 +1251,7 @@
     "Name": "Anis",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "85af29e8-24f3-4f3b-9481-8b43b95ee0a9",
@@ -1270,7 +1270,7 @@
     "Name": "H M",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "0450ce2d-9470-4f43-b776-d433a96c2147",
@@ -1289,7 +1289,7 @@
     "Name": "NB",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a17a7831-2374-442b-930b-af8292120b8e",
@@ -1308,7 +1308,7 @@
     "Name": "Hanene",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f8699239-1dd7-486a-a25f-fb71cfedef91",
@@ -1327,7 +1327,7 @@
     "Name": "karim trabelsi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "8bc4491a-0bd9-4e1a-8407-47642ace8c31",
@@ -1346,7 +1346,7 @@
     "Name": "Beji Issam",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a5da249c-73c1-4ace-bdd5-b3d330ff546e",
@@ -1365,7 +1365,7 @@
     "Name": "Kal",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d57f8e85-98f3-49e8-96d8-49efcf28a3fd",
@@ -1384,7 +1384,7 @@
     "Name": "Sami Bhira",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "559ae6de-4c29-4acf-8f6b-d8ab0a07b2d9",
@@ -1403,7 +1403,7 @@
     "Name": "Medauto",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "62306c37-93bb-4c7b-827d-10421173ad03",
@@ -1422,7 +1422,7 @@
     "Name": "Anas Jouini",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6a4c56e2-d634-4174-8ece-437abaa3e6f4",
@@ -1441,7 +1441,7 @@
     "Name": "Mehdi Sfar",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "96167bda-abfd-45d4-a880-49fa0422bba1",
@@ -1460,7 +1460,7 @@
     "Name": "mohamed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "7f2bdf17-9f40-4d85-a6dc-9a3420ab507b",
@@ -1479,7 +1479,7 @@
     "Name": "Walid Rebai",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5f08d655-6668-4373-aaa0-ebc95eb6d6cd",
@@ -1498,7 +1498,7 @@
     "Name": "Firas Chafai",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "01bd0a13-8951-41e4-a23e-185eaa0fd4ad",
@@ -1517,7 +1517,7 @@
     "Name": "mourad ben",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d61009ed-e61a-4906-8e1e-21a3da705a5e",
@@ -1536,7 +1536,7 @@
     "Name": "MEF",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "8a03b34e-a3c8-403f-abec-56120e34aade",
@@ -1555,7 +1555,7 @@
     "Name": "Zali",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "86a0aeaa-1f78-4049-9be8-ea037b59da8f",
@@ -1574,7 +1574,7 @@
     "Name": "Ben Tanfous Mejid",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "8c3109ea-e634-49d4-830d-61a2a4b29542",
@@ -1593,7 +1593,7 @@
     "Name": "Collision",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f393415e-4a4b-48f1-b329-76eb20be1cfd",
@@ -1612,7 +1612,7 @@
     "Name": "oussema bouyahia",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "46673879-5fe3-44e9-b262-d37a577ce08b",
@@ -1631,7 +1631,7 @@
     "Name": "C T",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b64a765f-c98a-4674-b4cb-51fcda2ca58c",
@@ -1650,7 +1650,7 @@
     "Name": "AN",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "220ef699-0dd3-4b48-837f-00919acd7c0a",
@@ -1669,7 +1669,7 @@
     "Name": "Aymen INOUBLI",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "308a3076-a06e-4306-b3c5-0b107eee6679",
@@ -1688,7 +1688,7 @@
     "Name": "Yassine",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b8383f36-41da-437e-a67f-d85ad140cb5d",
@@ -1707,7 +1707,7 @@
     "Name": "Capri Lgoni",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "fc09ae62-d9dc-48bf-8b1a-1b9d1ea5d49a",
@@ -1726,7 +1726,7 @@
     "Name": "Edy K",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "4fe24646-00da-4548-b330-d715585712f3",
@@ -1745,7 +1745,7 @@
     "Name": "Shalima",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "76b47285-d44d-4fa6-8120-9e832d90d046",
@@ -1764,7 +1764,7 @@
     "Name": "Naoufel Brahmi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "fef0f74b-deee-453a-aa42-674b26dda781",
@@ -1783,7 +1783,7 @@
     "Name": "Wissem Mbarek",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "59e656ef-082f-4e06-a494-02ab945bfcd5",
@@ -1802,7 +1802,7 @@
     "Name": "Karim Ayadi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "cfc6b6f2-00cf-47de-a77e-5dfc780bd597",
@@ -1821,7 +1821,7 @@
     "Name": "Feriel Ben Salha",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f564db11-4558-4eec-b10f-fc32ba939b35",
@@ -1840,7 +1840,7 @@
     "Name": "WBH",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "c9b7b1ac-ac64-4773-8f13-23b3a530df01",
@@ -1859,7 +1859,7 @@
     "Name": "Barhoumi Bahaeddine",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "641623cb-affe-4e88-8cf8-e7e70d361777",
@@ -1878,7 +1878,7 @@
     "Name": "Lotfi Kamoun",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2ff37d06-4e9d-482f-bcf2-48c381811d7a",
@@ -1897,7 +1897,7 @@
     "Name": "Med",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5eefdb23-ec90-44ab-ad71-202dfc9060d3",
@@ -1916,7 +1916,7 @@
     "Name": "Amenallah  Abdallah",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b6e68843-5d89-4d94-a106-24ba59d87960",
@@ -1935,7 +1935,7 @@
     "Name": "alger alger",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "0dd6adcb-a677-47ff-b1ea-b738fcbaa988",
@@ -1954,7 +1954,7 @@
     "Name": "Chiheb Torkhani",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "630a8951-d80e-49b3-a797-1ed6903bf1db",
@@ -1973,7 +1973,7 @@
     "Name": "Rachid",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "bac4aa49-5f29-4a33-9fd5-0e1c865eb41f",
@@ -1992,7 +1992,7 @@
     "Name": "Sonda Kharrat",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "53740776-136a-4599-8bf5-c1c59e1ca541",
@@ -2011,7 +2011,7 @@
     "Name": "Dammak Mohamed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "3bc7cfe4-951c-4b27-91cd-d905edcfb035",
@@ -2030,7 +2030,7 @@
     "Name": "nour Elouni",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5126f562-59a9-4846-a2be-ca9c32dc4c11",
@@ -2049,7 +2049,7 @@
     "Name": "Walid Zhani",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "fb7ab466-088b-41d4-b7b5-f589402ebd71",
@@ -2068,7 +2068,7 @@
     "Name": "Omar Ben S.",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a40715e0-d4db-4270-b036-1fdbdc49dd14",
@@ -2087,7 +2087,7 @@
     "Name": "Mohamed Mezrioui",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "670090f8-973d-4466-8f60-d147162190a3",
@@ -2106,7 +2106,7 @@
     "Name": "Thouraya Khlifi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b7e0167d-498a-45f8-92c4-5afb8b3fba03",
@@ -2125,7 +2125,7 @@
     "Name": "Amara Imed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "cca18b6d-1c24-443e-8db1-21480c2817b2",
@@ -2144,7 +2144,7 @@
     "Name": "Mahmoud",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b5133f63-7708-4f50-b1e0-bf2a9ddece24",
@@ -2163,7 +2163,7 @@
     "Name": "Sami",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "78f7de2c-7439-4484-8325-aff6ade45ff1",
@@ -2182,7 +2182,7 @@
     "Name": "Aicha",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "59e7dcd6-d046-4e5d-a33b-e6df656947f9",
@@ -2201,7 +2201,7 @@
     "Name": "Ahmed Jlassi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "fdbdcbc6-210a-4010-ad89-ce97608092ce",
@@ -2220,7 +2220,7 @@
     "Name": "Yasser Bj",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "14fedd55-7bc4-4941-8277-c0a2441e1b93",
@@ -2239,7 +2239,7 @@
     "Name": "Amani",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b038178c-35e7-4c85-a5c2-22a55474582b",
@@ -2258,7 +2258,7 @@
     "Name": "Mhamed Nebli",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "58b4a7fd-abab-4f0f-becb-312814dd2f6a",
@@ -2277,7 +2277,7 @@
     "Name": "Dina ayed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "451f4c4d-263e-47d3-a302-79ed26e24cdb",
@@ -2296,7 +2296,7 @@
     "Name": "Wassef Thabti",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a6aa8fcc-02a8-4daa-b0a4-dc0409c77226",
@@ -2315,7 +2315,7 @@
     "Name": "Saidi Zouhour",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a1438087-ce9b-4a2c-b62b-59e219119ee5",
@@ -2334,7 +2334,7 @@
     "Name": "Sameh 007",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "48c52545-579e-4a8a-8bc9-3580c4287425",
@@ -2353,7 +2353,7 @@
     "Name": "Kar Sl",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "fd2b44be-b3bc-4c7d-bbaf-2047d70d7531",
@@ -2372,7 +2372,7 @@
     "Name": "Hamza prix",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "987de185-fcce-46b3-97e7-62eb2f6ec403",
@@ -2391,7 +2391,7 @@
     "Name": "Ghayth",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "dc0bb4d3-6b0a-49e2-ace3-60565b1e1624",
@@ -2410,7 +2410,7 @@
     "Name": "Med monastir",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "57a9b14d-915f-4d68-892e-f2f94e2d4cc3",
@@ -2429,7 +2429,7 @@
     "Name": "Naj Kri",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "30571c3a-e2f5-41f2-aaf1-2cc8abc6ccb4",
@@ -2448,7 +2448,7 @@
     "Name": "Med Bk",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "9eb13ae1-21ba-4e2f-8af2-6af9799ecd77",
@@ -2467,7 +2467,7 @@
     "Name": "Ben amor  Maryem",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "55ff861b-4106-4d19-a1f6-1a99c7932b98",
@@ -2486,7 +2486,7 @@
     "Name": "Manel",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d3d781e6-2230-42e8-8df0-fd4619505fef",
@@ -2505,7 +2505,7 @@
     "Name": "Omar Ajmi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "df357aa2-c34b-4f59-8f15-daac2ae59234",
@@ -2524,7 +2524,7 @@
     "Name": "Slim Amri",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "340c2c2c-cbca-4e9e-aabf-9c81de05cfde",
@@ -2543,7 +2543,7 @@
     "Name": "M J",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5af27f90-fc4f-4629-aaae-849146a75d17",
@@ -2562,7 +2562,7 @@
     "Name": "Arslene Bouzouita",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ee593970-ad74-4281-93f7-1759b0f0cf0b",
@@ -2581,7 +2581,7 @@
     "Name": "Nizar .",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e793fb43-b2d9-4f0c-9137-1d2fbca2e81a",
@@ -2600,7 +2600,7 @@
     "Name": "fathi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5c6f26ff-8dc2-4ac1-be87-eb8bba8c4049",
@@ -2619,7 +2619,7 @@
     "Name": "Zied",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "190b2e88-9bd8-4150-bc0d-f69536893b72",
@@ -2638,7 +2638,7 @@
     "Name": "Skandar",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e5dc8bc0-d80c-4da7-96fa-f670eaec5030",
@@ -2657,7 +2657,7 @@
     "Name": "Deva",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "dc326765-fd9d-4327-9def-8f2938eb4ca5",
@@ -2676,7 +2676,7 @@
     "Name": "Tar",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "512e48cf-44be-4481-8329-14f014f167bb",
@@ -2695,7 +2695,7 @@
     "Name": "Mar",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "cb5dd39b-2850-4d1e-aa8a-b14944f1e0bf",
@@ -2714,7 +2714,7 @@
     "Name": "Rayan Maaoui",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "cded2906-1e2e-42c5-b8c0-c3573b951bea",
@@ -2733,7 +2733,7 @@
     "Name": "Rachid Azaiez",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b5c358ad-e024-4eb9-a2e9-3ced5f65eeeb",
@@ -2752,7 +2752,7 @@
     "Name": "AKRAM BELHADJ",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ff9baf34-8be7-4a76-9b7c-280aa56e382e",
@@ -2771,7 +2771,7 @@
     "Name": "og kush",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "09541add-9785-46be-a982-cb6bfdf4f1fa",
@@ -2790,7 +2790,7 @@
     "Name": "Med Gharbi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e8b05d47-99f8-49d4-8bcb-88b5b4adb126",
@@ -2809,7 +2809,7 @@
     "Name": "Achraf Cherif",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5f5d69a8-64ff-4684-b096-0f47e78c8341",
@@ -2828,7 +2828,7 @@
     "Name": "Jalil Hamouda",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d4de856b-1db9-4078-aee3-37b8e18f9f36",
@@ -2847,7 +2847,7 @@
     "Name": "Aissa Ghribi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "c96d1ce9-79c7-4ba1-9fb6-8f05bb4143aa",
@@ -2866,7 +2866,7 @@
     "Name": "Hassan",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "df29c2a8-69a8-4978-9b2c-d129bef7e4d0",
@@ -2885,7 +2885,7 @@
     "Name": "Med Jmail",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b835de5d-a09c-4fc2-b711-69d9a11bbb1b",
@@ -2904,7 +2904,7 @@
     "Name": "Hatem  B",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "3f182eec-46b3-43c3-8238-8d6d79bc60be",
@@ -2923,7 +2923,7 @@
     "Name": "BICHIOU HMIDA",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "63cc7e91-91b0-4d5f-99b1-df37171ce7b8",
@@ -2942,7 +2942,7 @@
     "Name": "anis sellami",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "1b844969-1f13-4933-a693-782ed749f1fd",
@@ -2961,7 +2961,7 @@
     "Name": "Mounia slama",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "3becc9e7-ae86-4b9e-8736-759c8755c44b",
@@ -2980,7 +2980,7 @@
     "Name": "Anis chaari",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "31299063-26f7-4b6c-ba19-c50e0a403e2c",
@@ -2999,7 +2999,7 @@
     "Name": "BECHIR NEFZI",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "90261ea8-5126-4e64-8fc5-8765f2826b1d",
@@ -3018,7 +3018,7 @@
     "Name": "Djo",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2961c4f6-218d-4dc9-8139-0bf892883924",
@@ -3037,7 +3037,7 @@
     "Name": "wassim dellaï",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "293217e6-2494-4bf3-879d-9ab660ef4b92",
@@ -3056,7 +3056,7 @@
     "Name": "MP",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "0f56378c-d4e2-4f7d-8072-f3c2e2c08b82",
@@ -3075,7 +3075,7 @@
     "Name": "Aymen MDIMEGH",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "c50b4fab-79d1-453e-b7dd-a79484c026af",
@@ -3094,7 +3094,7 @@
     "Name": "Kais Sane",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f0657604-03da-4cbf-8811-81e54103911b",
@@ -3113,7 +3113,7 @@
     "Name": "Nadia  R",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ba28d6b8-a4fa-4b90-935e-2d77736d261d",
@@ -3132,7 +3132,7 @@
     "Name": "Melek",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "969652d1-5aa6-45f9-ba04-2bc0affce12b",
@@ -3151,7 +3151,7 @@
     "Name": "Bader Khouni",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e01d1eac-2df8-4db2-a831-50cc240441f1",
@@ -3170,7 +3170,7 @@
     "Name": "Chahira",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "cf7e513f-8091-4d2e-bff0-782d424e4c36",
@@ -3189,7 +3189,7 @@
     "Name": "Emna",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f75ca6ee-037a-454d-aa01-cc8ca04471dd",
@@ -3208,7 +3208,7 @@
     "Name": "Mohamed ali",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "dfbd40ce-ef95-4796-8e01-fc0d8145067f",
@@ -3227,7 +3227,7 @@
     "Name": "Bilel",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6a4de247-6736-423e-a305-243073736bc1",
@@ -3246,7 +3246,7 @@
     "Name": "ghadir ghadir",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ba8b82d8-1ff9-4f75-9d26-8cda1777cdbe",
@@ -3265,7 +3265,7 @@
     "Name": "mohamed zghouani",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "43ea0b04-dbdd-4f0c-8bbb-7b7f62c70201",
@@ -3284,7 +3284,7 @@
     "Name": "Lilia",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "98635968-7b7d-4653-9c45-858b0569ce68",
@@ -3303,7 +3303,7 @@
     "Name": "hedi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "014bb32e-240b-4538-9e74-d19c4edcdbe4",
@@ -3322,7 +3322,7 @@
     "Name": "Arbia",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2cdbf9ad-5a78-4e1b-9f73-3c571594ac33",
@@ -3341,7 +3341,7 @@
     "Name": "بالله وقتاش تتوفر suzuki celerio populaire ?",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "382fa03a-f314-45de-8977-7ebbbaf7caf0",
@@ -3360,7 +3360,7 @@
     "Name": "Fatma Hakim",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b7fefcb0-d041-455f-b697-3f74416016a4",
@@ -3379,7 +3379,7 @@
     "Name": "Abdennacer Karoui",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "184171b5-17e8-4477-b636-8d1b5f1fac24",
@@ -3398,7 +3398,7 @@
     "Name": "Souha Zitouni",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "996b7e56-4968-4a47-8760-505dc53e8dee",
@@ -3417,7 +3417,7 @@
     "Name": "Karim Kimou",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "44367ce1-cb2b-4269-b4df-559c92c2b47f",
@@ -3436,7 +3436,7 @@
     "Name": "Ahmed Aifa",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "a9ed6f24-92fc-4e2b-a0eb-cb823d6ad82a",
@@ -3455,7 +3455,7 @@
     "Name": "nbn wan",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "21a14fd2-ed90-40a0-9043-e6507dc78cee",
@@ -3474,7 +3474,7 @@
     "Name": "med",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "f61d15e3-7185-4b30-a4f7-6d7cee080734",
@@ -3493,7 +3493,7 @@
     "Name": "Mahmoud Dalensi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "5b8b28b9-4b89-48ae-868f-ec3bd7c59496",
@@ -3512,7 +3512,7 @@
     "Name": "Najwa",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "c56165cf-8fd5-48ef-b125-84e88de424fb",
@@ -3531,7 +3531,7 @@
     "Name": "Rym Ismaïl",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "89c2094a-f138-45d5-9230-ce893300e835",
@@ -3550,7 +3550,7 @@
     "Name": "Islem",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e73773ba-3122-4231-a518-fdb5783072fa",
@@ -3569,7 +3569,7 @@
     "Name": "WT",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "0f9ad2bb-cd95-4d83-a357-8596a62cddd1",
@@ -3588,7 +3588,7 @@
     "Name": "Fedha Khaled",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "31b9d80d-c4c4-4ea3-81fd-6b8a294a5042",
@@ -3607,7 +3607,7 @@
     "Name": "Houssem",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "4b67f017-367c-4d9e-8988-2b2c79cc5fdf",
@@ -3626,7 +3626,7 @@
     "Name": "Ahmed Miledi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "db8b7868-a897-4d28-83a2-6f86fc014446",
@@ -3645,7 +3645,7 @@
     "Name": "Walid  Arfaoui",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "7d8b41eb-07ab-446c-ad75-b7db498c6bea",
@@ -3664,7 +3664,7 @@
     "Name": "Amira",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e27c4a89-bc59-4858-a393-c5a6c6436376",
@@ -3683,7 +3683,7 @@
     "Name": "Yosra Bouanene",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "36e74d2d-1827-4781-a8ef-973da46cbf79",
@@ -3702,7 +3702,7 @@
     "Name": "Mohamed  hammami",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "3759e28d-f4ce-4497-97c4-408c6f89a94b",
@@ -3721,7 +3721,7 @@
     "Name": "Med Krimi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b958ed39-8ff8-4e04-a844-d752f5e58ebc",
@@ -3740,7 +3740,7 @@
     "Name": "Oum",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "4afdc5d9-b3b9-41d4-8b66-28fd3cb0e382",
@@ -3759,7 +3759,7 @@
     "Name": "KHOULOUD BEN ABDALLAH",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "123d5362-9807-4d13-b410-503e9478562f",
@@ -3778,7 +3778,7 @@
     "Name": "Kimo Rezgui",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "01db6b8b-20b1-4dab-88e8-fa84ee02c60a",
@@ -3797,7 +3797,7 @@
     "Name": "Metam Technologies",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d8b32940-d3d4-4af4-9cc9-1adfb3a8faea",
@@ -3816,7 +3816,7 @@
     "Name": "Ahmed Ahmed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "b55e5dc9-251f-4124-a855-4845c6c0a42b",
@@ -3835,7 +3835,7 @@
     "Name": "Hamza wafi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6d99911c-2bee-40c9-837c-d08cbebb12aa",
@@ -3854,7 +3854,7 @@
     "Name": "ines ines",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "cb51d3d7-a8b9-4890-99ab-d98065e5107f",
@@ -3873,7 +3873,7 @@
     "Name": "Mohamed Ammar",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6c0926dc-3b92-45ea-a5f9-fd0831120b4e",
@@ -3892,7 +3892,7 @@
     "Name": "A. J.",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "8abeecc6-2be7-43b1-aa34-67367c50e5f1",
@@ -3911,7 +3911,7 @@
     "Name": "Meziani",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "d5b65e30-5476-48d1-beba-a7474141a138",
@@ -3930,7 +3930,7 @@
     "Name": "Oa 216",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "663aa98e-4abd-4664-b2e9-95450d4a570a",
@@ -3949,7 +3949,7 @@
     "Name": "Jilani Mbarek",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2c3b7b23-a3c4-415e-bfec-8fb4f552d232",
@@ -3968,7 +3968,7 @@
     "Name": "Bessem Krifa",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "e219d568-6f02-40a3-bb76-2ffbb119d1a3",
@@ -3987,7 +3987,7 @@
     "Name": "Sarah",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "8f55bc03-e6ab-409c-8710-1c92ce244643",
@@ -4006,7 +4006,7 @@
     "Name": "Elhaj Mabrouk Walid",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "de04d66f-f09e-4f65-902f-f5b860da9d50",
@@ -4025,7 +4025,7 @@
     "Name": "KB",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "ef2ee045-76dc-43a7-b2bb-25438d6a5302",
@@ -4044,7 +4044,7 @@
     "Name": "Ben Ali Anwer",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "afc2c21e-11aa-43d6-ac11-9cef0bf68e08",
@@ -4063,7 +4063,7 @@
     "Name": "Faty G",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "22ec9dfe-e02b-4303-9b28-db17c4bc1a99",
@@ -4082,7 +4082,7 @@
     "Name": "Hamda AOUNALLAH",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "06bc55b9-675e-4497-bcfa-7aabd3995ba8",
@@ -4101,7 +4101,7 @@
     "Name": "Mr Elyes",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "683b81d2-24da-4b9f-b99e-b03c8a915c4a",
@@ -4120,7 +4120,7 @@
     "Name": "Nasser",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "bae21e9f-f56e-4448-a351-bd6488ff4339",
@@ -4139,7 +4139,7 @@
     "Name": "Atef",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "6276768f-2b2b-4944-8879-14f1ee5a6588",
@@ -4158,7 +4158,7 @@
     "Name": "Gharbi Fathi",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "65a19208-bd29-4b28-ab0a-fbc6b5eeb804",
@@ -4177,7 +4177,7 @@
     "Name": "Nizar.T",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "7469e69c-eb74-45be-abac-cee643c54bd2",
@@ -4196,7 +4196,7 @@
     "Name": "madi ahmed",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "2df8e465-fc36-4cc3-938a-d1a54b9e740f",
@@ -4215,7 +4215,7 @@
     "Name": "Sami M",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "4df9b8ef-3f4b-407a-b6eb-6eb8662cb771",
@@ -4234,7 +4234,7 @@
     "Name": "Haithem Gebs",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "63471918-ac21-4857-bfad-71860a1ad8c8",
@@ -4253,7 +4253,7 @@
     "Name": "Mourad",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   },
   {
     "Id": "db39a20e-5e6c-4da4-b940-930f13d9ea90",
@@ -4272,6 +4272,6 @@
     "Name": "Nabhan",
     "Address": "Unknown",
     "ImageUrl": "/images/users/default.png",
-    "RateAverage": 0
+    "RateAverage": null
   }
 ]
