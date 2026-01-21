@@ -1,0 +1,154 @@
+@model GoWheels.Models.Post
+@using GoWheels.Models 
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Post Details</h1>
+        
+        <div class="d-flex gap-2">
+            <form asp-action="ChangeStatus" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="newStatus" value="@PostStatus.Accepted" />
+                <button type="submit" class="btn btn-success">Accept</button>
+            </form>
+
+            <form asp-action="ChangeStatus" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="newStatus" value="@PostStatus.Rejected" />
+                <button type="submit" class="btn btn-danger">Reject</button>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <h4>Post Information</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedAt)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Status == PostStatus.Accepted)
+                {
+                    <span class="badge bg-success">@Model.Status</span>
+                }
+                else if (Model.Status == PostStatus.Rejected)
+                {
+                    <span class="badge bg-danger">@Model.Status</span>
+                }
+                else if (Model.Status == PostStatus.Pending)
+                {
+                    <span class="badge bg-warning text-dark">@Model.Status</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">@Model.Status</span>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RateAverage)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RateAverage)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Constructor)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Constructor)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ModelName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ModelName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ReleaseDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PurchaseDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Kilometrage)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Kilometrage)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Specifications)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Specifications != null && Model.Specifications.Count != 0)
+                {
+                    <ul class="list-unstyled mb-0">
+                        @foreach (var spec in Model.Specifications)
+                        {
+                            <li><strong>@spec.Key:</strong> @spec.Value</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span class="text-muted">No specifications provided.</span>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Owner)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Owner.Name)
+            </dd>
+        </dl>
+        
+        <div class="row mt-3">
+            @if (Model.PostImages != null && Model.PostImages.Any())
+            {
+                @foreach (var postImage in Model.PostImages)
+                {
+                    <div class="col-md-4 mb-3 d-flex justify-content-center">
+                        <img src="@postImage.ImageUrl"
+                             alt="@Model.ModelName Image"
+                             class="img-fluid rounded"
+                             style="max-height: 300px; object-fit: cover;" />
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-light border rounded"
+                         style="width: 250px; height: 300px;">
+                        <span class="text-muted">No Images Available</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
