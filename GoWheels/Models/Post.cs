@@ -29,6 +29,7 @@ namespace GoWheels.Models
         public PostStatus Status { get; set; } = PostStatus.Pending;
         public bool IsForRent { get; set; } = false;
         public float? RateAverage { get; set; }
+        public int RatingsCount { get; set; } = 0;
 
         public ICollection<PostImage> PostImages { get; set; } = new List<PostImage>();
         

@@ -22,9 +22,15 @@ namespace GoWheels.Services
         {
             try
             {
+                var post = await _context.Posts.FindAsync(rating.RatedPostId);
+                if (post != null)
+                {
+                    float currentSum = (post.RateAverage ?? 0) * post.RatingsCount;
+                    post.RatingsCount++;
+                    post.RateAverage = (float)Math.Round((currentSum + rating.Value) / post.RatingsCount, 2, MidpointRounding.AwayFromZero);
+                }
+
                 _context.PostsRatings.Add(rating);
-                await _context.SaveChangesAsync();
-                await UpdatePostRateAverageAsync(rating.RatedPostId);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -50,32 +56,49 @@ namespace GoWheels.Services
             }
         }
 
-        public async Task<bool> DeleteRatingAsync(int ratingId, bool isPostRating)
+        public async Task<bool> DeletePostRatingAsync(string id)
         {
             try
             {
-                if (isPostRating)
+                var r = await _context.PostsRatings.FindAsync(id);
+                if (r == null) return false;
+                var postId = r.RatedPostId;
+                var ratingValue = r.Value;
+                
+                var post = await _context.Posts.FindAsync(postId);
+                if (post != null)
                 {
-                    var r = await _context.PostsRatings.FindAsync(ratingId);
-                    if (r == null) return false;
-
-                    var postId = r.RatedPostId;
-
-                    _context.PostsRatings.Remove(r);
-                    await _context.SaveChangesAsync();
-
-                    await UpdatePostRateAverageAsync(postId);
-                    await _context.SaveChangesAsync();
-                }
-                else
-                {
-                    var r = await _context.UsersRatings.FindAsync(ratingId);
-                    if (r == null) return false;
-
-                    _context.UsersRatings.Remove(r);
-                    await _context.SaveChangesAsync();
+                    if (post.RatingsCount > 1)
+                    {
+                        float totalSum = (post.RateAverage ?? 0) * post.RatingsCount;
+                        post.RatingsCount--;
+                        post.RateAverage = (float)Math.Round((totalSum - ratingValue) / post.RatingsCount, 2, MidpointRounding.AwayFromZero);
+                    }
+                    else
+                    {
+                        post.RatingsCount = 0;
+                        post.RateAverage = null;
+                    }
                 }
 
+                _context.PostsRatings.Remove(r);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting rating: {ex.Message}");
+                return false;
+            }
+        }
+        public async Task<bool> DeleteUserRatingAsync(string id)
+        {
+            try
+            {
+                var r = await _context.UsersRatings.FindAsync(id);
+                if (r == null) return false;
+                _context.UsersRatings.Remove(r);
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
@@ -135,6 +158,9 @@ namespace GoWheels.Services
         // RETRIEVAL BY OWNER (Given Ratings - History)
         // ==========================================================
 
+        /**
+         * This function is not good at all, it mixes the PostRatings and UserRatings
+         */
         public async Task<List<Rating>> GetAllRatingsGivenByUserAsync(string userId)
         {
             // 1. Get Post Ratings (With Car Images for the list)
@@ -157,37 +183,37 @@ namespace GoWheels.Services
 
             return allRatings.OrderByDescending(r => r.Id).ToList();
         }
-        //pour la mise à jour du avg rating des posts à chaque ajout et supp des posts
-        private async Task UpdatePostRateAverageAsync(string postId)
-        {
-            var average = await _context.PostsRatings
-                .Where(r => r.RatedPostId == postId)
-                .AverageAsync(r => (float?)r.Value);
-
-            var post = await _context.Posts.FindAsync(postId);
-            if (post == null) return;
-
-            post.RateAverage = average.HasValue
-                ? (float)Math.Round(average.Value, 2, MidpointRounding.AwayFromZero)
-                : null;
-        }
         
         // pour la mise à jour du avg rating des posts lors du lancement du serveur
         public async Task RecalculateAllPostsRateAverageAsync()
         {
+            var stats = await _context.PostsRatings
+                .GroupBy(r => r.RatedPostId)
+                .Select(g => new
+                {
+                    PostId = g.Key,
+                    Average = g.Average(r => r.Value),
+                    Count = g.Count()
+                })
+                .ToDictionaryAsync(x => x.PostId);
+
             var posts = await _context.Posts.ToListAsync();
 
             foreach (var post in posts)
             {
-                var avg = await _context.PostsRatings
-                    .Where(r => r.RatedPostId == post.Id)
-                    .AverageAsync(r => (float?)r.Value);
-
-                post.RateAverage = avg.HasValue
-                    ? (float)Math.Round(avg.Value, 2, MidpointRounding.AwayFromZero)
-                    : null;
+                if (stats.TryGetValue(post.Id, out var stat))
+                {
+                    post.RateAverage = (float)Math.Round(stat.Average, 2, MidpointRounding.AwayFromZero);
+                    post.RatingsCount = stat.Count;
+                }
+                else
+                {
+                    post.RateAverage = null;
+                    post.RatingsCount = 0;
+                }
             }
 
+            _context.Posts.UpdateRange(posts);
             await _context.SaveChangesAsync();
         }
 

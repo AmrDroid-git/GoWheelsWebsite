@@ -1,0 +1,17 @@
+[
+  {
+    "UserName": "admin",
+    "Email": "admin@admin.com",
+    "Role": "ADMIN"
+  },
+  {
+    "UserName": "expert",
+    "Email": "expert@expert.com",
+    "Role": "EXPERT"
+  },
+  {
+    "UserName": "user",
+    "Email": "user@user.com",
+    "Role": "USER"
+  }
+]

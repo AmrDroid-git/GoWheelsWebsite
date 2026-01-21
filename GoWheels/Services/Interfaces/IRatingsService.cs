@@ -8,7 +8,8 @@ namespace GoWheels.Services.Interfaces
         // (You might want these for deleting/updating later)
         Task<bool> AddPostRatingAsync(RatingPost rating);
         Task<bool> AddUserRatingAsync(RatingUser rating);
-        Task<bool> DeleteRatingAsync(int ratingId, bool isPostRating); // ID might duplicate across tables, so we need the type
+        Task<bool> DeletePostRatingAsync(string id);
+        Task<bool> DeleteUserRatingAsync(string id);
 
         // --- Retrieval by ID ---
         Task<RatingPost?> GetPostRatingByIdAsync(string id);

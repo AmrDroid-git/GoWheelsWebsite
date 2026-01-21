@@ -70,6 +70,10 @@ namespace GoWheels.Data
                 .Property(p => p.RateAverage)
                 .IsRequired(false);
 
+            // ----------------------------
+            // JSON Seeding (Disabled - Using Program.cs manual seeding for better performance with large data)
+            // ----------------------------
+            // SeedFromJson(builder);
         }
 
         private static void SeedFromJson(ModelBuilder builder)

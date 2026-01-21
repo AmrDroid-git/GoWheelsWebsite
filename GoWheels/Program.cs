@@ -8,6 +8,7 @@ using GoWheels.Services.Startup;
 using GoWheels.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using GoWheels.Validators;
+using GoWheels.Data.Initialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,85 +58,8 @@ var app = builder.Build();
 // DB Initialization
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-    var context = services.GetRequiredService<GoWheelsDbContext>();
-    context.Database.EnsureDeleted();
-    context.Database.EnsureCreated();
-    
-    // 1. Create Roles
-    var roles = new List<string> { "ADMIN", "EXPERT", "USER" };
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-            await roleManager.CreateAsync(new IdentityRole(role));
-    }
-
-    // 2. Create Default Users
-    var names = new List<string> { "admin", "expert", "user" };
-    foreach (var name in names)
-    {
-        if (await userManager.FindByNameAsync(name) == null)
-        {
-            var user = new ApplicationUser { UserName = name, Email = $"{name}@{name}.com", EmailConfirmed = true, PhoneNumber = "98756683", Address = "CUN"};
-            var result = await userManager.CreateAsync(user, "Password123!"); // Identity usually requires a strong password
-            if (result.Succeeded)
-            {
-                await userManager.AddToRoleAsync(user, name.ToUpper());
-            }
-        }
-    }
-    
-    // 3. Feed JSON Seed
-    if (await context.Posts.CountAsync() == 0)
-    {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        var basePath = Path.Combine("Data", "Seed");
-
-        var usersPath      = Path.Combine(basePath, "users.json");
-        var postsPath      = Path.Combine(basePath, "posts_clean.json");
-        var postImagesPath = Path.Combine(basePath, "post_images.json");
-        var commentsPath   = Path.Combine(basePath, "comments_seed.json");
-        var postsRatingsPath    = Path.Combine(basePath, "ratings_posts.json");
-
-        if (File.Exists(usersPath))
-        {
-            var users = JsonSerializer.Deserialize<List<ApplicationUser>>(
-                File.ReadAllText(usersPath), options);
-            if(users != null) await context.Users.AddRangeAsync(users);
-        }
-        if (File.Exists(postsPath))
-        {
-            var posts = JsonSerializer.Deserialize<List<Post>>(
-                File.ReadAllText(postsPath), options);
-            if(posts != null) await context.Posts.AddRangeAsync(posts);
-        }
-        if (File.Exists(postImagesPath))
-        {
-            var postImages = JsonSerializer.Deserialize<List<PostImage>>(
-                File.ReadAllText(postImagesPath), options);
-            if(postImages != null) await context.PostImages.AddRangeAsync(postImages);
-        }
-        if (File.Exists(postsRatingsPath))
-        {
-            var postsRatings = JsonSerializer.Deserialize<List<RatingPost>>(
-                File.ReadAllText(postsRatingsPath), options);
-            if (postsRatings != null) await context.PostsRatings.AddRangeAsync(postsRatings);
-        }
-        if (File.Exists(commentsPath))
-        {
-            var comments = JsonSerializer.Deserialize<List<Comment>>(
-                File.ReadAllText(commentsPath), options);
-            if(comments != null) await context.Comments.AddRangeAsync(comments);
-        }
-        
-        await context.SaveChangesAsync();
-    }
+    await DbInitializer.DropAndMigrateDatabaseAsync(scope.ServiceProvider);
+    await DbInitializer.SeedAsync(scope.ServiceProvider);
 }
 
 // Configure the HTTP request pipeline.
