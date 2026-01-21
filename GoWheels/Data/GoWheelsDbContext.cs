@@ -65,11 +65,6 @@ namespace GoWheels.Data
             // ----------------------------
             builder.Entity<RatingUser>().ToTable("UserRatings");
             builder.Entity<RatingPost>().ToTable("PostRatings");
-
-            // ----------------------------
-            // JSON Seed
-            // ----------------------------
-            SeedFromJson(builder);
             
             builder.Entity<Post>()
                 .Property(p => p.RateAverage)
