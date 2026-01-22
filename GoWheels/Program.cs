@@ -29,6 +29,14 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(
         )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<GoWheelsDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/login";
+    options.LogoutPath = "/logout";
+    options.AccessDeniedPath = "/access-denied";
+});
+
 builder.Services.AddScoped<IUserValidator<ApplicationUser>, PhoneNumberValidator>();
 
 

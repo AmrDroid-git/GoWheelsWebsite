@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using GoWheels.Services.Interfaces;
 using GoWheels.Models;
 
 namespace GoWheels.Controllers
 {
+    [Authorize(Roles = "ADMIN")]
     public class AdminController : Controller
     {
         private readonly IPostsService _postsService;
