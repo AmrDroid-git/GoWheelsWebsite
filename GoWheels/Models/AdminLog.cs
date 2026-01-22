@@ -8,18 +8,12 @@ namespace GoWheels.Models
         [Key]
         [MaxLength(128)]
         public string Id { get; set; } = Guid.NewGuid().ToString();
-
-        [Required]
-        [MaxLength(128)]
-        public string AdminId { get; set; } = null!;
-
-        [ForeignKey(nameof(AdminId))]
-        public ApplicationUser Admin { get; set; } = null!;
+        
         
         [Required]
         [MaxLength(128)]
         public string UserId { get; set; } = null!;
-        public ApplicationUser UserWhoDidTheAction { get; set; } = null!;
+        public ApplicationUser Actor { get; set; } = null!;
 
         [Required]
         [MaxLength(200)]

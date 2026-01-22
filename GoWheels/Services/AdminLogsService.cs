@@ -14,11 +14,11 @@ namespace GoWheels.Services
             _context = context;
         }
 
-        public async Task LogAsync(string adminId,string userId, string action, string? details = null)
+        public async Task LogAsync(string userId, string action, string? details = null)
         {
             var log = new AdminLog
             {
-                AdminId = adminId,
+               
                 UserId = userId,
                 Action = action,
                 Details = details
@@ -31,7 +31,7 @@ namespace GoWheels.Services
         public async Task<List<AdminLog>> GetLogsAsync(int limit = 100)
         {
             return await _context.AdminLogs
-                .Include(l => l.Admin)
+                .Include(l => l.Actor)
                 .OrderByDescending(l => l.CreatedAt)
                 .Take(limit)
                 .ToListAsync();
