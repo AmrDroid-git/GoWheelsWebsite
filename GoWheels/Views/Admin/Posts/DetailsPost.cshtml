@@ -5,119 +5,413 @@
     ViewData["Title"] = "Post Details";
 }
 
-<div class="container mt-4">
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+<style>
+    .details-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        padding: 40px 20px;
     }
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Post Details</h1>
-        <div>
-            @if (Model.Status == PostStatus.Accepted)
-            {
-                <span class="badge bg-success fs-6">@Model.Status</span>
-            }
-            else if (Model.Status == PostStatus.Rejected)
-            {
-                <span class="badge bg-danger fs-6">@Model.Status</span>
-            }
-            else if (Model.Status == PostStatus.Pending)
-            {
-                <span class="badge bg-warning text-dark fs-6">@Model.Status</span>
-            }
-            else
-            {
-                <span class="badge bg-secondary fs-6">@Model.Status</span>
-            }
-        </div>
-    </div>
+    .details-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 2.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
 
-    <div>
-        <h4>Post Information</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CreatedAt)</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.CreatedAt)</dd>
-            
-            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Status)</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Status)</dd>
+    /* Alert Styling */
+    .glass-alert {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid;
+    }
 
-            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.RateAverage)</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.RateAverage)</dd>
+    .alert-success {
+        border-left-color: #48bb78;
+        background: rgba(72, 187, 120, 0.1);
+        color: #2f855a;
+    }
 
-            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Constructor)</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Constructor)</dd>
+    .alert-danger {
+        border-left-color: #f56565;
+        background: rgba(245, 101, 101, 0.1);
+        color: #c53030;
+    }
 
-            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ModelName)</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.ModelName)</dd>
+    /* Header Section */
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    }
 
-            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Price)</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Price)</dd>
+    .page-title {
+        font-weight: 700;
+        font-size: 2.2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0;
+    }
 
-            <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Owner)</dt>
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Owner.Name)</dd>
-        </dl>
+    /* Status Badges */
+    .status-badge {
+        padding: 0.75rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-accepted {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: white;
+    }
+
+    .badge-rejected {
+        background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        color: white;
+    }
+
+    .badge-pending {
+        background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+        color: white;
+    }
+
+    .badge-default {
+        background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+        color: white;
+    }
+
+    /* Info Section */
+    .info-section {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-title {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #2d3748;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #667eea;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .info-value {
+        color: #4a5568;
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding: 0.75rem;
+        background: rgba(102, 126, 234, 0.05);
+        border-radius: 8px;
+        border-left: 3px solid #667eea;
+    }
+
+    /* Images Grid */
+    .images-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .image-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .image-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .image-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Admin Actions Card */
+    .actions-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 16px;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
+        overflow: hidden;
+        margin: 2rem 0;
+    }
+
+    .actions-header {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        padding: 1.2rem 1.5rem;
+        font-weight: 700;
+        color: #2d3748;
+        border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+        font-size: 1.2rem;
+    }
+
+    .actions-body {
+        padding: 1.5rem;
+    }
+
+    .status-form {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .form-select {
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        border-radius: 8px;
+        padding: 0.6rem 1rem;
+        background: white;
+        color: #4a5568;
+        font-weight: 500;
+        min-width: 200px;
+    }
+
+    .form-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        outline: none;
+    }
+
+    .btn-update {
+        padding: 0.6rem 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-update:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-delete {
+        padding: 0.6rem 1.5rem;
+        background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-delete:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(229, 62, 62, 0.4);
+    }
+
+    .btn-back {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .btn-back:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .divider {
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+        margin: 2rem 0;
+        border: none;
+    }
+
+    @@media (max-width: 768px) {
+        .details-container {
+            padding: 1.5rem;
+        }
         
-        <div class="row mt-3">
-            @if (Model.PostImages != null && Model.PostImages.Any())
-            {
-                @foreach (var postImage in Model.PostImages)
+        .info-grid {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+        
+        .info-label {
+            margin-top: 0.5rem;
+        }
+        
+        .page-header {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="details-page">
+    <div class="details-container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show glass-alert" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show glass-alert" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="page-header">
+            <h1 class="page-title">📋 Post Details</h1>
+            <div>
+                @if (Model.Status == PostStatus.Accepted)
                 {
-                    <div class="col-md-4 mb-3 d-flex justify-content-center">
-                        <img src="@postImage.ImageUrl"
-                             alt="@Model.ModelName Image"
-                             class="img-fluid rounded"
-                             style="max-height: 300px; object-fit: cover;" />
-                    </div>
+                    <span class="status-badge badge-accepted">@Model.Status</span>
                 }
-            }
-        </div>
-    </div>
-    
-    <hr class="my-4" />
-
-    <div class="card bg-light mb-4">
-        <div class="card-header fw-bold">Admin Actions</div>
-        <div class="card-body">
-            <div class="row g-3 align-items-center">
-                
-                <div class="col-auto">
-                    <form asp-action="ChangeStatus" method="post" class="d-flex gap-2 align-items-center">
-                        <input type="hidden" name="id" value="@Model.Id" />
-                        <label class="fw-bold">Change Status:</label>
-                        
-                        <select name="newStatus" class="form-select" asp-items="Html.GetEnumSelectList<PostStatus>()">
-                            </select>
-                        
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-
-                <div class="col"></div> <div class="col-auto">
-                    <form asp-action="DeletePost" method="post" onsubmit="return confirm('Are you sure you want to PERMANENTLY delete this post? This cannot be undone.');">
-                        <input type="hidden" name="id" value="@Model.Id" />
-                        <button type="submit" class="btn btn-danger">
-                            <i class="bi bi-trash-fill"></i> Delete Post from Database
-                        </button>
-                    </form>
-                </div>
-
+                else if (Model.Status == PostStatus.Rejected)
+                {
+                    <span class="status-badge badge-rejected">@Model.Status</span>
+                }
+                else if (Model.Status == PostStatus.Pending)
+                {
+                    <span class="status-badge badge-pending">@Model.Status</span>
+                }
+                else
+                {
+                    <span class="status-badge badge-default">@Model.Status</span>
+                }
             </div>
         </div>
-    </div>
 
-    <div class="mt-3 mb-5">
-        <a asp-action="PostsManagement" class="btn btn-outline-secondary">Back to Posts Management</a>
+        <div class="info-section">
+            <h4 class="section-title">ℹ️ Post Information</h4>
+            <div class="info-grid">
+                <div class="info-label">@Html.DisplayNameFor(model => model.CreatedAt)</div>
+                <div class="info-value">@Html.DisplayFor(model => model.CreatedAt)</div>
+                
+                <div class="info-label">@Html.DisplayNameFor(model => model.Status)</div>
+                <div class="info-value">@Html.DisplayFor(model => model.Status)</div>
+
+                <div class="info-label">@Html.DisplayNameFor(model => model.RateAverage)</div>
+                <div class="info-value">@Html.DisplayFor(model => model.RateAverage)</div>
+
+                <div class="info-label">@Html.DisplayNameFor(model => model.Constructor)</div>
+                <div class="info-value">@Html.DisplayFor(model => model.Constructor)</div>
+
+                <div class="info-label">@Html.DisplayNameFor(model => model.ModelName)</div>
+                <div class="info-value">@Html.DisplayFor(model => model.ModelName)</div>
+
+                <div class="info-label">@Html.DisplayNameFor(model => model.Price)</div>
+                <div class="info-value">@Html.DisplayFor(model => model.Price)</div>
+
+                <div class="info-label">@Html.DisplayNameFor(model => model.Owner)</div>
+                <div class="info-value">@Html.DisplayFor(model => model.Owner.Name)</div>
+            </div>
+            
+            @if (Model.PostImages != null && Model.PostImages.Any())
+            {
+                <div class="images-grid">
+                    @foreach (var postImage in Model.PostImages)
+                    {
+                        <div class="image-card">
+                            <img src="@postImage.ImageUrl"
+                                 alt="@Model.ModelName Image" />
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <hr class="divider" />
+
+        <div class="actions-card">
+            <div class="actions-header">
+                ⚙️ Admin Actions
+            </div>
+            <div class="actions-body">
+                <div class="row g-3 align-items-center justify-content-between">
+                    <div class="col-auto">
+                        <form asp-action="ChangeStatus" method="post" class="status-form">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <label class="fw-bold text-secondary">Change Status:</label>
+                            
+                            <select name="newStatus" class="form-select" asp-items="Html.GetEnumSelectList<PostStatus>()">
+                            </select>
+                            
+                            <button type="submit" class="btn-update">Update Status</button>
+                        </form>
+                    </div>
+
+                    <div class="col-auto">
+                        <form asp-action="DeletePost" method="post" onsubmit="return confirm('Are you sure you want to PERMANENTLY delete this post? This cannot be undone.');">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <button type="submit" class="btn-delete">
+                                🗑️ Delete Post from Database
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a asp-action="PostsManagement" class="btn-back">← Back to Posts Management</a>
+        </div>
     </div>
 </div>

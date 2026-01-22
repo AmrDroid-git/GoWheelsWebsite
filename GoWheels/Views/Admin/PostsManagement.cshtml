@@ -2,59 +2,261 @@
     ViewData["Title"] = "Posts Management";
 }
 
-<div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <h1>Posts Management</h1>
-        <a asp-action="Index" class="btn btn-outline-secondary">Back to Dashboard</a>
-    </div>
+<style>
+    /* Static Gradient Background (no animation) */
+    .posts-management-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        padding: 40px 20px;
+    }
 
-    <div class="row g-4">
-        <div class="col-md-6 col-lg-3">
-            <a asp-action="PendingPosts" class="card text-decoration-none h-100 border-warning hover-shadow">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-hourglass-split display-4 text-warning mb-3"></i>
-                    <h4 class="card-title text-dark">Pending</h4>
-                    <p class="text-muted small">Posts waiting for review</p>
-                </div>
-            </a>
+    /* Glassmorphism Container */
+    .posts-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 3rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Header Section */
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .page-title {
+        font-weight: 700;
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0;
+    }
+
+    .btn-back {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .btn-back:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Status Cards with Color Coding */
+    .status-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+        position: relative;
+        text-decoration: none !important;
+        height: 100%;
+        display: block;
+    }
+
+    .status-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        transition: transform 0.3s ease;
+        transform: scaleX(0);
+    }
+
+    /* Color variants for top border */
+    .status-card.pending::before {
+        background: linear-gradient(90deg, #f6ad55, #ed8936);
+    }
+    
+    .status-card.accepted::before {
+        background: linear-gradient(90deg, #48bb78, #38a169);
+    }
+    
+    .status-card.rejected::before {
+        background: linear-gradient(90deg, #f56565, #e53e3e);
+    }
+    
+    .status-card.deleted::before {
+        background: linear-gradient(90deg, #a0aec0, #718096);
+    }
+
+    .status-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 1);
+    }
+
+    .status-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    /* Colored shadows on hover */
+    .status-card.pending:hover {
+        box-shadow: 0 12px 40px rgba(237, 137, 54, 0.25);
+    }
+    
+    .status-card.accepted:hover {
+        box-shadow: 0 12px 40px rgba(56, 161, 105, 0.25);
+    }
+    
+    .status-card.rejected:hover {
+        box-shadow: 0 12px 40px rgba(229, 62, 62, 0.25);
+    }
+    
+    .status-card.deleted:hover {
+        box-shadow: 0 12px 40px rgba(113, 128, 150, 0.25);
+    }
+
+    .card-body {
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+    }
+
+    /* Icon Circles with Status Colors */
+    .icon-circle {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .pending .icon-circle {
+        background: rgba(246, 173, 85, 0.15);
+        color: #ed8936;
+    }
+    
+    .accepted .icon-circle {
+        background: rgba(72, 187, 120, 0.15);
+        color: #38a169;
+    }
+    
+    .rejected .icon-circle {
+        background: rgba(245, 101, 101, 0.15);
+        color: #e53e3e;
+    }
+    
+    .deleted .icon-circle {
+        background: rgba(160, 174, 192, 0.15);
+        color: #718096;
+    }
+
+    .status-card:hover .icon-circle {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .card-title {
+        color: #2d3748;
+        font-weight: 700;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        color: #718096;
+        font-size: 0.95rem;
+        margin: 0;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .posts-container {
+            padding: 2rem 1rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+        }
+        
+        .page-header {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="posts-management-page">
+    <div class="posts-container">
+        <div class="page-header">
+            <h1 class="page-title">Posts Management</h1>
+            <a asp-action="Index" class="btn-back">← Back to Dashboard</a>
         </div>
 
-        <div class="col-md-6 col-lg-3">
-            <a asp-action="AcceptedPosts" class="card text-decoration-none h-100 border-success hover-shadow">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-check-circle-fill display-4 text-success mb-3"></i>
-                    <h4 class="card-title text-dark">Accepted</h4>
-                    <p class="text-muted small">Live active posts</p>
-                </div>
-            </a>
-        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <a asp-action="PendingPosts" class="status-card pending">
+                    <div class="card-body">
+                        <div class="icon-circle">
+                            <i class="bi bi-hourglass-split"></i>
+                        </div>
+                        <h4 class="card-title">Pending</h4>
+                        <p class="card-text">Posts waiting for review</p>
+                    </div>
+                </a>
+            </div>
 
-        <div class="col-md-6 col-lg-3">
-            <a asp-action="RejectedPosts" class="card text-decoration-none h-100 border-danger hover-shadow">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-x-circle-fill display-4 text-danger mb-3"></i>
-                    <h4 class="card-title text-dark">Rejected</h4>
-                    <p class="text-muted small">Posts denied by experts</p>
-                </div>
-            </a>
-        </div>
+            <div class="col-md-6 col-lg-3">
+                <a asp-action="AcceptedPosts" class="status-card accepted">
+                    <div class="card-body">
+                        <div class="icon-circle">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <h4 class="card-title">Accepted</h4>
+                        <p class="card-text">Live active posts</p>
+                    </div>
+                </a>
+            </div>
 
-        <div class="col-md-6 col-lg-3">
-            <a asp-action="DeletedPosts" class="card text-decoration-none h-100 border-secondary hover-shadow">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-trash-fill display-4 text-secondary mb-3"></i>
-                    <h4 class="card-title text-dark">Deleted</h4>
-                    <p class="text-muted small">Archived or removed posts</p>
-                </div>
-            </a>
+            <div class="col-md-6 col-lg-3">
+                <a asp-action="RejectedPosts" class="status-card rejected">
+                    <div class="card-body">
+                        <div class="icon-circle">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </div>
+                        <h4 class="card-title">Rejected</h4>
+                        <p class="card-text">Posts denied by experts</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <a asp-action="DeletedPosts" class="status-card deleted">
+                    <div class="card-body">
+                        <div class="icon-circle">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <h4 class="card-title">Deleted</h4>
+                        <p class="card-text">Archived or removed posts</p>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
-
-<style>
-    .hover-shadow:hover {
-        transform: translateY(-5px);
-        transition: transform 0.2s ease;
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-    }
-</style>
