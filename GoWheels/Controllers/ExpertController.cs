@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using GoWheels.Services.Interfaces;
 using GoWheels.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoWheels.Controllers
 {
+    [Authorize(Roles = "EXPERT")]
     public class ExpertController : Controller
     {
         private readonly IPostsService _postsService;

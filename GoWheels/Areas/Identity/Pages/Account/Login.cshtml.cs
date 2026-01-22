@@ -95,7 +95,7 @@ namespace GoWheels.Areas.Identity.Pages.Account
                     _logger.LogInformation("User logged in.");
                     await _authLogsService.LogLoginAsync(User);
                     // CHANGE: Redirect specifically to the new test page
-                    return RedirectToPage("/TestUserLogin");
+                    return RedirectToPage("/Index");
                 }
                 else
                 {
