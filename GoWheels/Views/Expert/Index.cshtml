@@ -4,109 +4,238 @@
     ViewData["Title"] = "Expert View";
 }
 
-<h1>Expert Dashboard</h1>
+<style>
+    .expert-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        padding: 40px 20px;
+    }
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["ErrorMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    .expert-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 2.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 3px solid rgba(56, 178, 172, 0.2);
+    }
+
+    .page-title {
+        font-weight: 700;
+        font-size: 2.2rem;
+        color: #319795;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    /* Alert Styling */
+    .glass-alert {
+        background: rgba(245, 101, 101, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(245, 101, 101, 0.3);
+        border-left: 4px solid #f56565;
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        color: #c53030;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .table-wrapper {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .table {
+        margin-bottom: 0;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table thead th {
+        background: linear-gradient(135deg, rgba(56, 178, 172, 0.1) 0%, rgba(49, 151, 149, 0.1) 100%);
+        color: #2d3748;
+        font-weight: 700;
+        padding: 1.2rem 1rem;
+        border-bottom: 2px solid rgba(56, 178, 172, 0.2);
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(56, 178, 172, 0.05);
+        transform: scale(1.01);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .table td {
+        padding: 1.2rem 1rem;
+        vertical-align: middle;
+        color: #4a5568;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    /* Status Badges */
+    .status-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+    }
+
+    .badge-pending {
+        background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+        color: white;
+    }
+
+    .badge-accepted {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: white;
+    }
+
+    .badge-rejected {
+        background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        color: white;
+    }
+
+    .badge-default {
+        background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+        color: white;
+    }
+
+    .btn-details {
+        padding: 0.5rem 1.2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .btn-details:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        color: white;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #a0aec0;
+        font-style: italic;
+    }
+
+    @@media (max-width: 768px) {
+        .expert-container {
+            padding: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+
+<div class="expert-page">
+    <div class="expert-container">
+        <div class="page-header">
+            <h1 class="page-title">🎓 Expert Dashboard</h1>
+        </div>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show glass-alert" role="alert">
+                <span>⚠️</span>
+                <span>@TempData["ErrorMessage"]</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="table-wrapper table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                        <th>@Html.DisplayNameFor(model => model.Status)</th>
+                        <th>@Html.DisplayNameFor(model => model.Constructor)</th>
+                        <th>@Html.DisplayNameFor(model => model.ModelName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <th>@Html.DisplayNameFor(model => model.Owner)</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                            <td>
+                                @if (item.Status == PostStatus.Pending)
+                                {
+                                    <span class="status-badge badge-pending">@item.Status</span>
+                                }
+                                else if (item.Status == PostStatus.Accepted)
+                                {
+                                    <span class="status-badge badge-accepted">@item.Status</span>
+                                }
+                                else if (item.Status == PostStatus.Rejected)
+                                {
+                                    <span class="status-badge badge-rejected">@item.Status</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge badge-default">@item.Status</span>
+                                }
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.Constructor)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ModelName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Owner.Name)</td>
+                            <td>
+                                <a class="btn-details" asp-controller="Expert" asp-action="DetailsPost" asp-route-id="@item.Id">Details</a>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="empty-state">No posts found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-}
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RateAverage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Constructor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModelName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PurchaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Kilometrage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Specifications)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Owner)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RateAverage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Constructor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModelName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kilometrage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @if (item.Specifications != null && item.Specifications.Count != 0)
-                {
-                    <small class="text-muted">
-                        @for (int i = 0; i < Math.Min(item.Specifications.Count,3); i++)
-                        {
-                                var element = item.Specifications.ElementAt(i);
-                                <b>@element.Key:</b> @element.Value <br/>
-                        }
-                        @(item.Specifications.Count > 3 ? "..." : "")
-                    </small>
-                }
-                else
-                {
-                    <span class="text-muted">No specifications.</span>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Owner.Name)
-            </td>
-            <td>
-                <a class="btn btn-sm btn-info" asp-controller="Expert" asp-action="DetailsPost" asp-route-id="@item.Id">Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+</div>
