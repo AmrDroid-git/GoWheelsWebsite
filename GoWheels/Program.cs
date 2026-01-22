@@ -4,11 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using GoWheels.Data;
 using GoWheels.Models;
 using GoWheels.Services;
-using GoWheels.Services.Startup;
 using GoWheels.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using GoWheels.Validators;
-using GoWheels.Data.Initialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,7 +44,7 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
 
-builder.Services.AddHostedService<DbInitializerService>();
+builder.Services.AddHostedService<DbInitializer>();
 
 
 // Controllers

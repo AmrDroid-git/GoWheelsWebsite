@@ -1,0 +1,55 @@
+@model IEnumerable<GoWheels.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "All Users";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>All Users</h1>
+    </div>
+
+    <div class="row">
+        @foreach (var user in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        @if (!string.IsNullOrEmpty(user.ImageUrl))
+                        {
+                            <img src="@user.ImageUrl" alt="@user.Name" class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center text-white mb-3" style="width: 100px; height: 100px;">
+                                @if (!string.IsNullOrEmpty(user.Name))
+                                {
+                                    <span>@user.Name[0]</span>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-person-fill fs-1"></i>
+                                }
+                            </div>
+                        }
+                        <h5 class="card-title">@user.Name</h5>
+                        <p class="card-text text-muted">@user.Email</p>
+                        <div class="mb-3">
+                            @if (user.RateAverage.HasValue)
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    <i class="bi bi-star-fill"></i> @user.RateAverage.Value.ToString("F1") (@user.RatingsCount)
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-light text-dark">No ratings</span>
+                            }
+                        </div>
+                        <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-outline-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

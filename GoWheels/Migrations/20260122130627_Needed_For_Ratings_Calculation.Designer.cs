@@ -3,6 +3,7 @@ using System;
 using GoWheels.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GoWheels.Migrations
 {
     [DbContext(typeof(GoWheelsDbContext))]
-    partial class GoWheelsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260122130627_Needed_For_Ratings_Calculation")]
+    partial class Needed_For_Ratings_Calculation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

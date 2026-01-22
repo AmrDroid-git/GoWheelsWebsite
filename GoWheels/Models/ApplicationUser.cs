@@ -21,6 +21,7 @@ namespace GoWheels.Models
 
         // --- User's Average Rating (as a Seller) ---
         public float? RateAverage { get; set; }
+        public int RatingsCount { get; set; } = 0;
 
         // --- Relationships ---
         public ICollection<Post> Posts { get; set; } = new List<Post>();

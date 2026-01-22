@@ -8,6 +8,8 @@ namespace GoWheels.Services.Interfaces
         // (You might want these for deleting/updating later)
         Task<bool> AddPostRatingAsync(RatingPost rating);
         Task<bool> AddUserRatingAsync(RatingUser rating);
+        Task<bool> SaveRatingPostAsync(RatingPost rating);
+        Task<bool> SaveRatingUserAsync(RatingUser rating);
         Task<bool> DeletePostRatingAsync(string id);
         Task<bool> DeleteUserRatingAsync(string id);
 
@@ -23,11 +25,7 @@ namespace GoWheels.Services.Interfaces
         // 2. Get all ratings received by a specific User (Seller)
         Task<List<RatingUser>> GetRatingsForUserAsync(string userId);
 
-        // --- Retrieval by Owner (Given Ratings) ---
-        
-        // 3. Get ALL ratings (both Post and User ratings) done by a specific user
-        // Returns a polymorphic list of the base class 'Rating'
-        Task<List<Rating>> GetAllRatingsGivenByUserAsync(string userId);
         Task RecalculateAllPostsRateAverageAsync();
+        Task RecalculateAllUsersRateAverageAsync();
     }
 }

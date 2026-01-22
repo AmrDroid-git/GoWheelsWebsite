@@ -1,0 +1,231 @@
+@model GoWheels.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = (Model.Name ?? "User") + "'s Profile";
+    var userPosts = ViewData["UserPosts"] as IEnumerable<GoWheels.Models.Post> ?? new List<GoWheels.Models.Post>();
+    var userRatings = ViewData["UserRatings"] as IEnumerable<GoWheels.Models.RatingUser> ?? new List<GoWheels.Models.RatingUser>();
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- User Sidebar -->
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    }
+                    else
+                    {
+                        <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center text-white mb-3" style="width: 150px; height: 150px;">
+                            @if (!string.IsNullOrEmpty(Model.Name))
+                            {
+                                <span class="display-3">@Model.Name[0]</span>
+                            }
+                            else
+                            {
+                                <i class="bi bi-person-fill display-3"></i>
+                            }
+                        </div>
+                    }
+                    <h3 class="card-title">@Model.Name</h3>
+                    <p class="text-muted">@Model.Email</p>
+                    <hr>
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            <h5 class="mb-0">@userPosts.Count()</h5>
+                            <small class="text-muted">Posts</small>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">@(Model.RateAverage?.ToString("F1") ?? "N/A")</h5>
+                            <small class="text-muted">Rating</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rating Section -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Rate @Model.Name</h5>
+                </div>
+                <div class="card-body text-center">
+                    <p>How was your experience with this seller?</p>
+                    <div id="userRatingStars" class="fs-2 text-warning mb-3" style="cursor: pointer;">
+                        <i class="bi bi-star" data-value="1"></i>
+                        <i class="bi bi-star" data-value="2"></i>
+                        <i class="bi bi-star" data-value="3"></i>
+                        <i class="bi bi-star" data-value="4"></i>
+                        <i class="bi bi-star" data-value="5"></i>
+                    </div>
+                    <button id="submitUserRating" class="btn btn-primary w-100">Submit Rating</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-8">
+            <ul class="nav nav-tabs mb-4" id="userTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts" type="button" role="tab">Posts</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="ratings-tab" data-bs-toggle="tab" data-bs-target="#ratings" type="button" role="tab">Ratings (@userRatings.Count())</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab">About</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="userTabsContent">
+                <!-- Posts Tab -->
+                <div class="tab-pane fade show active" id="posts" role="tabpanel">
+                    @if (userPosts.Any())
+                    {
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            @foreach (var post in userPosts)
+                            {
+                                <div class="col">
+                                    <div class="card h-100 shadow-sm">
+                                        @if (post.PostImages.Any())
+                                        {
+                                            <img src="@post.PostImages.First().ImageUrl" class="card-img-top" alt="@post.ModelName" style="height: 200px; object-fit: cover;">
+                                        }
+                                        else
+                                        {
+                                            <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                                <span class="text-muted">No Image</span>
+                                            </div>
+                                        }
+                                        <div class="card-body">
+                                            <h5 class="card-title">@post.Constructor @post.ModelName</h5>
+                                            <p class="card-text">
+                                                <strong>Price:</strong> @post.Price.ToString("C")<br>
+                                                <strong>Year:</strong> @post.ReleaseDate.Year
+                                            </p>
+                                            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="btn btn-sm btn-outline-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">This user hasn't posted anything yet.</div>
+                    }
+                </div>
+
+                <!-- Ratings Tab -->
+                <div class="tab-pane fade" id="ratings" role="tabpanel">
+                    @if (userRatings.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var rating in userRatings)
+                            {
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1 text-warning">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= rating.Value)
+                                                {
+                                                    <i class="bi bi-star-fill"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-star"></i>
+                                                }
+                                            }
+                                        </h6>
+                                        <small>@rating.Value / 5</small>
+                                    </div>
+                                    <p class="mb-1">Rated by User ID: @rating.OwnerId</p>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">No ratings yet for this user.</div>
+                    }
+                </div>
+
+                <!-- About Tab -->
+                <div class="tab-pane fade" id="about" role="tabpanel">
+                    <div class="card card-body">
+                        <h5>Contact Information</h5>
+                        <p><strong>Email:</strong> @Model.Email</p>
+                        <p><strong>Phone:</strong> @(Model.PhoneNumber ?? "Not provided")</p>
+                        <p><strong>Address:</strong> @(string.IsNullOrEmpty(Model.Address) ? "Not provided" : Model.Address)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const userId = "@Model.Id";
+            let selectedRating = 0;
+
+            // Rating Stars Hover/Click
+            $('#userRatingStars i').hover(function () {
+                const val = $(this).data('value');
+                fillStars(val);
+            }, function () {
+                fillStars(selectedRating);
+            }).click(function () {
+                selectedRating = $(this).data('value');
+                fillStars(selectedRating);
+            });
+
+            function fillStars(val) {
+                $('#userRatingStars i').each(function () {
+                    const starVal = $(this).data('value');
+                    if (starVal <= val) {
+                        $(this).removeClass('bi-star').addClass('bi-star-fill');
+                    } else {
+                        $(this).removeClass('bi-star-fill').addClass('bi-star');
+                    }
+                });
+            }
+
+            // Submit Rating
+            $('#submitUserRating').click(function () {
+                if (selectedRating === 0) {
+                    alert('Please select a rating value.');
+                    return;
+                }
+
+                $.ajax({
+                    url: '/api/Rating/User',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        userId: userId,
+                        value: selectedRating
+                    }),
+                    success: function (response) {
+                        alert('Thank you for your rating!');
+                        location.reload(); 
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 401) {
+                            alert('Please login to rate.');
+                        } else {
+                            alert('Error: ' + (xhr.responseText || 'Failed to submit rating.'));
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

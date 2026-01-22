@@ -37,7 +37,13 @@ namespace GoWheels.Controllers
                 return NotFound();
             }
 
-            var post = await _postsService.GetPostByIdAsync(id);
+            var post = await _context.Posts
+                .Include(p => p.Owner)
+                .Include(p => p.PostImages)
+                .Include(p => p.Comments)
+                    .ThenInclude(c => c.User)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (post == null)
             {
                 return NotFound();

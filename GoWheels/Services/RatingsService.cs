@@ -45,6 +45,14 @@ namespace GoWheels.Services
         {
             try
             {
+                var user = await _context.Users.FindAsync(rating.RatedUserId);
+                if (user != null)
+                {
+                    float currentSum = (user.RateAverage ?? 0) * user.RatingsCount;
+                    user.RatingsCount++;
+                    user.RateAverage = (float)Math.Round((currentSum + rating.Value) / user.RatingsCount, 2, MidpointRounding.AwayFromZero);
+                }
+
                 _context.UsersRatings.Add(rating);
                 await _context.SaveChangesAsync();
                 return true;
@@ -54,6 +62,100 @@ namespace GoWheels.Services
                 Console.WriteLine($"Error adding user rating: {ex.Message}");
                 return false;
             }
+        }
+
+        public async Task<bool> SaveRatingPostAsync(RatingPost rating)
+        {
+            try
+            {
+                var existingRating = await _context.PostsRatings
+                    .FirstOrDefaultAsync(r => r.RatedPostId == rating.RatedPostId && r.OwnerId == rating.OwnerId);
+
+                if (existingRating != null)
+                {
+                    existingRating.Value = rating.Value;
+                    _context.PostsRatings.Update(existingRating);
+                }
+                else
+                {
+                    _context.PostsRatings.Add(rating);
+                }
+
+                await _context.SaveChangesAsync();
+                await RecalculatePostAverage(rating.RatedPostId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving post rating: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> SaveRatingUserAsync(RatingUser rating)
+        {
+            try
+            {
+                var existingRating = await _context.UsersRatings
+                    .FirstOrDefaultAsync(r => r.RatedUserId == rating.RatedUserId && r.OwnerId == rating.OwnerId);
+
+                if (existingRating != null)
+                {
+                    existingRating.Value = rating.Value;
+                    _context.UsersRatings.Update(existingRating);
+                }
+                else
+                {
+                    _context.UsersRatings.Add(rating);
+                }
+
+                await _context.SaveChangesAsync();
+                await RecalculateUserAverage(rating.RatedUserId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving user rating: {ex.Message}");
+                return false;
+            }
+        }
+
+        private async Task RecalculatePostAverage(string postId)
+        {
+            var post = await _context.Posts.FindAsync(postId);
+            if (post == null) return;
+
+            var ratings = await _context.PostsRatings.Where(r => r.RatedPostId == postId).ToListAsync();
+            if (ratings.Any())
+            {
+                post.RatingsCount = ratings.Count;
+                post.RateAverage = (float)Math.Round(ratings.Average(r => r.Value), 2, MidpointRounding.AwayFromZero);
+            }
+            else
+            {
+                post.RatingsCount = 0;
+                post.RateAverage = null;
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task RecalculateUserAverage(string userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return;
+
+            var ratings = await _context.UsersRatings.Where(r => r.RatedUserId == userId).ToListAsync();
+            if (ratings.Any())
+            {
+                user.RatingsCount = ratings.Count;
+                user.RateAverage = (float)Math.Round(ratings.Average(r => r.Value), 2, MidpointRounding.AwayFromZero);
+            }
+            else
+            {
+                user.RatingsCount = 0;
+                user.RateAverage = null;
+            }
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> DeletePostRatingAsync(string id)
@@ -97,13 +199,32 @@ namespace GoWheels.Services
             {
                 var r = await _context.UsersRatings.FindAsync(id);
                 if (r == null) return false;
+                var userId = r.RatedUserId;
+                var ratingValue = r.Value;
+
+                var user = await _context.Users.FindAsync(userId);
+                if (user != null)
+                {
+                    if (user.RatingsCount > 1)
+                    {
+                        float totalSum = (user.RateAverage ?? 0) * user.RatingsCount;
+                        user.RatingsCount--;
+                        user.RateAverage = (float)Math.Round((totalSum - ratingValue) / user.RatingsCount, 2, MidpointRounding.AwayFromZero);
+                    }
+                    else
+                    {
+                        user.RatingsCount = 0;
+                        user.RateAverage = null;
+                    }
+                }
+
                 _context.UsersRatings.Remove(r);
                 await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting rating: {ex.Message}");
+                Console.WriteLine($"Error deleting user rating: {ex.Message}");
                 return false;
             }
         }
@@ -154,36 +275,6 @@ namespace GoWheels.Services
                 .ToListAsync();
         }
 
-        // ==========================================================
-        // RETRIEVAL BY OWNER (Given Ratings - History)
-        // ==========================================================
-
-        /**
-         * This function is not good at all, it mixes the PostRatings and UserRatings
-         */
-        public async Task<List<Rating>> GetAllRatingsGivenByUserAsync(string userId)
-        {
-            // 1. Get Post Ratings (With Car Images for the list)
-            var postRatings = await _context.PostsRatings
-                .Where(r => r.OwnerId == userId)
-                .Include(r => r.RatedPost)
-                    .ThenInclude(p => p.PostImages) // <--- CRITICAL: Show thumbnail
-                .ToListAsync();
-
-            // 2. Get User Ratings
-            var userRatings = await _context.UsersRatings
-                .Where(r => r.OwnerId == userId)
-                .Include(r => r.RatedUser)
-                .ToListAsync();
-
-            // 3. Combine and Sort
-            var allRatings = new List<Rating>();
-            allRatings.AddRange(postRatings);
-            allRatings.AddRange(userRatings);
-
-            return allRatings.OrderByDescending(r => r.Id).ToList();
-        }
-        
         // pour la mise à jour du avg rating des posts lors du lancement du serveur
         public async Task RecalculateAllPostsRateAverageAsync()
         {
@@ -216,6 +307,37 @@ namespace GoWheels.Services
             _context.Posts.UpdateRange(posts);
             await _context.SaveChangesAsync();
         }
+        
+        public async Task RecalculateAllUsersRateAverageAsync()
+        {
+            var stats = await _context.UsersRatings
+                .GroupBy(r => r.RatedUserId)
+                .Select(g => new
+                {
+                    UserId = g.Key,
+                    Average = g.Average(r => r.Value),
+                    Count = g.Count()
+                })
+                .ToDictionaryAsync(x => x.UserId);
 
+            var users = await _context.Users.ToListAsync();
+
+            foreach (var user in users)
+            {
+                if (stats.TryGetValue(user.Id, out var stat))
+                {
+                    user.RateAverage = (float)Math.Round(stat.Average, 2, MidpointRounding.AwayFromZero);
+                    user.RatingsCount = stat.Count;
+                }
+                else
+                {
+                    user.RateAverage = null;
+                    user.RatingsCount = 0;
+                }
+            }
+
+            _context.Users.UpdateRange(users);
+            await _context.SaveChangesAsync();
+        }
     }
 }
