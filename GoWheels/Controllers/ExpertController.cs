@@ -57,6 +57,13 @@ namespace GoWheels.Controllers
                 return NotFound();
             }
 
+            // ---CHECK: Ensure we only verify Pending posts ---
+            if (post.Status != PostStatus.Pending)
+            {
+                TempData["ErrorMessage"] = $"This post has status {post.Status}, you can't verify it.";
+                return RedirectToAction(nameof(Index));
+            }
+
             // 2. Change the status
             post.Status = newStatus;
 
@@ -65,7 +72,6 @@ namespace GoWheels.Controllers
 
             if (!success)
             {
-                // Optional: Add an error message if update failed
                 TempData["ErrorMessage"] = "Failed to update post status.";
             }
 
