@@ -38,7 +38,7 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
 
-builder.Services.AddHostedService<PostRatingsStartupService>();
+builder.Services.AddHostedService<DbInitializerService>();
 
 
 // Controllers
@@ -55,11 +55,10 @@ builder.Services.AddRazorPages();
 // Application 
 var app = builder.Build();
 
-// DB Initialization
+// DB Initialization (Migration must happen before app starts serving requests)
 using (var scope = app.Services.CreateScope())
 {
     await DbInitializer.DropAndMigrateDatabaseAsync(scope.ServiceProvider);
-    await DbInitializer.SeedAsync(scope.ServiceProvider);
 }
 
 // Configure the HTTP request pipeline.

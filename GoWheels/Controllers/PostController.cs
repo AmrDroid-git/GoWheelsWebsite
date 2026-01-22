@@ -24,8 +24,8 @@ namespace GoWheels.Controllers
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-            var recentPosts = await _postsService.GetRecentPostsAsync(6);
-            // var recentPosts = _context.Posts.AsEnumerable();
+            // var recentPosts = await _postsService.GetRecentPostsAsync(6);
+            var recentPosts = await _context.Posts.ToListAsync();
             return View(recentPosts);
         }
 
