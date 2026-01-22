@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using GoWheels.Models;
 using GoWheels.Services.Interfaces;
+using GoWheels.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -28,15 +29,18 @@ namespace GoWheels.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUsersService _usersService;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly AuthLogsService _authLogsService;
 
         public RegisterModel(
             SignInManager<ApplicationUser> signInManager,
             IUsersService usersService,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger,
+            AuthLogsService authLogsService)
         {
             _signInManager = signInManager;
             _usersService = usersService;
             _logger = logger;
+            _authLogsService = authLogsService;
         }
 
         [BindProperty]
@@ -110,6 +114,7 @@ namespace GoWheels.Areas.Identity.Pages.Account
                 if (success)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                    await _authLogsService.LogRegisterAsync(user.Id);//Logs logic
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }

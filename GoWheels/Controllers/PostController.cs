@@ -5,6 +5,8 @@ using GoWheels.Data;
 using GoWheels.Models;
 using GoWheels.Services.Interfaces;
 using GoWheels.ViewModels;
+using System.Security.Claims;
+
 
 namespace GoWheels.Controllers
 {
@@ -13,13 +15,20 @@ namespace GoWheels.Controllers
         private readonly GoWheelsDbContext _context;
         private readonly IPostsService _postsService;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IAdminLogsService _adminLogsService;
 
-        public PostController(GoWheelsDbContext context, IPostsService postsService, IWebHostEnvironment webHostEnvironment)
+        public PostController(
+            GoWheelsDbContext context,
+            IPostsService postsService,
+            IWebHostEnvironment webHostEnvironment,
+            IAdminLogsService adminLogsService)
         {
             _context = context;
             _postsService = postsService;
             _webHostEnvironment = webHostEnvironment;
+            _adminLogsService = adminLogsService;
         }
+
 
         // GET: Posts
         public async Task<IActionResult> Index()
@@ -94,6 +103,15 @@ namespace GoWheels.Controllers
                 ModelState.AddModelError(nameof(Post), "You can't create this post. Please reach out for more information.");
                 goto Repeat_Please; // --> feature : show error
             }
+            //logs logic
+            var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await _adminLogsService.LogAsync(
+                action: "POST_CREATED",
+                actorId: actorId,
+                details: $"PostId={post.Id}, OwnerId={post.OwnerId}"
+            );
+
 
             var postImages = new List<PostImage>();
             // Processing Images
@@ -182,6 +200,14 @@ namespace GoWheels.Controllers
                         throw;
                     }
                 }
+                //logs logic
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                await _adminLogsService.LogAsync(
+                    action: "POST_EDITED",
+                    actorId: actorId,
+                    details: $"PostId={post.Id}"
+                );
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", post.OwnerId);
@@ -215,7 +241,14 @@ namespace GoWheels.Controllers
             {
                 _context.Posts.Remove(post);
             }
+            //logs logic
+            var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            await _adminLogsService.LogAsync(
+                action: "POST_DELETED",
+                actorId: actorId,
+                details: $"PostId={id}"
+            );
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

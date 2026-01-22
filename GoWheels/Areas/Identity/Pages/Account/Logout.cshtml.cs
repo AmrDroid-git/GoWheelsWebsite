@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using GoWheels.Models;
 using GoWheels.Services.Interfaces;
+using GoWheels.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,16 +19,21 @@ namespace GoWheels.Areas.Identity.Pages.Account
     {
         private readonly IUsersService _usersService;
         private readonly ILogger<LogoutModel> _logger;
+        private readonly AuthLogsService _authLogsService;
 
-        public LogoutModel(IUsersService usersService, ILogger<LogoutModel> logger)
+        public LogoutModel(IUsersService usersService, ILogger<LogoutModel> logger,
+            AuthLogsService authLogsService)
         {
             _usersService = usersService;
             _logger = logger;
+            _authLogsService = authLogsService;
         }
 
         // 1. We use OnGet so it works when you simply type /logout in the browser
         public async Task<IActionResult> OnGet()
         {
+            // logs logout
+            await _authLogsService.LogLogoutAsync(User);
             // 2. Perform the logout
             await _usersService.LogoutUserAsync();
             

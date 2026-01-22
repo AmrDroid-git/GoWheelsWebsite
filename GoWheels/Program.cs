@@ -44,6 +44,7 @@ builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
 builder.Services.AddScoped<IAdminLogsService, AdminLogsService>();
+builder.Services.AddScoped<AuthLogsService>();
 
 builder.Services.AddHostedService<DbInitializer>();
 

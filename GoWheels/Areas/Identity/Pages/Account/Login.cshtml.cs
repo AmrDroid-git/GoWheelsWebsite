@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using GoWheels.Models;
 using GoWheels.Services.Interfaces; 
+using GoWheels.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -24,15 +25,18 @@ namespace GoWheels.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUsersService _usersService; 
         private readonly ILogger<LoginModel> _logger;
+        private readonly AuthLogsService _authLogsService;
 
         public LoginModel(
             SignInManager<ApplicationUser> signInManager, 
             IUsersService usersService, 
-            ILogger<LoginModel> logger)
+            ILogger<LoginModel> logger,
+            AuthLogsService authLogsService)
         {
             _signInManager = signInManager;
             _usersService = usersService;
             _logger = logger;
+            _authLogsService = authLogsService;
         }
 
         [BindProperty]
@@ -89,6 +93,7 @@ namespace GoWheels.Areas.Identity.Pages.Account
                 if (succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    await _authLogsService.LogLoginAsync(User);
                     // CHANGE: Redirect specifically to the new test page
                     return RedirectToPage("/TestUserLogin");
                 }

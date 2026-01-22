@@ -1,18 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using GoWheels.Services.Interfaces;
 using GoWheels.Models;
+using System.Security.Claims;
 
 namespace GoWheels.Controllers
 {
     public class ExpertController : Controller
     {
         private readonly IPostsService _postsService;
+        private readonly IAdminLogsService _adminLogsService;
 
-        // Inject the Service, NOT the DbContext
-        public ExpertController(IPostsService postsService)
+        public ExpertController(
+            IPostsService postsService,
+            IAdminLogsService adminLogsService)
         {
             _postsService = postsService;
+            _adminLogsService = adminLogsService;
         }
+
 
         // GET: /Expert
         public async Task<IActionResult> Index()
@@ -73,6 +78,16 @@ namespace GoWheels.Controllers
             if (!success)
             {
                 TempData["ErrorMessage"] = "Failed to update post status.";
+            }
+            else
+            {
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                await _adminLogsService.LogAsync(
+                    action: "EXPERT_POST_STATUS_CHANGED",
+                    actorId: actorId,
+                    details: $"PostId={post.Id}, NewStatus={newStatus}"
+                );
             }
 
             // 4. Redirect back to the Expert Dashboard
