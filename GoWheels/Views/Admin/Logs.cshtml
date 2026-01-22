@@ -1,27 +1,202 @@
 @{
     ViewData["Title"] = "Logs";
 }
-<h1>System Logs</h1>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Utilisateur</th>
-        <th>Action</th>
-        <th>Détails</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var log in Model)
-    {
-        <tr>
-            <td>@log.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
-            <td>@(log.Actor?.UserName ?? "SYSTEM")</td>
-            <td>@log.Action</td>
-            <td>@log.Details</td>
-        </tr>
-    }
-    </tbody>
-</table>
 
-<a asp-action="Index">Back to Dashboard</a>
+<style>
+    .logs-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        padding: 40px 20px;
+    }
+
+    .logs-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 2.5rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 3px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .page-title {
+        font-weight: 700;
+        font-size: 2.2rem;
+        color: #667eea;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .btn-back {
+        padding: 0.6rem 1.5rem;
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .table-wrapper {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .table {
+        margin-bottom: 0;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        table-layout: fixed;
+    }
+
+    .table thead th {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        color: #2d3748;
+        font-weight: 700;
+        padding: 1.2rem 1rem;
+        border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* Column widths */
+    .col-date {
+        width: 15%;
+    }
+
+    .col-user {
+        width: 15%;
+    }
+
+    .col-action {
+        width: 15%;
+    }
+
+    .col-details {
+        width: 55%;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(102, 126, 234, 0.05);
+        transform: scale(1.01);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .table td {
+        padding: 1.2rem 1rem;
+        vertical-align: top;
+        color: #4a5568;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 0.95rem;
+    }
+
+    /* Text wrapping for details */
+    .details-cell {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        line-height: 1.5;
+        max-width: 100%;
+    }
+
+    .system-user {
+        color: #e53e3e;
+        font-weight: 600;
+        font-style: italic;
+    }
+
+    .action-cell {
+        font-weight: 600;
+        color: #667eea;
+    }
+
+    .date-cell {
+        font-weight: 600;
+        color: #2d3748;
+        white-space: nowrap;
+    }
+
+    .mt-4 {
+        margin-top: 2rem;
+    }
+
+    @@media (max-width: 768px) {
+        .logs-container {
+            padding: 1.5rem;
+        }
+        .page-title {
+            font-size: 1.8rem;
+        }
+        .table {
+            table-layout: auto;
+        }
+        .col-date, .col-user, .col-action, .col-details {
+            width: auto;
+        }
+    }
+</style>
+
+<div class="logs-page">
+    <div class="logs-container">
+        <div class="page-header">
+            <h1 class="page-title">📜 System Logs</h1>
+            <a asp-action="Index" class="btn-back">← Back to Dashboard</a>
+        </div>
+
+        <div class="table-wrapper table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-date">Date</th>
+                        <th class="col-user">Utilisateur</th>
+                        <th class="col-action">Action</th>
+                        <th class="col-details">Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var log in Model)
+                    {
+                        <tr>
+                            <td class="date-cell">@log.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td>@(log.Actor?.UserName ?? "SYSTEM")</td>
+                            <td class="action-cell">@log.Action</td>
+                            <td class="details-cell">@log.Details</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
