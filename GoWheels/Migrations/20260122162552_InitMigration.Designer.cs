@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GoWheels.Migrations
 {
     [DbContext(typeof(GoWheelsDbContext))]
-    [Migration("20260122151656_AddAdminLogs")]
-    partial class AddAdminLogs
+    [Migration("20260122162552_InitMigration")]
+    partial class InitMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace GoWheels.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<string>("AdminId")
+                    b.Property<string>("ActorId")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
@@ -50,19 +50,9 @@ namespace GoWheels.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<string>("UserWhoDidTheActionId")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminId");
-
-                    b.HasIndex("UserWhoDidTheActionId");
+                    b.HasIndex("ActorId");
 
                     b.ToTable("AdminLogs");
                 });
@@ -472,19 +462,13 @@ namespace GoWheels.Migrations
 
             modelBuilder.Entity("GoWheels.Models.AdminLog", b =>
                 {
-                    b.HasOne("GoWheels.Models.ApplicationUser", "Admin")
+                    b.HasOne("GoWheels.Models.ApplicationUser", "Actor")
                         .WithMany()
-                        .HasForeignKey("AdminId")
+                        .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoWheels.Models.ApplicationUser", "UserWhoDidTheAction")
-                        .WithMany()
-                        .HasForeignKey("UserWhoDidTheActionId");
-
-                    b.Navigation("Admin");
-
-                    b.Navigation("UserWhoDidTheAction");
+                    b.Navigation("Actor");
                 });
 
             modelBuilder.Entity("GoWheels.Models.Comment", b =>

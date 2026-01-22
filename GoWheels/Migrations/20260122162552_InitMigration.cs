@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GoWheels.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,6 +36,7 @@ namespace GoWheels.Migrations
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     RateAverage = table.Column<float>(type: "real", nullable: true),
+                    RatingsCount = table.Column<int>(type: "integer", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -72,6 +73,27 @@ namespace GoWheels.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AdminLogs",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ActorId = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Action = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Details = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "NOW()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AdminLogs_AspNetUsers_ActorId",
+                        column: x => x.ActorId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -290,6 +312,11 @@ namespace GoWheels.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AdminLogs_ActorId",
+                table: "AdminLogs",
+                column: "ActorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -385,6 +412,9 @@ namespace GoWheels.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AdminLogs");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

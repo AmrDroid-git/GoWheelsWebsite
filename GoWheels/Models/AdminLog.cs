@@ -10,10 +10,11 @@ namespace GoWheels.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
         
         
-        [Required]
+      
         [MaxLength(128)]
-        public string UserId { get; set; } = null!;
-        public ApplicationUser Actor { get; set; } = null!;
+        public string ActorId { get; set; } 
+        [ForeignKey(nameof(ActorId))]
+        public ApplicationUser Actor { get; set; } 
 
         [Required]
         [MaxLength(200)]

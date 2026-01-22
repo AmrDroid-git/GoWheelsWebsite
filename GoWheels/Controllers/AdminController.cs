@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using GoWheels.Services.Interfaces;
@@ -10,11 +11,14 @@ namespace GoWheels.Controllers
     {
         private readonly IPostsService _postsService;
         private readonly IUsersService _usersService;
+        private readonly IAdminLogsService _adminLogsService;
         // Inject the Service
-        public AdminController(IPostsService postsService, IUsersService usersService)
+        public AdminController(IPostsService postsService, IUsersService usersService,IAdminLogsService adminLogsService)
         {
             _postsService = postsService;
             _usersService = usersService;
+            _adminLogsService = adminLogsService;
+            
         }
         
         
@@ -25,10 +29,14 @@ namespace GoWheels.Controllers
         }
 
         // GET: /Admin/Logs
-        public IActionResult Logs()
+        public async Task<IActionResult> Logs()
         {
-            return View();
+            // Récupère les derniers logs (par exemple 200)
+            var logs = await _adminLogsService.GetLogsAsync(200);
+
+            return View(logs);
         }
+
 
         // --- POSTS MANAGEMENT SECTION ---
 
@@ -113,6 +121,12 @@ namespace GoWheels.Controllers
             {
                 TempData["ErrorMessage"] = "Failed to update post status.";
             }
+            await _adminLogsService.LogAsync(
+                action: "POST_STATUS_CHANGED",
+                actorId: User.FindFirstValue(ClaimTypes.NameIdentifier),
+                details: $"PostId={post.Id}, NewStatus={newStatus}"
+            );
+
 
             // Stay on the same details page
             return RedirectToAction(nameof(DetailsPost), new { id = post.Id });

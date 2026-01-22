@@ -19,7 +19,7 @@ namespace GoWheels.Services
             var log = new AdminLog
             {
                
-                UserId = userId,
+                ActorId = userId,
                 Action = action,
                 Details = details
             };
