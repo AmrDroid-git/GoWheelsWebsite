@@ -19,6 +19,8 @@ namespace GoWheels.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<RatingUser> UsersRatings { get; set; }
         public DbSet<RatingPost> PostsRatings { get; set; }
+        public DbSet<AdminLog> AdminLogs { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,7 +61,9 @@ namespace GoWheels.Data
             builder.Entity<Comment>()
                 .Property(c => c.CreatedAt)
                 .HasDefaultValueSql("NOW()");
-
+            builder.Entity<AdminLog>()
+                .Property(l => l.CreatedAt)
+                .HasDefaultValueSql("NOW()");
             // ----------------------------
             // Rating TPT
             // ----------------------------
