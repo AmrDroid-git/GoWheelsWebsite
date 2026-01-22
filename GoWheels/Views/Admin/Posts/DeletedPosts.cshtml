@@ -1,0 +1,48 @@
+@model IEnumerable<GoWheels.Models.Post>
+
+@{
+    ViewData["Title"] = "Deleted Posts";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Deleted Posts</h1>
+        <a asp-action="PostsManagement" class="btn btn-secondary">Back</a>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
+            <th>@Html.DisplayNameFor(model => model.Status)</th>
+            <th>@Html.DisplayNameFor(model => model.Constructor)</th>
+            <th>@Html.DisplayNameFor(model => model.ModelName)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Owner)</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+                <td><span class="badge bg-secondary">@item.Status</span></td>
+                <td>@Html.DisplayFor(modelItem => item.Constructor)</td>
+                <td>@Html.DisplayFor(modelItem => item.ModelName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.Owner.Name)</td>
+                <td>
+                    <a class="btn btn-sm btn-info" asp-controller="Admin" asp-action="DetailsPost" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="7" class="text-center text-muted">No deleted posts found.</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,60 @@
+@{
+    ViewData["Title"] = "Posts Management";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1>Posts Management</h1>
+        <a asp-action="Index" class="btn btn-outline-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <a asp-action="PendingPosts" class="card text-decoration-none h-100 border-warning hover-shadow">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-hourglass-split display-4 text-warning mb-3"></i>
+                    <h4 class="card-title text-dark">Pending</h4>
+                    <p class="text-muted small">Posts waiting for review</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a asp-action="AcceptedPosts" class="card text-decoration-none h-100 border-success hover-shadow">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-check-circle-fill display-4 text-success mb-3"></i>
+                    <h4 class="card-title text-dark">Accepted</h4>
+                    <p class="text-muted small">Live active posts</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a asp-action="RejectedPosts" class="card text-decoration-none h-100 border-danger hover-shadow">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-x-circle-fill display-4 text-danger mb-3"></i>
+                    <h4 class="card-title text-dark">Rejected</h4>
+                    <p class="text-muted small">Posts denied by experts</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <a asp-action="DeletedPosts" class="card text-decoration-none h-100 border-secondary hover-shadow">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-trash-fill display-4 text-secondary mb-3"></i>
+                    <h4 class="card-title text-dark">Deleted</h4>
+                    <p class="text-muted small">Archived or removed posts</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        transition: transform 0.2s ease;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    }
+</style>

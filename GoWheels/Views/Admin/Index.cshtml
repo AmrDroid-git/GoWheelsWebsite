@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Admin Dashboard</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-3">
+            <a asp-action="UsersManagement" class="card text-decoration-none shadow-sm h-100 hover-shadow">
+                <div class="card-body text-center p-5">
+                    <i class="bi bi-people-fill display-4 text-primary mb-3"></i>
+                    <h3 class="card-title text-dark">Users Management</h3>
+                    <p class="card-text text-muted">Manage all registered users</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <a asp-action="PostsManagement" class="card text-decoration-none shadow-sm h-100 hover-shadow">
+                <div class="card-body text-center p-5">
+                    <i class="bi bi-card-list display-4 text-success mb-3"></i>
+                    <h3 class="card-title text-dark">Posts Management</h3>
+                    <p class="card-text text-muted">Review and manage posts</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <a asp-action="Logs" class="card text-decoration-none shadow-sm h-100 hover-shadow">
+                <div class="card-body text-center p-5">
+                    <i class="bi bi-journal-text display-4 text-warning mb-3"></i>
+                    <h3 class="card-title text-dark">Logs</h3>
+                    <p class="card-text text-muted">View system activity logs</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+</style>
