@@ -1,0 +1,97 @@
+@model GoWheels.Models.Post
+
+<div class="col-md-6 mb-4 darken-all fixed-row">
+    <div class="card h-100 border border-2 rounded-3 shadow-sm mb-3 my-2">
+@if (Model.PostImages != null && Model.PostImages.Any())
+{
+    <div class="position-relative d-flex align-items-center justify-content-center" style="height: 200px; overflow: hidden;">
+        <!-- Blurred Background -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: url('@Model.PostImages.First().ImageUrl'); background-size: cover; filter: blur(20px); z-index: 1;"></div>
+
+        <!-- Original Image -->
+        <img src="@Model.PostImages.First().ImageUrl" class="card-img-top" style="height: 100%; width: auto; object-fit: contain; z-index: 2;" alt="@Model.ModelName">
+
+        <div class="position-absolute bottom-0 start-0 p-2 text-white bg-dark bg-opacity-50" style="z-index: 3;">
+            <h5 class="mb-0">@Model.Constructor @Model.ModelName</h5>
+        </div>
+    </div>
+}
+else
+{
+    <div class="d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 200px;">
+        <h5 class="mb-0">@Model.Constructor @Model.ModelName</h5>
+    </div>
+}
+<hr class="my-2">
+        <div class="card-body bg-light-darker p-2 pt-0 fixed-row flex-grow-1">
+            <div class="d-flex align-items-stretch">
+                <div class="small text-muted my-0 py-0">@Model.CreatedAt</div>
+                <div class="ms-auto">
+                    <!-- <strong>Status:</strong> -->
+                    <partial name="_StatusPill" model="Model.Status" />
+                </div>
+            </div>
+            <div class="next-section">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-calendar-alt me-2"></i><strong>Purchased:</strong></span>
+                                <span class="text-muted">@Model.PurchaseDate.ToShortDateString()</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-star me-2"></i><strong>Price Rating:</strong></span>
+                                <span class="text-muted">@Model.RateAverage</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-money-bill-wave me-2"></i><strong>Price:</strong></span>
+                                <span class="text-muted">@Model.Price.ToString("N0") DT</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-tachometer-alt me-2"></i><strong>Kilometrage:</strong></span>
+                                <span class="text-muted">@(Model.Kilometrage / 1000)K km</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-cog me-2"></i><strong>Gearbox:</strong></span>
+                                <span class="text-muted">@Model.Specifications["Gearbox"]</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-sync-alt me-2"></i><strong>Transmission:</strong></span>
+                                <span class="text-muted">@Model.Specifications["Transmission"]</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-gas-pump me-2"></i><strong>Énergie:</strong></span>
+                                <span class="text-muted">@Model.Specifications["Énergie"]</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between p-1">
+                                <span><i class="fa-solid fa-map-marker-alt me-2"></i><strong>Gouvernorat:</strong></span>
+                                <span class="text-muted">@Model.Specifications["Gouvernorat"]</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between p-2">
+            @if (User.Identity.IsAuthenticated && (User.IsInRole("ADMIN") || User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value == Model.OwnerId))
+            {
+            <div class="d-flex">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary px-3 py-1 me-2">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-danger px-3 py-1">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+            }
+
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-info px-4 py-1">
+                <i class="fa-solid fa-arrow-right me-1"></i> Details
+            </a>
+        </div>
+    </div>
+</div>

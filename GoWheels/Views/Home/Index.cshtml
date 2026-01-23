@@ -1,8 +1,166 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<div class="hero-section mb-5">
+    <div class="container">
+        <h1 class="mb-4">Discover. Connect. Drive.</h1>
+        <p class="mb-4">Advanced car marketplace connecting buyers, sellers, and renters with verified listings and smart matching.</p>
+        <a asp-action="Index" asp-controller="Post" class="btn btn-primary btn-lg">Explore Inventory</a>
+    </div>
+</div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <h2 class="text-center mb-5">Platform Features</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-shield-check text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Smart Verification</h5>
+                    <p class="card-text text-muted">AI :) -powered verification system ensures all listings are authentic and up-to-date.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-star-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Rating System</h5>
+                    <p class="card-text text-muted">Transparent ratings from verified users to help you make informed decisions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-chat-dots-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Community Feedback</h5>
+                    <p class="card-text text-muted">Engage with our community through verified comments and reviews.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Filtering Criteria</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-funnel-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Vehicle Make</h5>
+                    <p class="card-text text-muted">Filter by specific vehicle manufacturers to find your preferred brand.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Model Year</h5>
+                    <p class="card-text text-muted">Narrow down your search by selecting specific model years.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-cash-stack text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Price Range</h5>
+                    <p class="card-text text-muted">Set your budget with customizable price range filters.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-car-front-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Body Type</h5>
+                    <p class="card-text text-muted">Choose from various body types including sedans, SUVs, trucks, and more.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-gear-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Transmission</h5>
+                    <p class="card-text text-muted">Filter by transmission type - automatic or manual.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-speedometer2 text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Mileage</h5>
+                    <p class="card-text text-muted">Set mileage limits to find vehicles that match your usage preferences.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Verification Process</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-file-earmark-check-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Document Verification</h5>
+                    <p class="card-text text-muted">All listings undergo thorough document verification to ensure authenticity.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-camera-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Photo Verification</h5>
+                    <p class="card-text text-muted">High-quality images to give you a complete picture of the vehicle.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-shield-fill-check text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Seller Verification and rating</h5>
+                    <p class="card-text text-muted">Keeps track of sellers' track records to ensure a secure transaction.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5">User Ratings</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-star-fill text-warning mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">5-Star Ratings</h5>
+                    <p class="card-text text-muted">Users can rate their experience with sellers and vehicles for transparency.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-chat-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Verified Reviews</h5>
+                    <p class="card-text text-muted">Only verified users can leave reviews to maintain the integrity of the platform.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 bg-light">
+                <div class="card-body text-center">
+                    <i class="bi bi-graph-up text-success mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="card-title text-dark">Rating Trends</h5>
+                    <p class="card-text text-muted">Track rating trends to identify the best sellers and most reliable vehicles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

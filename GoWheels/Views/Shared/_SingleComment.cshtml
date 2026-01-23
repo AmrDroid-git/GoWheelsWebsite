@@ -1,0 +1,16 @@
+@model GoWheels.Models.Comment
+
+<div class="comment mb-4 p-3 rounded bg-white border" id="comment-@Model.Id">
+    <div class="d-flex align-items-center mb-3">
+        <img src="@(Model.User.ImageUrl ?? "/avatar.jpg")" onerror="this.onerror=null; this.src='/avatar.jpg';" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+        <div>
+            <h5 class="mb-0">@Model.User.Name</h5>
+            <small class="text-muted">@Model.CreatedAt.ToString("MMMM dd, yyyy")</small>
+        </div>
+    </div>
+    <p class="mb-0">@Model.Body</p>
+    @if (User.Identity.IsAuthenticated && (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value == Model.UserId || User.IsInRole("ADMIN")))
+    {
+        <button class="btn btn-sm btn-link text-danger p-0 delete-comment" data-id="@Model.Id">Delete</button>
+    }
+</div>

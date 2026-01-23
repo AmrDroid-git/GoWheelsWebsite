@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
+
 namespace GoWheels.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -53,6 +54,9 @@ namespace GoWheels.Controllers.Api
                     userName = createdComment.User.Name,
                     userId = createdComment.UserId
                 });
+                /* TODO: cant render as long as  its base controll( api conntroller), decide wether keep it base or not
+                return PartialView("_SingleComment", createdComment);
+                */
             }
 
             return BadRequest("Failed to add comment.");
@@ -83,6 +87,8 @@ namespace GoWheels.Controllers.Api
             return BadRequest("Failed to delete comment.");
         }
     }
+
+
 
     public class CommentDto
     {
