@@ -4,9 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<div>
 
-        <!--<div class="col-md-4">
+
+        @*
+        <div class="col-md-4">
             <div class="card shadow-sm mb-4">
                 <div class="card-header bg-warning text-dark">
                     <h5 class="mb-0">Rate this Car</h5>
@@ -22,14 +23,14 @@
                     <button id="submitPostRating" class="btn btn-warning w-100">Submit Rating</button>
                 </div>
             </div>
-        </div>-->
+        </div>
+        *@
 
 
 
     
-
+    @*
     <!-- Comments Section -->
-    <!--
     <div class="row mt-4">
         <div class="col-md-8">
             <h4>Comments (<span id="commentCount">@Model.Comments.Count</span>)</h4>
@@ -74,10 +75,11 @@
                 </div>
             }
         </div>
-    </div>-->
+    </div>
+    *@
 
 
-<!--<div class="container-fluid mt-4 px-5">-->
+<div class="container-fluid mt-4 px-5">
     <div class="row">
         <div class="col-12">
             <!-- Header Section -->
@@ -94,7 +96,6 @@
             </div>
             <!-- Specifications Section -->
             <div class="specifications-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-
                 <h2 class="mb-4 pb-2 text-success border-bottom border-success">Specifications</h2>
                 <div class="row">
                     <div class="col-md-6 mb-4">
@@ -109,11 +110,11 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
                                         <span class="fs-5 text-primary"><i class="fa-solid fa-star me-3"></i>Price Rating:</span>
                                         <span class="fs-5 text-warning">                    <span id="postRateAverage">@(Model.RateAverage?.ToString("F1") ?? "N/A")</span>
-                    <small class="text-muted">(@Model.RatingsCount ratings)</small></span>
+                                        <small class="text-muted">(@Model.RatingsCount ratings)</small></span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
                                         <span class="fs-5 text-primary"><i class="fa-solid fa-tachometer-alt me-3"></i>Kilometrage:</span>
-                                        <span class="fs-5 text-dark">@(Model.Kilometrage / 1000)K km</span>
+                                        <span class="fs-5 text-dark">@((Model.Kilometrage / 1000).ToString())K km</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
                                         <span class="fs-5 text-primary"><i class="fa-solid fa-calendar-alt me-3"></i>Purchased:</span>
@@ -122,6 +123,7 @@
                                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
                                         <span class="fs-5 text-primary"><i class="fa-solid fa-calendar me-3"></i>Released At:</span>
                                         <span class="fs-5 text-dark">@Model.ReleaseDate.ToString("yyyy-MM-dd")</span>
+                                    </li>
                                     @if (Model.Specifications.ContainsKey("Gouvernorat"))
                                     {
                                         <li class="list-group-item d-flex justify-content-between align-items-center py-3">
@@ -250,6 +252,37 @@
                 }
             </div>
 
+            <!-- Rating Section - Simple -->
+            <div class="rating-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                <h2 class="mb-4 pb-2 text-warning border-bottom border-warning">
+                    <i class="fa-solid fa-star me-2"></i>Rate this Car
+                </h2>
+                
+                <div class="text-center p-4">
+                    <div id="postRatingStars" class="fs-1 text-warning mb-4" style="cursor: pointer;">
+                        <i class="bi bi-star" data-value="1"></i>
+                        <i class="bi bi-star" data-value="2"></i>
+                        <i class="bi bi-star" data-value="3"></i>
+                        <i class="bi bi-star" data-value="4"></i>
+                        <i class="bi bi-star" data-value="5"></i>
+                    </div>
+                    
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <button id="submitPostRating" class="btn btn-warning btn-lg px-5">
+                            <i class="fa-solid fa-check me-2"></i>Submit Rating
+                        </button>
+                    }
+                    else
+                    {
+                        <p class="text-muted">
+                            <i class="fa-solid fa-info-circle me-2"></i>
+                            Please <a href="/Identity/Account/Login">login</a> to rate this car
+                        </p>
+                    }
+                </div>
+            </div>
+
             <!-- Owner Information Section -->
             <div class="owner-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
                 <h2 class="mb-4 pb-2 text-dark border-bottom border-dark">Owner Information</h2>
@@ -322,7 +355,7 @@
                                 <div id="noCommentsMessage" class="alert alert-info">No comments yet. Be the first to comment!</div>
                             }
                         </div>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity?.IsAuthenticated == true)
                         {
                             <div class="card mt-4 shadow-sm border-0">
                                 <div class="card-body">
@@ -348,7 +381,7 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons d-flex justify-content-between align-items-center py-4">
-                @if (User.IsInRole("ADMIN") || User.Identity.Name == Model.Owner.UserName)
+                @if (User.IsInRole("ADMIN") || User.Identity?.Name == Model.Owner.UserName)
                 {
                     <div class="d-flex">
                         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-lg me-3 px-4">
@@ -365,7 +398,7 @@
             </div>
         </div>
     </div>
-<!--</div>-->
+</div>
 
 <style>
     .header-section {
@@ -429,6 +462,39 @@
         background-color: #f8f9fa;
         border: 1px solid #dee2e6;
     }
+
+
+        .rating-section {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+    }
+    
+    .card {
+        border-radius: 10px;
+    }
+    
+    #postRatingStars i {
+        transition: all 0.2s ease;
+        margin: 0 3px;
+    }
+    
+    #postRatingStars i:hover {
+        transform: scale(1.2);
+    }
+    
+    .progress {
+        background-color: #e9ecef;
+        border-radius: 5px;
+    }
+    
+    .progress-bar {
+        border-radius: 5px;
+    }
+    
+    .border-warning {
+        border-color: #ffc107 !important;
+    }
 </style>
 
 @section Scripts {
@@ -437,8 +503,8 @@
             const postId = "@Model.Id";
             let selectedRating = 0;
 
+            
             // Rating Stars Hover/Click
-            /* TODO
             $('#postRatingStars i').hover(function () {
                 const val = $(this).data('value');
                 fillStars(val);
@@ -488,7 +554,6 @@
                     }
                 });
             });
-            */
 
             // Submit Comment
             $('#submitComment').click(function () {
@@ -514,7 +579,7 @@
                         const commentHtml = `
                             <div class="comment mb-4 p-3 rounded bg-white border" id="comment-${comment.id}">
                                 <div class="d-flex align-items-center mb-3">
-                                    <img src="@(Model.Owner.ImageUrl ?? "/avatar.jpg")" onerror="this.onerror=null; this.src='/avatar.jpg';" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                    <img src="${comment.userImageUrl || '/avatar.jpg'}" onerror="this.onerror=null; this.src='/avatar.jpg';" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
                                     <div>
                                         <h5 class="mb-0">${comment.userName}</h5>
                                         <small class="text-muted">Just Now</small>
@@ -530,11 +595,11 @@
                         countSpan.text(parseInt(countSpan.text()) + 1);
                     },
                     error: function (xhr) {
-                        console.log('Error:', xhr.responseText); // Debugging statement
+                        console.log('Error:', xhr.responseText);
                         alert('Error: ' + (xhr.responseText || 'Failed to post comment.'));
                     },
                     complete: function() {
-                        console.log('Complete'); // Debugging statement
+                        console.log('Complete');
                         $('#submitComment').prop('disabled', false).text('Post Comment');
                     }
                 });

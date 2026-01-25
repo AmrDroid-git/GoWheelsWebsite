@@ -328,5 +328,152 @@ namespace GoWheels.Services
 
             return intersection;
         }
+    
+        /* filter by filter object changes, above create a DB sql request per single filter, and also calculate intersection of sets which is expensive */
+        
+        public (List<Post> Posts, int TotalCount) GetFilteredPosts(PostFilter filter, string userRole)
+        {
+            var query = _context.Posts
+                .Include(p => p.PostImages)
+                .Include(p => p.Owner)
+                .AsQueryable();
+            
+            // 1. Apply status filter
+            query = ApplyStatusFilter(query, filter.StatusFilter, userRole);
+            
+            // 2. Transaction type
+            if (filter.IsForRent.HasValue)
+            {
+                query = query.Where(p => p.IsForRent == filter.IsForRent.Value);
+            }
+            
+            // 3. Marques checklist
+            if (filter.Constructors?.Any() == true)
+            {
+                query = query.Where(p => filter.Constructors.Contains(p.Constructor));
+            }
+            
+            // 4. Modèles checklist
+            if (filter.Models?.Any() == true)
+            {
+                query = query.Where(p => filter.Models.Contains(p.ModelName));
+            }
+            
+            // 5. Price range
+            if (filter.PriceMin.HasValue)
+                query = query.Where(p => p.Price >= filter.PriceMin.Value);
+            if (filter.PriceMax.HasValue)
+                query = query.Where(p => p.Price <= filter.PriceMax.Value);
+            
+            // 6. Kilometrage range
+            if (filter.KilometrageMin.HasValue)
+                query = query.Where(p => p.Kilometrage >= filter.KilometrageMin.Value);
+            if (filter.KilometrageMax.HasValue)
+                query = query.Where(p => p.Kilometrage <= filter.KilometrageMax.Value);
+            
+            // 7. Year range
+            if (filter.MinYear.HasValue)
+                query = query.Where(p => p.PurchaseDate.Year >= filter.MinYear.Value);
+            if (filter.MaxYear.HasValue)
+                query = query.Where(p => p.PurchaseDate.Year <= filter.MaxYear.Value);
+            
+            // 8. Rating filter
+            if (filter.RatingFilter == "4+")
+                query = query.Where(p => p.RateAverage >= 4.0);
+            else if (filter.RatingFilter == "5")
+                query = query.Where(p => p.RateAverage == 5.0);
+            
+            // Get total count
+            int totalCount = query.Count();
+            
+            // Apply pagination
+            var posts = query
+                .OrderByDescending(p => p.CreatedAt)
+                .Skip((filter.Page - 1) * PostFilter.PageSize)
+                .Take(PostFilter.PageSize)
+                .ToList();
+                
+            return (posts, totalCount);
+        }
+        
+        private IQueryable<Post> ApplyStatusFilter(IQueryable<Post> query, string? statusFilter, string userRole)
+        {
+            // Determine which statuses to show based on filter and role
+            List<PostStatus> statuses;
+            
+            if (!string.IsNullOrEmpty(statusFilter))
+            {
+                // Use the filter from URL
+                statuses = statusFilter switch
+                {
+                    "verified" => new List<PostStatus> { PostStatus.Accepted },
+                    "pending" => new List<PostStatus> { PostStatus.Pending },
+                    "refused" => new List<PostStatus> { PostStatus.Rejected },
+                    "deleted" => new List<PostStatus> { PostStatus.Deleted },
+                    "active" => new List<PostStatus> { PostStatus.Pending, PostStatus.Accepted, PostStatus.Rejected },
+                    "all" => Enum.GetValues<PostStatus>().ToList(),
+                    _ => GetDefaultStatuses(userRole) // Invalid filter, use default
+                };
+            }
+            else
+            {
+                // No filter specified, use role-based default
+                statuses = GetDefaultStatuses(userRole);
+            }
+            
+            return query.Where(p => statuses.Contains(p.Status));
+        }
+        
+        private List<PostStatus> GetDefaultStatuses(string userRole)
+        {
+            return userRole switch
+            {
+                "ADMIN" => new List<PostStatus> { PostStatus.Pending, PostStatus.Accepted, PostStatus.Rejected }, // active
+                "EXPERT" => new List<PostStatus> { PostStatus.Pending },
+                _ => new List<PostStatus> { PostStatus.Accepted } // USER
+            };
+        }
+        
+        // Get all unique marques for the filter checklist
+        public List<string> GetAllConstructors()
+        {
+            return _context.Posts
+                .Select(p => p.Constructor)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
+        }
+        
+        // Get all unique modèles (or filtered by marques)
+        public List<string> GetModels(List<string>? constructors = null)
+        {
+            var query = _context.Posts.AsQueryable();
+            
+            if (constructors?.Any() == true)
+            {
+                query = query.Where(p => constructors.Contains(p.Constructor));
+            }
+            
+            return query
+                .Select(p => p.ModelName)
+                .Distinct()
+                .OrderBy(m => m)
+                .ToList();
+        }
+        
+        // Get min/max values for range sliders
+        public (decimal MinPrice, decimal MaxPrice, int MinKm, int MaxKm, int MinYear, int MaxYear) GetFilterRanges()
+        {
+            var posts = _context.Posts.AsQueryable();
+            
+            return (
+                MinPrice: posts.Min(p => (decimal?)p.Price) ?? 0,
+                MaxPrice: posts.Max(p => (decimal?)p.Price) ?? 1000000,
+                MinKm: posts.Min(p => (int?)p.Kilometrage) ?? 0,
+                MaxKm: posts.Max(p => (int?)p.Kilometrage) ?? 500000,
+                MinYear: posts.Min(p => (int?)p.PurchaseDate.Year) ?? 1950,
+                MaxYear: posts.Max(p => (int?)p.PurchaseDate.Year) ?? DateTime.Now.Year
+            );
+        }
     }
 }

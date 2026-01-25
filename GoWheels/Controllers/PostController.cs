@@ -29,13 +29,119 @@ namespace GoWheels.Controllers
             _adminLogsService = adminLogsService;
         }
 
-
+        /* non filterable 
         // GET: Posts
         public async Task<IActionResult> Index()
         {
             var recentPosts = await _postsService.GetRecentPostsAsync(6);
             // var recentPosts = await _context.Posts.ToListAsync();
             return View(recentPosts);
+        }*/
+
+        public IActionResult TestDb()
+        {
+            var totalPosts = _context.Posts.Count();
+            var byStatus = _context.Posts
+                .GroupBy(p => p.Status)
+                .Select(g => new { Status = g.Key, Count = g.Count() })
+                .ToList();
+            
+            return Json(new { totalPosts, byStatus });
+        }
+
+        private string GetUserRole()
+        {
+            if (User.IsInRole("ADMIN")) return "ADMIN";
+            if (User.IsInRole("EXPERT")) return "EXPERT";
+            return "USER";
+        }
+        
+        // Replace your existing Index method with this:
+        public IActionResult Index(PostFilter? filter = null)
+        {
+            filter ??= new PostFilter();
+            var userRole = GetUserRole();
+            
+            // Get filtered posts
+            var (posts, totalCount) = _postsService.GetFilteredPosts(filter, userRole);
+            
+            // Get filter boundaries
+            var filterRanges = _postsService.GetFilterRanges();
+            var allConstructors = _postsService.GetAllConstructors();
+            var models = _postsService.GetModels(filter.Constructors);
+            
+            // Calculate pagination
+            int totalPages = (int)Math.Ceiling(totalCount / (double)PostFilter.PageSize);
+            
+            // Pass data to view
+            ViewBag.Posts = posts;
+            ViewBag.TotalCount = totalCount;
+            ViewBag.CurrentPage = filter.Page;
+            ViewBag.TotalPages = totalPages;
+            
+            // Current filter values
+            ViewBag.CurrentFilter = filter;
+            
+            // Filter options
+            ViewBag.Constructors = allConstructors;
+            ViewBag.Models = models;
+            ViewBag.FilterRanges = filterRanges;
+            ViewBag.UserRole = userRole;
+            
+            // Status options for current role
+            ViewBag.StatusOptions = GetStatusOptions(userRole);
+            
+            return View();
+        }
+        
+        // AJAX endpoint for marque->modèle dependency
+        [HttpPost]
+        public IActionResult GetModels([FromBody] List<string>? constructors)
+        {
+            var models = _postsService.GetModels(constructors);
+            return Json(models);
+        }
+        
+        private List<SelectListItem> GetStatusOptions(string userRole)
+        {
+            var options = new List<SelectListItem>();
+            
+            switch (userRole)
+            {
+                case "ADMIN":
+                    options.AddRange(new[]
+                    {
+                        new SelectListItem("Verified", "verified"),
+                        new SelectListItem("Pending", "pending"),
+                        new SelectListItem("Refused", "refused"),
+                        new SelectListItem("Deleted", "deleted"),
+                        new SelectListItem("(non-deleted)", "active"),
+                        new SelectListItem("All", "all")
+                    });
+                    break;
+                    
+                case "EXPERT":
+                    options.AddRange(new[]
+                    {
+                        new SelectListItem("Pending", "pending"),
+                        new SelectListItem("Verified", "verified"),
+                        new SelectListItem("Refused", "refused"),
+                        new SelectListItem("All", "active")
+                    });
+                    break;
+                    
+                default: // USER
+                    options.AddRange(new[]
+                    {
+                        new SelectListItem("Verified", "verified"),
+                        new SelectListItem("Pending", "pending"),
+                        new SelectListItem("Refused", "refused"),
+                        new SelectListItem("All", "active")
+                    });
+                    break;
+            }
+            
+            return options;
         }
 
         // GET: Posts/Details/5

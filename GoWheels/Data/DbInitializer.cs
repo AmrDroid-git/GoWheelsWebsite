@@ -176,7 +176,9 @@ namespace GoWheels.Data
                 foreach (var id in defaultUserIds) seededUserIds.Add(id);
 
                 var seededPosts = await SeedTable("posts_clean.json", context.Posts, basePath, options, context, null, 
-                    p => requiredPostIds.Contains(p.Id) && seededUserIds.Contains(p.OwnerId));
+                    p => requiredPostIds.Contains(p.Id) 
+                    && seededUserIds.Contains(p.OwnerId)
+                    );
                 
                 var seededPostIds = new HashSet<string>(seededPosts.Select(p => p.Id));
 

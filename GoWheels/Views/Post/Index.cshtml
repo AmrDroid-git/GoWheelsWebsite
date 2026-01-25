@@ -1,56 +1,839 @@
-@model IEnumerable<GoWheels.Models.Post>
+@using GoWheels.Models
+@{
+    var posts = ViewBag.Posts as List<Post>;
+    var currentFilter = ViewBag.CurrentFilter as PostFilter;
+    var constructors = ViewBag.Constructors as List<string>;
+    var models = ViewBag.Models as List<string>;
+    var filterRanges = ViewBag.FilterRanges as (decimal MinPrice, decimal MaxPrice, int MinKm, int MaxKm, int MinYear, int MaxYear)?;
+    var statusOptions = ViewBag.StatusOptions as List<SelectListItem>;
+    
+    var totalCount = ViewBag.TotalCount as int? ?? 0;
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
 
-@{ ViewData["Title"] = "Index"; }
-
-<!--<h1 class="display-4 mb-4">Index</h1>-->
-<div class="container-center mx-auto px-1">
-    <div class="mb-3">
-        <a asp-action="Create" class="btn btn-primary btn-lg rounded-2 ml-5"><span><i class="fa-solid fa-plus me-2"></i><strong>Create New</strong></span></a>
-    </div>
-    @foreach (var item in Model) {
-        <partial name="_Post" model="item" />
-    }
-</div>
+    string GetPageUrl(int pageNumber)
+    {
+        // Create a route values dictionary
+        var routeValues = new Dictionary<string, object?>
+        {
+            ["Page"] = pageNumber
+        };
+        
+        // Add all current filter values
+        if (currentFilter != null)
+        {
+            if (currentFilter.IsForRent.HasValue)
+                routeValues["IsForRent"] = currentFilter.IsForRent.Value;
             
+            if (currentFilter.Constructors != null && currentFilter.Constructors.Any())
+                routeValues["Constructors"] = currentFilter.Constructors;
+            
+            if (currentFilter.Models != null && currentFilter.Models.Any())
+                routeValues["Models"] = currentFilter.Models;
+            
+            if (currentFilter.PriceMin.HasValue)
+                routeValues["PriceMin"] = currentFilter.PriceMin.Value;
+            
+            if (currentFilter.PriceMax.HasValue)
+                routeValues["PriceMax"] = currentFilter.PriceMax.Value;
+            
+            if (currentFilter.KilometrageMin.HasValue)
+                routeValues["KilometrageMin"] = currentFilter.KilometrageMin.Value;
+            
+            if (currentFilter.KilometrageMax.HasValue)
+                routeValues["KilometrageMax"] = currentFilter.KilometrageMax.Value;
+            
+            if (currentFilter.MinYear.HasValue)
+                routeValues["MinYear"] = currentFilter.MinYear.Value;
+            
+            if (currentFilter.MaxYear.HasValue)
+                routeValues["MaxYear"] = currentFilter.MaxYear.Value;
+            
+            if (!string.IsNullOrEmpty(currentFilter.RatingFilter))
+                routeValues["RatingFilter"] = currentFilter.RatingFilter;
+            
+            if (!string.IsNullOrEmpty(currentFilter.StatusFilter))
+                routeValues["StatusFilter"] = currentFilter.StatusFilter;
+        }
+        
+        // Generate URL using Url.Action
+        return Url.Action("Index", "Post", routeValues);
+    }
+}
+@* yes, imported here not in sections script *@
+<script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
+<div class="container-fluid px-4">
+    <div class="row">
+        <!-- Main Content Area on RIGHT -->
+        <div class="col-md-9 order-lg-2 order-1 justify-content-center">
+            <!-- Header with buttons -->
+            <div class="mb-4">
+                <a asp-action="Create" class="btn btn-primary btn-lg">
+                    <i class="fa-solid fa-plus me-2"></i><strong>Create New</strong>
+                </a>
+                <button id="toggle-filter" class="btn btn-outline-secondary btn-lg ms-2">
+                    <i class="fa-solid fa-filter me-2"></i>Toggle Filters
+                </button>
+            </div>
+
+            <!-- Posts Container - Responsive Cards -->
+            <div class="row" id="postsContainer">
+                @if (posts != null && posts.Any())
+                {
+                    foreach (var item in posts)
+                    {
+                        <div class="col-xl-6 col-12 mb-4">
+                            <partial name="_Post" model="item" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-info mt-4">
+                        <i class="fa-solid fa-info-circle me-2"></i>No posts found matching your filters.
+                    </div>
+                }
+            </div>
+            
+            <!-- Pagination -->
+            @if (totalPages > 1)
+            {
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <!-- First Page -->
+                        @if (currentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@GetPageUrl(1)">First</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">First</span>
+                            </li>
+                        }
+                        
+                        <!-- Previous Page -->
+                        @if (currentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@GetPageUrl(currentPage - 1)">Previous</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">Previous</span>
+                            </li>
+                        }
+                        
+                        <!-- Page Numbers -->
+                        @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(totalPages, currentPage + 2); i++)
+                        {
+                            if (i == currentPage)
+                            {
+                                <li class="page-item active">
+                                    <span class="page-link">@i</span>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@GetPageUrl(i)">@i</a>
+                                </li>
+                            }
+                        }
+                        
+                        <!-- Next Page -->
+                        @if (currentPage < totalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@GetPageUrl(currentPage + 1)">Next</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">Next</span>
+                            </li>
+                        }
+                        
+                        <!-- Last Page -->
+                        @if (currentPage < totalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@GetPageUrl(totalPages)">Last</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled">
+                                <span class="page-link">Last</span>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+        </div>
+
+        <!-- Sidebar Filter on LEFT -->
+        <div class="col-md-3 order-lg-1 order-2">
+            <div class="filter-sidebar card shadow-sm sticky-top">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fa-solid fa-filter me-2"></i>Filters</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Filter Form -->
+                    <form method="get" id="filterForm">
+                        <!-- Transaction Type -->
+                        <div class="filter-section mb-3">
+                            <h6 class="mb-2">Transaction Type</h6>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="IsForRent" id="typeAny" value="" 
+                                       checked="@(!currentFilter?.IsForRent.HasValue)" />
+                                <label class="btn btn-outline-primary" for="typeAny">Any</label>
+                                
+                                <input type="radio" class="btn-check" name="IsForRent" id="typeRent" value="true"
+                                       @(currentFilter?.IsForRent == true ? "checked" : "")>
+                                <label class="btn btn-outline-primary" for="typeRent">Rent</label>
+                                
+                                <input type="radio" class="btn-check" name="IsForRent" id="typeSell" value="false"
+                                       @(currentFilter?.IsForRent == false ? "checked" : "")>
+                                <label class="btn btn-outline-primary" for="typeSell">Sell</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Marques (Constructors) -->
+                        <div class="filter-section mb-3">
+                            <h6 class="mb-2">Marque</h6>
+                            <div class="marques-container" style="max-height: 200px; overflow-y: auto;">
+                                @if (constructors != null)
+                                {
+                                    foreach (var constructor in constructors)
+                                    {
+                                        var isConstructorChecked = currentFilter?.Constructors?.Contains(constructor) == true ? "checked" : "";
+                                        <div class="form-check">
+                                            <input class="form-check-input constructor-checkbox" 
+                                                type="checkbox" 
+                                                name="Constructors" 
+                                                value="@constructor" 
+                                                id="marque_@constructor"
+                                                @isConstructorChecked>
+                                            <label class="form-check-label" for="marque_@constructor">
+                                                @constructor
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>                        
+                        
+                        <!-- Modèles as Dropdown Checklist -->
+                        <div class="filter-section mb-3">
+                            <h6 class="mb-2">Modèle</h6>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle w-100 text-start" 
+                                        type="button" 
+                                        id="modelsDropdown" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false">
+                                    @{
+                                        var selectedModelsCount = currentFilter?.Models?.Count ?? 0;
+                                        var modelsButtonText = selectedModelsCount == 0 ? 
+                                            "Select Models" : 
+                                            $"{selectedModelsCount} Selected";
+                                    }
+                                    @modelsButtonText
+                                </button>
+                                <div class="dropdown-menu w-100 p-3" aria-labelledby="modelsDropdown" id="modelDropdownMenu">
+                                    <div class="modeles-container" style="max-height: 300px; overflow-y: auto;">
+                                        @if (models != null)
+                                        {
+                                            foreach (var modelItem in models)
+                                            {
+                                                var isModelChecked = currentFilter?.Models?.Contains(modelItem) == true ? "checked" : "";
+                                                <div class="form-check">
+                                                    <input class="form-check-input model-checkbox" 
+                                                        type="checkbox" 
+                                                        name="Models" 
+                                                        value="@modelItem" 
+                                                        id="modele_@modelItem"
+                                                        @isModelChecked
+                                                        data-model="@modelItem">
+                                                    <label class="form-check-label" for="modele_@modelItem">
+                                                        @modelItem
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="mt-3">
+                                        <button type="button" class="btn btn-sm btn-outline-primary w-100" onclick="selectAllModels()">
+                                            Select All
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary w-100 mt-2" onclick="clearAllModels()">
+                                            Clear All
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            @* closable badges of selected cars *@
+                            <div id="selectedModelsTags" class="mt-2">
+                                @if (currentFilter?.Models != null)
+                                {
+                                    foreach (var modelItem in currentFilter.Models)
+                                    {
+                                        <span class="badge bg-primary me-1 mb-1">
+                                            @modelItem 
+                                            <button type="button" class="btn-close btn-close-white btn-sm ms-1" 
+                                                    onclick="removeModel('@modelItem')" aria-label="Remove"></button>
+                                        </span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        
+                        <!-- Price Range -->
+                        @if (filterRanges.HasValue)
+                        {
+                            <div class="filter-section mb-3">
+                                <h6 class="mb-2">
+                                    Price (DT): 
+                                    <span id="priceRangeValue">@(currentFilter?.PriceMin?.ToString("N0") ?? filterRanges.Value.MinPrice.ToString("N0")) - @(currentFilter?.PriceMax?.ToString("N0") ?? filterRanges.Value.MaxPrice.ToString("N0"))</span>
+                                </h6>
+                                <div id="priceSlider" class="mb-3"></div>
+                                <input type="hidden" id="priceMin" name="PriceMin" value="@currentFilter?.PriceMin">
+                                <input type="hidden" id="priceMax" name="PriceMax" value="@currentFilter?.PriceMax">
+                            </div>
+                        }
+                        
+                        <!-- Kilometrage Range -->
+                        @if (filterRanges.HasValue)
+                        {
+                            <div class="filter-section mb-3">
+                                <h6 class="mb-2">
+                                    Kilometrage: 
+                                    <span id="kmRangeValue">@(currentFilter?.KilometrageMin?.ToString("N0") ?? filterRanges.Value.MinKm.ToString("N0")) - @(currentFilter?.KilometrageMax?.ToString("N0") ?? filterRanges.Value.MaxKm.ToString("N0")) km</span>
+                                </h6>
+                                <div id="kmSlider" class="mb-3"></div>
+                                <input type="hidden" id="kilometrageMin" name="KilometrageMin" value="@currentFilter?.KilometrageMin">
+                                <input type="hidden" id="kilometrageMax" name="KilometrageMax" value="@currentFilter?.KilometrageMax">
+                            </div>
+                        }
+                        
+                        <!-- Year Range -->
+                        @if (filterRanges.HasValue)
+                        {
+                            <div class="filter-section mb-3">
+                                <h6 class="mb-2">Purchase Year</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="form-label">Min Year</label>
+                                        <input type="number" class="form-control" name="MinYear" 
+                                               min="@filterRanges.Value.MinYear" max="@filterRanges.Value.MaxYear"
+                                               value="@currentFilter?.MinYear">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Max Year</label>
+                                        <input type="number" class="form-control" name="MaxYear" 
+                                               min="@filterRanges.Value.MinYear" max="@filterRanges.Value.MaxYear"
+                                               value="@currentFilter?.MaxYear">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                        <!-- Rating -->
+                        <div class="filter-section mb-3">
+                            <h6 class="mb-2">Rating</h6>
+                            <select class="form-select" name="RatingFilter">
+                                <option value="all"
+                                        selected="@(currentFilter?.RatingFilter == "all")">
+                                    All Ratings
+                                </option>
+
+                                <option value="4+"
+                                        selected="@(currentFilter?.RatingFilter == "4+")">
+                                    4+ Stars
+                                </option>
+
+                                <option value="5"
+                                        selected="@(currentFilter?.RatingFilter == "5")">
+                                    5 Stars Only
+                                </option>
+
+                            </select>
+                        </div>
+                        
+                        <!-- Status (Role-based) -->
+                        <div class="filter-section mb-3">
+                            <h6 class="mb-2">Status</h6>
+                            <select class="form-select" name="StatusFilter">
+                                @if (statusOptions != null)
+                                {
+                                    foreach (var option in statusOptions)
+                                    {
+                                        <option value="@option.Value"
+                                                selected="@(currentFilter?.StatusFilter == option.Value)">
+                                            @option.Text
+                                        </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        
+                        <!-- Hidden page input -->
+                        <input type="hidden" name="Page" value="1" id="pageInput">
+                        
+                        <!-- Form buttons -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-check me-2"></i>Apply Filters
+                            </button>
+                            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">
+                                <i class="fa-solid fa-times me-2"></i>Clear All
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for mobile -->
+<div class="sidebar-overlay"></div>
+
+
 <style>
-    .list-group-item {
-        font-size: 1.1rem;
-    }
 
-    .btn {
-        font-weight: bold;
-        color: white;
-        font-size: 1.1rem;
-    }
-
-    .btn-outline-primary {
-        background-color: #0d6efd;
-        padding: 0.5rem 1rem;
-    }
-
-    .btn-outline-info {
-        background-color: #17a2b8;
-        padding: 0.5rem 1.5rem;
-    }
-
-    .btn-outline-danger {
-        background-color: #dc3545;
-        padding: 0.5rem 1rem;
-    }
-
-    .darken-all {
-        background-color: #d6dadf !important;
-        color: #212529 !important;
-        all: inherit;
-    }
-
-    .container-center {
+    /* Overlay for mobile sidebar */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        max-width: 800px;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
     }
 
-    .list-group-item strong {
-        font-size: 1rem;
-        color: #495057;
+    .sidebar-overlay.active {
+        display: block;
     }
+
+    /* Mobile sidebar styling */
+    @@media (max-width: 991.98px) {
+        .filter-sidebar {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 1050;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .filter-sidebar.open {
+            transform: translateY(0);
+        }
+    }
+
+    /* Show only on mobile */
+    @@media (max-width: 991.98px) {
+        #toggle-filter {
+            display: inline-block;
+        }
+        
+        .filter-sidebar.open {
+            transform: translateY(0);
+        }
+    }
+
 </style>
+
+<style>
+    /* noUiSlider Custom Styling */
+    .noUi-target {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        box-shadow: none;
+    }
+
+    .noUi-connect {
+        background: #0d6efd;
+    }
+
+    .noUi-handle {
+        border: 2px solid #0d6efd;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        cursor: pointer;
+    }
+
+    .noUi-handle:hover {
+        background: #f8f9fa;
+    }
+
+    .noUi-handle:after, .noUi-handle:before {
+        display: none;
+    }
+
+    /* Tooltip styling */
+    .noUi-tooltip {
+        background: #212529;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    /* Mobile adjustments */
+    /*@@media (max-width: 768px) {
+        .noUi-horizontal {
+            height: 6px;
+        }
+        
+        .noUi-handle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            right: -10px;
+            top: -8px;
+        }
+    }*/
+</style>
+    
+
+
+@section Scripts {
+    <script>
+        // Mobile sidebar toggle
+        document.getElementById('toggle-filter').addEventListener('click', function() {
+            var sidebar = document.querySelector('.filter-sidebar');
+            var overlay = document.querySelector('.sidebar-overlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            
+            // Close sidebar when clicking overlay
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            });
+        });
+        
+        @*TODO: delete
+        // Range slider updates
+        function updateRangeSliders() {
+            // Price sliders
+            var priceMinSlider = document.getElementById('priceMinSlider');
+            var priceMaxSlider = document.getElementById('priceMaxSlider');
+            var priceMinLabel = document.getElementById('priceMinLabel');
+            var priceMaxLabel = document.getElementById('priceMaxLabel');
+            var priceMinInput = document.getElementById('priceMin');
+            var priceMaxInput = document.getElementById('priceMax');
+            
+            function updatePriceDisplay() {
+                if (priceMinLabel && priceMinSlider) {
+                    priceMinLabel.textContent = parseInt(priceMinSlider.value).toLocaleString();
+                }
+                if (priceMaxLabel && priceMaxSlider) {
+                    priceMaxLabel.textContent = parseInt(priceMaxSlider.value).toLocaleString();
+                }
+                if (priceMinInput && priceMinSlider) {
+                    priceMinInput.value = priceMinSlider.value;
+                }
+                if (priceMaxInput && priceMaxSlider) {
+                    priceMaxInput.value = priceMaxSlider.value;
+                }
+            }
+            
+            if (priceMinSlider) {
+                priceMinSlider.addEventListener('input', function() {
+                    if (parseInt(this.value) > parseInt(priceMaxSlider.value)) {
+                        priceMaxSlider.value = this.value;
+                    }
+                    updatePriceDisplay();
+                });
+            }
+            
+            if (priceMaxSlider) {
+                priceMaxSlider.addEventListener('input', function() {
+                    if (parseInt(this.value) < parseInt(priceMinSlider.value)) {
+                        priceMinSlider.value = this.value;
+                    }
+                    updatePriceDisplay();
+                });
+            }
+            
+            updatePriceDisplay();
+            
+            // Kilometrage sliders
+            var kmMinSlider = document.getElementById('kmMinSlider');
+            var kmMaxSlider = document.getElementById('kmMaxSlider');
+            var kmMinLabel = document.getElementById('kmMinLabel');
+            var kmMaxLabel = document.getElementById('kmMaxLabel');
+            var kmMinInput = document.getElementById('kilometrageMin');
+            var kmMaxInput = document.getElementById('kilometrageMax');
+            
+            function updateKmDisplay() {
+                if (kmMinLabel && kmMinSlider) {
+                    kmMinLabel.textContent = parseInt(kmMinSlider.value).toLocaleString();
+                }
+                if (kmMaxLabel && kmMaxSlider) {
+                    kmMaxLabel.textContent = parseInt(kmMaxSlider.value).toLocaleString();
+                }
+                if (kmMinInput && kmMinSlider) {
+                    kmMinInput.value = kmMinSlider.value;
+                }
+                if (kmMaxInput && kmMaxSlider) {
+                    kmMaxInput.value = kmMaxSlider.value;
+                }
+            }
+            
+            if (kmMinSlider) {
+                kmMinSlider.addEventListener('input', function() {
+                    if (parseInt(this.value) > parseInt(kmMaxSlider.value)) {
+                        kmMaxSlider.value = this.value;
+                    }
+                    updateKmDisplay();
+                });
+            }
+            
+            if (kmMaxSlider) {
+                kmMaxSlider.addEventListener('input', function() {
+                    if (parseInt(this.value) < parseInt(kmMinSlider.value)) {
+                        kmMinSlider.value = this.value;
+                    }
+                    updateKmDisplay();
+                });
+            }
+            
+            updateKmDisplay();
+        }*@
+
+        // Initialize dual-handle range sliders
+        function initializeRangeSliders() {
+            // Only initialize if noUiSlider is available
+            if (typeof noUiSlider === 'undefined') {
+                console.warn('noUiSlider not loaded');
+                return;
+            }
+            
+            @if (filterRanges.HasValue)
+            {
+                var priceMin = currentFilter?.PriceMin ?? filterRanges.Value.MinPrice;
+                var priceMax = currentFilter?.PriceMax ?? filterRanges.Value.MaxPrice;
+                var kmMin = currentFilter?.KilometrageMin ?? filterRanges.Value.MinKm;
+                var kmMax = currentFilter?.KilometrageMax ?? filterRanges.Value.MaxKm;
+                
+                <text>
+                // Price Slider
+                var priceSlider = document.getElementById('priceSlider');
+                if (priceSlider) {
+                    // Destroy existing slider if any
+                    if (priceSlider.noUiSlider) {
+                        priceSlider.noUiSlider.destroy();
+                    }
+                    
+                    noUiSlider.create(priceSlider, {
+                        start: [@priceMin, @priceMax],
+                        connect: true,
+                        range: {
+                            min: @filterRanges.Value.MinPrice,
+                            max: @filterRanges.Value.MaxPrice
+                        },
+                        step: 1000, // 1000 DT steps
+                        format: {
+                            to: function(value) {
+                                return Math.round(value);
+                            },
+                            from: function(value) {
+                                return Number(value);
+                            }
+                        }
+                    });
+                    
+                    priceSlider.noUiSlider.on('update', function(values) {
+                        var min = Math.round(values[0]);
+                        var max = Math.round(values[1]);
+                        document.getElementById('priceRangeValue').textContent = 
+                            min.toLocaleString() + ' - ' + max.toLocaleString() + ' DT';
+                        document.getElementById('priceMin').value = min;
+                        document.getElementById('priceMax').value = max;
+                    });
+                }
+                
+                // Kilometrage Slider
+                var kmSlider = document.getElementById('kmSlider');
+                if (kmSlider) {
+                    // Destroy existing slider if any
+                    if (kmSlider.noUiSlider) {
+                        kmSlider.noUiSlider.destroy();
+                    }
+                    
+                    noUiSlider.create(kmSlider, {
+                        start: [@kmMin, @kmMax],
+                        connect: true,
+                        range: {
+                            min: @filterRanges.Value.MinKm,
+                            max: @filterRanges.Value.MaxKm
+                        },
+                        step: 5000, // 5000 km steps
+                        format: {
+                            to: function(value) {
+                                return Math.round(value);
+                            },
+                            from: function(value) {
+                                return Number(value);
+                            }
+                        }
+                    });
+                    
+                    kmSlider.noUiSlider.on('update', function(values) {
+                        var min = Math.round(values[0]);
+                        var max = Math.round(values[1]);
+                        document.getElementById('kmRangeValue').textContent = 
+                            min.toLocaleString() + ' - ' + max.toLocaleString() + ' km';
+                        document.getElementById('kilometrageMin').value = min;
+                        document.getElementById('kilometrageMax').value = max;
+                    });
+                }
+                </text>
+            }
+        }
+        
+        // Update models dropdown button text
+        function updateModelsButtonText() {
+            var selectedCount = $('.model-checkbox:checked').length;
+            var buttonText = selectedCount === 0 ? 'Select Models' : selectedCount + ' Selected';
+            $('#modelsDropdown').text(buttonText);
+            
+            // Update selected tags display
+            var tagsHtml = '';
+            $('.model-checkbox:checked').each(function() {
+                var model = $(this).data('model') || $(this).val();
+                tagsHtml += `
+                    <span class="badge bg-primary me-1 mb-1">
+                        ${model}
+                        <button type="button" class="btn-close btn-close-white btn-sm ms-1" 
+                                onclick="removeModel('${model}')" aria-label="Remove"></button>
+                    </span>
+                `;
+            });
+            $('#selectedModelsTags').html(tagsHtml);
+        }
+        
+        // Remove a model from selection
+        function removeModel(model) {
+            $(`input[data-model="${model}"], input[value="${model}"]`).prop('checked', false);
+            updateModelsButtonText();
+        }
+        
+        // Select all models
+        function selectAllModels() {
+            $('.model-checkbox').prop('checked', true);
+            updateModelsButtonText();
+        }
+        
+        // Clear all models
+        function clearAllModels() {
+            $('.model-checkbox').prop('checked', false);
+            updateModelsButtonText();
+        }
+        
+        // Constructor->Model AJAX dependency
+        $(document).on('change', '.constructor-checkbox', function() {
+            var selectedConstructors = $('.constructor-checkbox:checked')
+                .map(function() { return this.value; }).get();
+            
+            // Get CSRF token
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            
+            // AJAX call to update models
+            $.ajax({
+                url: '@Url.Action("GetModels", "Post")',
+                type: 'POST',
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                contentType: 'application/json',
+                data: JSON.stringify(selectedConstructors),
+                success: function(models) {
+                    var container = $('.modeles-container');
+                    container.empty();
+                    
+                    // Preserve previously selected models
+                    var previouslySelected = $('.model-checkbox:checked')
+                        .map(function() { 
+                            return $(this).data('model') || $(this).val(); 
+                        }).get();
+                    
+                    models.forEach(function(model) {
+                        var isChecked = previouslySelected.includes(model);
+                        container.append(`
+                            <div class="form-check">
+                                <input class="form-check-input model-checkbox" 
+                                       type="checkbox" 
+                                       name="Models" 
+                                       value="${model}" 
+                                       id="modele_${model}"
+                                       ${isChecked ? 'checked' : ''}
+                                       data-model="${model}">
+                                <label class="form-check-label" for="modele_${model}">
+                                    ${model}
+                                </label>
+                            </div>
+                        `);
+                    });
+                    
+                    // Update button text
+                    updateModelsButtonText();
+                }
+            });
+        });
+        
+        // Update button text when model checkboxes change
+        $(document).on('change', '.model-checkbox', function() {
+            updateModelsButtonText();
+        });
+        
+        // Initialize everything when page loads
+        $(document).ready(function() {
+            @*updateRangeSliders();*@
+
+            // Wait for noUiSlider to load
+            function checkNoUiSlider() {
+                if (typeof noUiSlider !== 'undefined') {
+                    initializeRangeSliders();
+                } else {
+                    setTimeout(checkNoUiSlider, 100);
+                }
+            }
+            checkNoUiSlider();
+
+            updateModelsButtonText();
+            
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('#modelsDropdown, #modelDropdownMenu').length) {
+                    $('#modelDropdownMenu').removeClass('show');
+                }
+            });
+            
+            // Keep dropdown open when clicking inside
+            $('#modelDropdownMenu').on('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+}

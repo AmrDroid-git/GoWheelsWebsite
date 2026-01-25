@@ -1,51 +1,64 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GoWheels</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/GoWheels.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GoWheels.styles.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         .navbar-brand img {
             height: 40px;
             width: auto;
         }
+
         .navbar {
             background-color: #212529 !important;
         }
+
         .navbar .nav-link {
             color: #f8f9fa !important;
             font-family: 'Orbitron', sans-serif;
             font-weight: 500;
         }
+
         .navbar .nav-link:hover {
             color: #adb5bd !important;
         }
+
         .footer {
             background-color: #f8f9fa !important;
             color: #212529 !important;
         }
+
         .footer a {
             color: #212529 !important;
         }
+
         .footer a:hover {
             color: #495057 !important;
         }
+
         .wrapper {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
+
         .content {
             flex: 1 0 auto;
         }
     </style>
 </head>
+
 <body class="wrapper">
     <header class="mb-5">
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -54,7 +67,8 @@
                     <img src="~/logo.png" alt="GoWheels Logo" class="me-2">
                     <span class="fw-bold">GoWheels</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -65,7 +79,7 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">Cars</a>
                         </li>
-                        <!-- TODO hide -->
+                        @* TODO hide *@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                         </li>
@@ -76,11 +90,11 @@
     </header>
 
     <div class="content">
-        <div class="container">
+        @*<div class="container">*@
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-        </div>
+        @*</div>*@
     </div>
 
     <footer class="border-top footer text-muted">
@@ -94,4 +108,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

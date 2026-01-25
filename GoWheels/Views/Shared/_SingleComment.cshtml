@@ -9,7 +9,9 @@
         </div>
     </div>
     <p class="mb-0">@Model.Body</p>
-    @if (User.Identity.IsAuthenticated && (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value == Model.UserId || User.IsInRole("ADMIN")))
+    @if (User.Identity?.IsAuthenticated == true && 
+        (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value == Model.UserId || 
+        User.IsInRole("ADMIN")))
     {
         <button class="btn btn-sm btn-link text-danger p-0 delete-comment" data-id="@Model.Id">Delete</button>
     }

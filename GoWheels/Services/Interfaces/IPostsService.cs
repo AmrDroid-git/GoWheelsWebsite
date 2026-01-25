@@ -34,6 +34,16 @@ namespace GoWheels.Services.Interfaces
         // Takes a list of lists (e.g., results from Price filter, Year filter, Model filter...)
         // Returns only the posts that exist in ALL of them.
         List<Post> IntersectPosts(List<List<Post>> listsOfPosts);
+
+
+        public (List<Post> Posts, int TotalCount) GetFilteredPosts(PostFilter filter, string userRole);
+        // Get all unique marques for the filter checklist
+        public List<string> GetAllConstructors();
+        // Get all unique modèles (or filtered by marques)
+        public List<string> GetModels(List<string>? constructors = null);
+        // Get min/max values for range sliders
+        public (decimal MinPrice, decimal MaxPrice, int MinKm, int MaxKm, int MinYear, int MaxYear) GetFilterRanges();
+
         
     }
 }
