@@ -2,6 +2,11 @@
 
 @{
     ViewData["Title"] = "Details";
+    var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    var isAdmin = User.IsInRole("ADMIN");
+    var isExpert = User.IsInRole("EXPERT");
+    var isOwner = userId == Model.OwnerId;
+    var canRateComment = User.Identity?.IsAuthenticated == true && !isAdmin && !isOwner;
 }
 
 
@@ -252,36 +257,57 @@
                 }
             </div>
 
-            <!-- Rating Section - Simple -->
-            <div class="rating-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-                <h2 class="mb-4 pb-2 text-warning border-bottom border-warning">
-                    <i class="fa-solid fa-star me-2"></i>Rate this Car
-                </h2>
-                
-                <div class="text-center p-4">
-                    <div id="postRatingStars" class="fs-1 text-warning mb-4" style="cursor: pointer;">
-                        <i class="bi bi-star" data-value="1"></i>
-                        <i class="bi bi-star" data-value="2"></i>
-                        <i class="bi bi-star" data-value="3"></i>
-                        <i class="bi bi-star" data-value="4"></i>
-                        <i class="bi bi-star" data-value="5"></i>
+            <!-- Expert Review Buttons (for pending posts) -->
+            @if (isExpert && Model.Status == GoWheels.Models.PostStatus.Pending && !isOwner)
+            {
+                <div class="expert-review-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                    <h2 class="mb-4 pb-2 border-bottom" style="color: #6c757d;">
+                        <i class="fa-solid fa-clipboard-check me-2"></i>Expert Review
+                    </h2>
+                    <div class="text-center p-4">
+                        <div class="alert alert-warning mb-4">
+                            <i class="fa-solid fa-exclamation-triangle me-2"></i>
+                            This post is awaiting your review. Please examine the details carefully.
+                        </div>
+                        <div class="d-flex justify-content-center gap-3">
+                            <form asp-controller="Expert" asp-action="AcceptPost" asp-route-id="@Model.Id" method="post">
+                                <button type="submit" class="btn btn-success btn-lg px-5">
+                                    <i class="fa-solid fa-check me-2"></i>Accept Post
+                                </button>
+                            </form>
+                            <form asp-controller="Expert" asp-action="RejectPost" asp-route-id="@Model.Id" method="post">
+                                <button type="submit" class="btn btn-danger btn-lg px-5">
+                                    <i class="fa-solid fa-times me-2"></i>Reject Post
+                                </button>
+                            </form>
+                        </div>
                     </div>
+                </div>
+            }
+
+            <!-- Rating Section - Simple -->
+            @if (canRateComment)
+            {
+                <div class="rating-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                    <h2 class="mb-4 pb-2 text-warning border-bottom border-warning">
+                        <i class="fa-solid fa-star me-2"></i>Rate this Car
+                    </h2>
                     
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
+                    <div class="text-center p-4">
+                        <div id="postRatingStars" class="fs-1 text-warning mb-4" style="cursor: pointer;">
+                            <i class="bi bi-star" data-value="1"></i>
+                            <i class="bi bi-star" data-value="2"></i>
+                            <i class="bi bi-star" data-value="3"></i>
+                            <i class="bi bi-star" data-value="4"></i>
+                            <i class="bi bi-star" data-value="5"></i>
+                        </div>
+                        
                         <button id="submitPostRating" class="btn btn-warning btn-lg px-5">
                             <i class="fa-solid fa-check me-2"></i>Submit Rating
                         </button>
-                    }
-                    else
-                    {
-                        <p class="text-muted">
-                            <i class="fa-solid fa-info-circle me-2"></i>
-                            Please <a href="/Identity/Account/Login">login</a> to rate this car
-                        </p>
-                    }
+                    </div>
                 </div>
-            </div>
+            }
 
             <!-- Owner Information Section -->
             <div class="owner-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
@@ -355,7 +381,7 @@
                                 <div id="noCommentsMessage" class="alert alert-info">No comments yet. Be the first to comment!</div>
                             }
                         </div>
-                        @if (User.Identity?.IsAuthenticated == true)
+                        @if (canRateComment)
                         {
                             <div class="card mt-4 shadow-sm border-0">
                                 <div class="card-body">
@@ -381,7 +407,7 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons d-flex justify-content-between align-items-center py-4">
-                @if (User.IsInRole("ADMIN") || User.Identity?.Name == Model.Owner.UserName)
+                @if (isAdmin || isOwner)
                 {
                     <div class="d-flex">
                         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-lg me-3 px-4">

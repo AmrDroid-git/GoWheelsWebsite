@@ -6,6 +6,8 @@ using GoWheels.Models;
 using GoWheels.Services.Interfaces;
 using GoWheels.ViewModels;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 
 
 namespace GoWheels.Controllers
@@ -165,6 +167,30 @@ namespace GoWheels.Controllers
             }
 
             return View(post);
+        }
+
+        // GET: Posts/MyPosts
+        [Authorize(Roles = "USER")] // Both USER and EXPERT can see their own posts
+        public async Task<IActionResult> MyPosts()
+        {
+            // Get current user ID
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(); // Shouldn't happen due to [Authorize] but just in case
+            }
+            
+            // Get ALL user's posts (no pagination, no filtering)
+            var userPosts = await _context.Posts
+                .Include(p => p.PostImages)
+                .Include(p => p.Owner)
+                .Where(p => p.OwnerId == userId)
+                .OrderByDescending(p => p.CreatedAt)
+                .ToListAsync();
+            
+            // Pass posts directly to view
+            return View(userPosts);
         }
 
         // GET: Posts/Create

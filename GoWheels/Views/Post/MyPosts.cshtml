@@ -1,0 +1,78 @@
+@model List<GoWheels.Models.Post>
+@{
+    ViewData["Title"] = "My Cars";
+}
+
+<div class="container-fluid mt-4 px-5">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header Section with styling similar to Details page -->
+            <div class="header-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                <h1 class="display-4 fw-bold mb-4 text-primary border-bottom border-primary pb-3">
+                    <i class="fa-solid fa-car me-3"></i>My Cars
+                </h1>
+                
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div>
+                        <span class="fs-5 text-muted">
+                            <i class="fa-solid fa-layer-group me-2"></i>@Model.Count car(s) listed
+                        </span>
+                    </div>
+                    <a asp-action="Create" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-plus me-2"></i><strong>Create New</strong>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Posts Grid -->
+            @if (Model != null && Model.Any())
+            {
+                <div class="row">
+                    @foreach (var post in Model)
+                    {
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-12 mb-4">
+                            <partial name="_Post" model="post" />
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-4 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                    <div class="text-center py-4">
+                        <i class="fa-solid fa-car fa-3x text-muted mb-3"></i>
+                        <h3 class="text-muted mb-3">No Cars Listed</h3>
+                        <p class="text-muted mb-4">You haven't created any car listings yet.</p>
+                        <a asp-action="Create" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-plus me-2"></i>Create Your First Listing
+                        </a>
+                    </div>
+                </div>
+            }
+            
+            <!-- Back Button -->
+            <div class="mt-5 pt-4 border-top">
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Back to All Cars
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .header-section {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+    }
+    
+    h1 {
+        font-weight: bold;
+    }
+    
+    .btn-lg {
+        font-size: 1.25rem;
+        padding: 0.75rem 1.5rem;
+    }
+</style>

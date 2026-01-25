@@ -72,17 +72,73 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                    <!-- LEFT NAV ITEMS (Role-specific) -->
+                    <ul class="navbar-nav me-auto">
+                        <!-- Cars link - Visible to all -->
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">Cars</a>
                         </li>
-                        @* TODO hide *@
+                        
+                        <!-- Expert-only: Pending Review -->
+                        @if (User.IsInRole("EXPERT"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Expert" asp-action="Index">Pending Review</a>
+                            </li>
+                        }
+                        
+                        <!-- Admin-only: Dashboard -->
+                        @if (User.IsInRole("ADMIN"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                            </li>
+                        }
+                        
+                        @* Hide Users link as requested *@
+                        @*
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                         </li>
+                        *@
+                    </ul>
+                    
+                    <!-- RIGHT NAV ITEMS (Account section) -->
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <!-- Username -->
+                            <li class="nav-item">
+                                <span class="nav-link">@User.Identity.Name</span>
+                            </li>
+                            
+                            <!-- My Cars (User role only) -->
+                            @if (User.IsInRole("USER"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Post" asp-action="MyPosts">My Cars</a>
+                                </li>
+                            }
+                            
+                            <!-- Logout -->
+                            <li class="nav-item">
+                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                                    <button type="submit" class="nav-link btn btn-link" style="border: none; background: none;">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Login/Register when not authenticated -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -90,11 +146,9 @@
     </header>
 
     <div class="content">
-        @*<div class="container">*@
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        @*</div>*@
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
 
     <footer class="border-top footer text-muted">

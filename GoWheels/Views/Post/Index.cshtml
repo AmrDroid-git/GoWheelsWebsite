@@ -68,9 +68,12 @@
         <div class="col-md-9 order-lg-2 order-1 justify-content-center">
             <!-- Header with buttons -->
             <div class="mb-4">
-                <a asp-action="Create" class="btn btn-primary btn-lg">
-                    <i class="fa-solid fa-plus me-2"></i><strong>Create New</strong>
-                </a>
+                @if (User.Identity?.IsAuthenticated == true && User.IsInRole("USER"))
+                {
+                    <a asp-action="Create" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-plus me-2"></i><strong>Create New</strong>
+                    </a>
+                }
                 <button id="toggle-filter" class="btn btn-outline-secondary btn-lg ms-2">
                     <i class="fa-solid fa-filter me-2"></i>Toggle Filters
                 </button>
