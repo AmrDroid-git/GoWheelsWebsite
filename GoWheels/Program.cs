@@ -46,7 +46,18 @@ builder.Services.AddScoped<IRatingsService, RatingsService>();
 builder.Services.AddScoped<IAdminLogsService, AdminLogsService>();
 builder.Services.AddScoped<AuthLogsService>();
 
-builder.Services.AddHostedService<DbInitializer>();
+string? ALT_SEEDER = Environment.GetEnvironmentVariable("ALT_SEEDER");
+bool isAltSeeder = ALT_SEEDER=="1";
+if (isAltSeeder)
+{
+    Console.WriteLine("=== REGISTERING ALT SEEDER (RANDOM DATA) ===");
+    builder.Services.AddHostedService<AltSeeder>();
+}
+else
+{
+    Console.WriteLine("=== REGISTERING DEFAULT DB INITIALIZER ===");
+    builder.Services.AddHostedService<DbInitializer>();
+}
 
 
 // Controllers
@@ -63,10 +74,14 @@ builder.Services.AddRazorPages();
 // Application 
 var app = builder.Build();
 
+
 // DB Initialization (Migration must happen before app starts serving requests)
-using (var scope = app.Services.CreateScope())
+if (!isAltSeeder)
 {
-    await DbInitializer.DropAndMigrateDatabaseAsync(scope.ServiceProvider);
+    using (var scope = app.Services.CreateScope())
+    {
+        await DbInitializer.DropAndMigrateDatabaseAsync(scope.ServiceProvider);
+    }
 }
 
 // Configure the HTTP request pipeline.

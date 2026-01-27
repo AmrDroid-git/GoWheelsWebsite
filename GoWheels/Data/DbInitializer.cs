@@ -146,18 +146,20 @@ namespace GoWheels.Data
                         }
                     }
                 }
+                
+                const int limit = 10;
 
-                await PeekAndCollectIds<RatingPost>("ratings_posts.json", 10, r => {
+                await PeekAndCollectIds<RatingPost>("ratings_posts.json", limit, r => {
                     requiredUserIds.Add(r.OwnerId);
                     requiredPostIds.Add(r.RatedPostId);
                 });
 
-                await PeekAndCollectIds<Comment>("comments_seed.json", 10, c => {
+                await PeekAndCollectIds<Comment>("comments_seed.json", limit, c => {
                     requiredUserIds.Add(c.UserId);
                     requiredPostIds.Add(c.PostId);
                 });
 
-                await PeekAndCollectIds<PostImage>("post_images.json", 10, pi => {
+                await PeekAndCollectIds<PostImage>("post_images.json", limit, pi => {
                     requiredPostIds.Add(pi.PostId);
                 });
 
@@ -182,13 +184,13 @@ namespace GoWheels.Data
                 
                 var seededPostIds = new HashSet<string>(seededPosts.Select(p => p.Id));
 
-                await SeedTable("post_images.json", context.PostImages, basePath, options, context, 10,
+                await SeedTable("post_images.json", context.PostImages, basePath, options, context, limit,
                     pi => seededPostIds.Contains(pi.PostId));
                 
-                await SeedTable("ratings_posts.json", context.PostsRatings, basePath, options, context, 10,
+                await SeedTable("ratings_posts.json", context.PostsRatings, basePath, options, context, limit,
                     r => seededUserIds.Contains(r.OwnerId) && seededPostIds.Contains(r.RatedPostId));
                 
-                await SeedTable("comments_seed.json", context.Comments, basePath, options, context, 10,
+                await SeedTable("comments_seed.json", context.Comments, basePath, options, context, limit,
                     c => seededUserIds.Contains(c.UserId) && seededPostIds.Contains(c.PostId));
 
                 await context.SaveChangesAsync();
