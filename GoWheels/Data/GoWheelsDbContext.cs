@@ -77,7 +77,7 @@ namespace GoWheels.Data
             // ----------------------------
             // JSON Seeding (Disabled - Using Program.cs manual seeding for better performance with large data)
             // ----------------------------
-            // SeedFromJson(builder);
+             SeedFromJson(builder);
         }
 
         private static void SeedFromJson(ModelBuilder builder)

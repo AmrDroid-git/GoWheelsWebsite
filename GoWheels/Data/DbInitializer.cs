@@ -147,7 +147,7 @@ namespace GoWheels.Data
                     }
                 }
                 
-                const int limit = 10;
+                const int limit = 110;
 
                 await PeekAndCollectIds<RatingPost>("ratings_posts.json", limit, r => {
                     requiredUserIds.Add(r.OwnerId);

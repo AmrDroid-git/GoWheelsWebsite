@@ -45,7 +45,7 @@ builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
 builder.Services.AddScoped<IAdminLogsService, AdminLogsService>();
 builder.Services.AddScoped<AuthLogsService>();
-
+/*
 string? ALT_SEEDER = Environment.GetEnvironmentVariable("ALT_SEEDER");
 bool isAltSeeder = ALT_SEEDER=="1";
 if (isAltSeeder)
@@ -58,7 +58,7 @@ else
     Console.WriteLine("=== REGISTERING DEFAULT DB INITIALIZER ===");
     builder.Services.AddHostedService<DbInitializer>();
 }
-
+*/
 
 // Controllers
 builder.Services.AddControllersWithViews()
@@ -76,13 +76,14 @@ var app = builder.Build();
 
 
 // DB Initialization (Migration must happen before app starts serving requests)
+/*
 if (!isAltSeeder)
 {
     using (var scope = app.Services.CreateScope())
     {
         await DbInitializer.DropAndMigrateDatabaseAsync(scope.ServiceProvider);
     }
-}
+}*/
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
