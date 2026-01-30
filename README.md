@@ -47,15 +47,8 @@ Or simply:
 ## 📦 Step 2 — Pull the Application Image from Docker Hub
 
 ```bash
-docker pull DOCKERHUB_USERNAME/gowheels-app:latest
+docker pull medteck07/gowheels-app:latest
 ```
-
-Example:
-
-```bash
-docker pull meddev/gowheels-app:latest
-```
-
 ---
 
 ## ▶️ Step 3 — Start the Application (Single Command)
