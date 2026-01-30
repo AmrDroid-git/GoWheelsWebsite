@@ -1,72 +1,661 @@
 @model GoWheels.ViewModels.PostCreateViewModel
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create New Post";
 }
 
-<h1>Create</h1>
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="display-6">
+                <i class="fa-solid fa-car me-2"></i>Create New Vehicle Post
+            </h1>
+            <p class="text-muted">Fill in the details below to create your vehicle listing</p>
+        </div>
+        <div class="col-auto">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left me-2"></i>Back to List
+            </a>
+        </div>
+    </div>
 
-<h4>Post</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Constructor" class="control-label"></label>
-                <input asp-for="Constructor" class="form-control" />
-                <span asp-validation-for="Constructor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModelName" class="control-label"></label>
-                <input asp-for="ModelName" class="form-control" />
-                <span asp-validation-for="ModelName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReleaseDate" class="control-label"></label>
-                <input asp-for="ReleaseDate" class="form-control" />
-                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PurchaseDate" class="control-label"></label>
-                <input asp-for="PurchaseDate" class="form-control" />
-                <span asp-validation-for="PurchaseDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Kilometrage" class="control-label"></label>
-                <input asp-for="Kilometrage" class="form-control" />
-                <span asp-validation-for="Kilometrage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Specifications" class="control-label"></label> *@
-            @*     <input asp-for="Specifications" class="form-control" /> *@
-            @*     <span asp-validation-for="Specifications" class="text-danger"></span> *@
-            @* </div> *@
-            <div class="form-group">
-                <label asp-for="OwnerId" class="control-label"></label> (Should be removed later)
-                <select asp-for="OwnerId" class ="form-control" asp-items="ViewBag.OwnerId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Images" class="control-label"></label>
-                <input asp-for="Images" type="file" multiple class="form-control" />
-                <span asp-validation-for="Images" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <!-- Main Form Card -->
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                <i class="fa-solid fa-pen-to-square me-2"></i>Vehicle Information
+            </h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data" id="postForm">
+                @Html.AntiForgeryToken()
+                
+                @*
+                <!-- Hidden OwnerId field -->
+                <input type="hidden" asp-for="OwnerId" />
+                *@
+                
+                <!-- Transaction Type: Rent or Sell -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="form-group mb-3">
+                            <label asp-for="IsForRent" class="form-label">
+                                <strong>Transaction Type *</strong>
+                            </label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" asp-for="IsForRent" class="btn-check" id="typeSell" value="false" checked>
+                                <label class="btn btn-outline-primary" for="typeSell">
+                                    <i class="fa-solid fa-money-bill-wave me-2"></i>Sell
+                                </label>
+                                
+                                <input type="radio" asp-for="IsForRent" class="btn-check" id="typeRent" value="true">
+                                <label class="btn btn-outline-primary" for="typeRent">
+                                    <i class="fa-solid fa-calendar-alt me-2"></i>Rent
+                                </label>
+                            </div>
+                            <span asp-validation-for="IsForRent" class="text-danger small"></span>
+                            <small class="form-text text-muted">Choose whether you want to sell or rent this vehicle</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- General Information Section -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Constructor" class="form-label">
+                                <strong>Constructor/Marque *</strong>
+                            </label>
+                            <input asp-for="Constructor" class="form-control" placeholder="e.g., BMW, Mercedes, Toyota" required />
+                            <span asp-validation-for="Constructor" class="text-danger small"></span>
+                            <small class="form-text text-muted">Brand/Manufacturer of the vehicle</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="ModelName" class="form-label">
+                                <strong>Model Name *</strong>
+                            </label>
+                            <input asp-for="ModelName" class="form-control" placeholder="e.g., X1 Access, Corolla, C-Class" required />
+                            <span asp-validation-for="ModelName" class="text-danger small"></span>
+                            <small class="form-text text-muted">Specific model name</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dates Section -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="ReleaseDate" class="form-label">
+                                <strong>Release Date (Year) *</strong>
+                            </label>
+                            <input asp-for="ReleaseDate" type="date" class="form-control" 
+                                   max="@DateOnly.FromDateTime(DateTime.Today).ToString("yyyy-MM-dd")" required />
+                            <span asp-validation-for="ReleaseDate" class="text-danger small"></span>
+                            <small class="form-text text-muted">When the vehicle model was first released</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="PurchaseDate" class="form-label">
+                                <strong>Purchase Date *</strong>
+                            </label>
+                            <input asp-for="PurchaseDate" type="date" class="form-control" 
+                                   max="@DateOnly.FromDateTime(DateTime.Today).ToString("yyyy-MM-dd")" required />
+                            <span asp-validation-for="PurchaseDate" class="text-danger small"></span>
+                            <small class="form-text text-muted">When you purchased the vehicle</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price & Kilometrage Section -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Price" class="form-label">
+                                <strong>Price (DT) *</strong>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">DT</span>
+                                <input asp-for="Price" type="number" step="0.001" class="form-control" 
+                                       placeholder="e.g., 57000.000" required />
+                            </div>
+                            <span asp-validation-for="Price" class="text-danger small"></span>
+                            <small class="form-text text-muted">Price in Tunisian Dinars (with millimes precision)</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Kilometrage" class="form-label">
+                                <strong>Kilometrage *</strong>
+                            </label>
+                            <div class="input-group">
+                                <input asp-for="Kilometrage" type="number" class="form-control" 
+                                       placeholder="e.g., 146000" required />
+                                <span class="input-group-text">km</span>
+                            </div>
+                            <span asp-validation-for="Kilometrage" class="text-danger small"></span>
+                            <small class="form-text text-muted">Total distance traveled</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specifications Section (Always expanded) -->
+                <div class="card mb-4 border-primary">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">
+                            <i class="fa-solid fa-gear me-2"></i>Additional Specifications
+                        </h6>
+                        <span class="badge bg-light text-primary" id="specsCount">8 specifications added</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-3">
+                            Add additional specifications. Common specifications are pre-added below.
+                        </p>
+                        
+                        <!-- Dynamic Specifications Container -->
+                        <div id="specificationsContainer">
+                            <!-- Pre-added common specifications -->
+                            <div class="specification-row row mb-2" data-id="0">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="Gearbox"
+                                           placeholder="e.g., Gearbox"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., Automatique, Manuelle"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="specification-row row mb-2" data-id="1">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="Transmission"
+                                           placeholder="e.g., Transmission"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., Propulsion, Traction"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="specification-row row mb-2" data-id="2">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="Énergie"
+                                           placeholder="e.g., Énergie"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., Essence, Diesel, Électrique"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="specification-row row mb-2" data-id="3">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="Carrosserie"
+                                           placeholder="e.g., Carrosserie"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., SUV, Berline, Coupé"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="specification-row row mb-2" data-id="4">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="État général"
+                                           placeholder="e.g., État général"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., Normal, Bon, Très bon"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="specification-row row mb-2" data-id="5">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="Anciens propriétaires"
+                                           placeholder="e.g., Anciens propriétaires"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., 1ère main, 2ème main"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="specification-row row mb-2" data-id="6">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="Puissance fiscale"
+                                           placeholder="e.g., Puissance fiscale"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., 9 cv, 12 cv"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="specification-row row mb-2" data-id="7">
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationKeys" 
+                                           class="form-control spec-key" 
+                                           value="Gouvernorat"
+                                           placeholder="e.g., Gouvernorat"
+                                           readonly />
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" 
+                                           name="SpecificationValues" 
+                                           class="form-control spec-value" 
+                                           placeholder="e.g., Tunis, Sfax, Sousse"
+                                           />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" 
+                                            class="btn btn-outline-danger w-100 remove-spec"
+                                            title="Remove this specification">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Add Specification Button -->
+                        <button type="button" class="btn btn-outline-primary btn-sm mt-3" id="addSpecification">
+                            <i class="fa-solid fa-plus me-1"></i>Add Additional Specification
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Images Upload Section -->
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="fa-solid fa-images me-2"></i>Vehicle Images *
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-3">
+                            Upload images of your vehicle. First image will be used as the main thumbnail.
+                            <span class="text-danger">* At least one image is required.</span>
+                        </p>
+                        
+                        <!-- Image Upload Area -->
+                        <div class="mb-3">
+                            <label asp-for="Images" class="form-label">
+                                <strong>Upload Images *</strong>
+                            </label>
+                            <input asp-for="Images" type="file" class="form-control" 
+                                   multiple accept="image/*" id="imageUpload" required/>
+                            <span asp-validation-for="Images" class="text-danger small"></span>
+                        </div>
+                        
+                        <!-- Image Preview Area -->
+                        <div class="mb-3">
+                            <h6>Preview</h6>
+                            <div class="row" id="imagePreviewContainer">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <i class="fa-solid fa-info-circle me-2"></i>
+                                        Selected images will appear here
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <small class="form-text text-muted">
+                            Supported formats: JPG, PNG, GIF, WebP. Max size: 5MB per image.
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fa-solid fa-times me-2"></i>Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fa-solid fa-check me-2"></i>Create Post
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    
+    <script>
+        // Dynamic Specifications Management
+        document.addEventListener('DOMContentLoaded', function() {
+            let specCounter = 8; // Start after the 8 pre-added ones
+            
+            // Template for a specification row (for additional ones)
+            function createSpecificationRow(key = '', value = '') {
+                const id = specCounter++;
+                return `
+                    <div class="specification-row row mb-2" data-id="${id}">
+                        <div class="col-md-5">
+                            <input type="text" 
+                                name="SpecificationKeys" 
+                                class="form-control spec-key" 
+                                placeholder="e.g., Other specification"
+                                value="${key}" />
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" 
+                                name="SpecificationValues" 
+                                class="form-control spec-value" 
+                                placeholder="e.g., Specification value"
+                                value="${value}" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" 
+                                    class="btn btn-outline-danger w-100 remove-spec"
+                                    title="Remove this specification">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Add specification button handler
+            document.getElementById('addSpecification').addEventListener('click', function() {
+                const container = document.getElementById('specificationsContainer');
+                container.insertAdjacentHTML('beforeend', createSpecificationRow());
+                updateSpecsCount();
+            });
+            
+            // Remove specification button handler (using event delegation)
+            document.getElementById('specificationsContainer').addEventListener('click', function(e) {
+                if (e.target.closest('.remove-spec')) {
+                    const row = e.target.closest('.specification-row');
+                    const keyInput = row.querySelector('.spec-key');
+                    
+                    // Check if it's a pre-added common specification
+                    const commonSpecs = ['Gearbox', 'Transmission', 'Énergie', 'Carrosserie', 
+                                        'État général', 'Anciens propriétaires', 'Puissance fiscale', 'Gouvernorat'];
+                    
+                    if (commonSpecs.includes(keyInput.value)) {
+                        if (confirm('This is a common specification. Are you sure you want to remove it?')) {
+                            row.remove();
+                            updateSpecsCount();
+                        }
+                    } else {
+                        row.remove();
+                        updateSpecsCount();
+                    }
+                }
+            });
+            
+            // Update specs count badge
+            function updateSpecsCount() {
+                const count = document.querySelectorAll('.specification-row').length;
+                document.getElementById('specsCount').textContent = `${count} specification${count !== 1 ? 's' : ''} added`;
+                document.getElementById('specsCount').className = 
+                    `badge ${count > 0 ? 'bg-light text-primary' : 'bg-secondary'}`;
+            }
+            
+            // Initialize with pre-added specifications
+            updateSpecsCount();
+            
+            // Image preview functionality
+            document.getElementById('imageUpload').addEventListener('change', function(e) {
+                const previewContainer = document.getElementById('imagePreviewContainer');
+                previewContainer.innerHTML = '';
+                
+                const files = e.target.files;
+                if (files.length === 0) {
+                    previewContainer.innerHTML = `
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fa-solid fa-info-circle me-2"></i>
+                                Selected images will appear here
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Show first few images
+                const maxPreviews = 4;
+                for (let i = 0; i < Math.min(files.length, maxPreviews); i++) {
+                    const file = files[i];
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const colDiv = document.createElement('div');
+                        colDiv.className = 'col-md-3 col-6 mb-3';
+                        colDiv.innerHTML = `
+                            <div class="card h-100">
+                                <img src="${e.target.result}" 
+                                     class="card-img-top" 
+                                     alt="Preview"
+                                     style="height: 150px; object-fit: cover;">
+                                <div class="card-body p-2">
+                                    <small class="text-muted">${file.name}</small>
+                                </div>
+                            </div>
+                        `;
+                        previewContainer.appendChild(colDiv);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+                
+                // Show count for additional images
+                if (files.length > maxPreviews) {
+                    const remaining = files.length - maxPreviews;
+                    const colDiv = document.createElement('div');
+                    colDiv.className = 'col-md-3 col-6 mb-3';
+                    colDiv.innerHTML = `
+                        <div class="card h-100 bg-light d-flex align-items-center justify-content-center"
+                             style="height: 200px;">
+                            <div class="text-center">
+                                <i class="fa-solid fa-images fa-2x text-muted mb-2"></i>
+                                <p class="mb-0">
+                                    <strong>+${remaining}</strong><br>
+                                    <small>more image${remaining !== 1 ? 's' : ''}</small>
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    previewContainer.appendChild(colDiv);
+                }
+            });
+            
+// Form validation for required fields
+document.getElementById('postForm').addEventListener('submit', function(e) {
+    // Remove any existing validation classes
+    document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    
+    // Basic validation - check required fields
+    let isValid = true;
+    
+    // Check constructor
+    const constructor = document.querySelector('[name="Constructor"]');
+    if (!constructor.value.trim()) {
+        constructor.classList.add('is-invalid');
+        isValid = false;
+    }
+    
+    // Check model name
+    const modelName = document.querySelector('[name="ModelName"]');
+    if (!modelName.value.trim()) {
+        modelName.classList.add('is-invalid');
+        isValid = false;
+    }
+    
+    // Check release date
+    const releaseDate = document.querySelector('[name="ReleaseDate"]');
+    if (!releaseDate.value) {
+        releaseDate.classList.add('is-invalid');
+        isValid = false;
+    }
+    
+    // Check purchase date
+    const purchaseDate = document.querySelector('[name="PurchaseDate"]');
+    if (!purchaseDate.value) {
+        purchaseDate.classList.add('is-invalid');
+        isValid = false;
+    }
+    
+    // Check price
+    const price = document.querySelector('[name="Price"]');
+    if (!price.value || parseFloat(price.value) <= 0) {
+        price.classList.add('is-invalid');
+        isValid = false;
+    }
+    
+    // Check kilometrage
+    const kilometrage = document.querySelector('[name="Kilometrage"]');
+    if (!kilometrage.value || parseInt(kilometrage.value) < 0) {
+        kilometrage.classList.add('is-invalid');
+        isValid = false;
+    }
+    
+    if (!isValid) {
+        e.preventDefault();
+        alert('Please fill in all required fields (marked with *).');
+    }
+});
+        });
+    </script>
+    
+    <style>
+        /* Custom styles for the form */
+        .specification-row {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            transition: background-color 0.2s;
+        }
+        
+        .specification-row:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .specification-row:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-key[readonly] {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        
+        #imagePreviewContainer .card {
+            transition: transform 0.2s;
+        }
+        
+        #imagePreviewContainer .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-group .btn {
+            flex: 1;
+        }
+    </style>
 }

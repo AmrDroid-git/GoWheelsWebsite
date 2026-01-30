@@ -34,48 +34,73 @@
             </div>
         </div>
         <div class="next-section">
-            <div class="row">
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-calendar-alt me-2"></i><strong>Purchased:</strong></span>
-                            <span class="text-muted">@Model.PurchaseDate.ToShortDateString()</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-star me-2"></i><strong>Price Rating:</strong></span>
-                            <span class="text-muted">@Model.RateAverage</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-money-bill-wave me-2"></i><strong>Price:</strong></span>
-                            <span class="text-muted">@Model.Price.ToString("N0") DT</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-tachometer-alt me-2"></i><strong>Kilometrage:</strong></span>
-                            <span class="text-muted">@(Model.Kilometrage / 1000)K km</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-cog me-2"></i><strong>Gearbox:</strong></span>
-                            <span class="text-muted">@Model.Specifications["Gearbox"]</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-sync-alt me-2"></i><strong>Transmission:</strong></span>
-                            <span class="text-muted">@Model.Specifications["Transmission"]</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-gas-pump me-2"></i><strong>Énergie:</strong></span>
-                            <span class="text-muted">@Model.Specifications["Énergie"]</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between p-1">
-                            <span><i class="fa-solid fa-map-marker-alt me-2"></i><strong>Gouvernorat:</strong></span>
-                            <span class="text-muted">@Model.Specifications["Gouvernorat"]</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<div class="row">
+    <div class="col-md-6">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between p-1">
+                <span><i class="fa-solid fa-calendar-alt me-2"></i><strong>Purchased:</strong></span>
+                <span class="text-muted">@Model.PurchaseDate.ToShortDateString()</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between p-1">
+                <span><i class="fa-solid fa-star me-2"></i><strong>Price Rating:</strong></span>
+                <span class="text-muted">@Model.RateAverage</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between p-1">
+                <span><i class="fa-solid fa-money-bill-wave me-2"></i><strong>Price:</strong></span>
+                <span class="text-muted">@Model.Price.ToString("N0") DT</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between p-1">
+                <span><i class="fa-solid fa-tachometer-alt me-2"></i><strong>Kilometrage:</strong></span>
+                <span class="text-muted">@(Model.Kilometrage / 1000)K km</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <ul class="list-group list-group-flush">
+            @{
+                var cardSpecs = new[]
+                {
+                    new { Key = "Gearbox", Icon = "fa-cog", Exists = Model.Specifications.ContainsKey("Gearbox") },
+                    new { Key = "Transmission", Icon = "fa-sync-alt", Exists = Model.Specifications.ContainsKey("Transmission") },
+                    new { Key = "Énergie", Icon = "fa-gas-pump", Exists = Model.Specifications.ContainsKey("Énergie") },
+                    new { Key = "Gouvernorat", Icon = "fa-map-marker-alt", Exists = Model.Specifications.ContainsKey("Gouvernorat") }
+                };
+                
+                // Show existing specs first
+                foreach (var spec in cardSpecs.Where(s => s.Exists))
+                {
+                    <li class="list-group-item d-flex justify-content-between p-1">
+                        <span><i class="fa-solid @spec.Icon me-2"></i><strong>@spec.Key:</strong></span>
+                        <span class="text-muted">@Model.Specifications[spec.Key]</span>
+                    </li>
+                }
+                
+                // If less than 4 specs, fill with other specs
+                var otherSpecs = Model.Specifications
+                    .Where(s => !cardSpecs.Any(cs => cs.Key == s.Key))
+                    .Take(4 - cardSpecs.Count(s => s.Exists));
+                    
+                foreach (var spec in otherSpecs)
+                {
+                    <li class="list-group-item d-flex justify-content-between p-1">
+                        <span><i class="fa-solid fa-list me-2"></i><strong>@spec.Key:</strong></span>
+                        <span class="text-muted">@spec.Value</span>
+                    </li>
+                }
+                
+                // If still less than 4 items, add empty placeholders to maintain layout
+                var totalShown = cardSpecs.Count(s => s.Exists) + otherSpecs.Count();
+                for (int i = totalShown; i < 4; i++)
+                {
+                    <li class="list-group-item d-flex justify-content-between p-1" style="visibility: hidden;">
+                        <span>&nbsp;</span>
+                        <span>&nbsp;</span>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
         </div>
     </div>
     <div class="card-footer d-flex justify-content-between p-2">

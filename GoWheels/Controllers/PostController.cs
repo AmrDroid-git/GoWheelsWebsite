@@ -47,7 +47,7 @@ namespace GoWheels.Controllers
                 .GroupBy(p => p.Status)
                 .Select(g => new { Status = g.Key, Count = g.Count() })
                 .ToList();
-            
+
             return Json(new { totalPosts, byStatus });
         }
 
@@ -57,45 +57,45 @@ namespace GoWheels.Controllers
             if (User.IsInRole("EXPERT")) return "EXPERT";
             return "USER";
         }
-        
+
         // Replace your existing Index method with this:
         public IActionResult Index(PostFilter? filter = null)
         {
             filter ??= new PostFilter();
             var userRole = GetUserRole();
-            
+
             // Get filtered posts
             var (posts, totalCount) = _postsService.GetFilteredPosts(filter, userRole);
-            
+
             // Get filter boundaries
             var filterRanges = _postsService.GetFilterRanges();
             var allConstructors = _postsService.GetAllConstructors();
             var models = _postsService.GetModels(filter.Constructors);
-            
+
             // Calculate pagination
             int totalPages = (int)Math.Ceiling(totalCount / (double)PostFilter.PageSize);
-            
+
             // Pass data to view
             ViewBag.Posts = posts;
             ViewBag.TotalCount = totalCount;
             ViewBag.CurrentPage = filter.Page;
             ViewBag.TotalPages = totalPages;
-            
+
             // Current filter values
             ViewBag.CurrentFilter = filter;
-            
+
             // Filter options
             ViewBag.Constructors = allConstructors;
             ViewBag.Models = models;
             ViewBag.FilterRanges = filterRanges;
             ViewBag.UserRole = userRole;
-            
+
             // Status options for current role
             ViewBag.StatusOptions = GetStatusOptions(userRole);
-            
+
             return View();
         }
-        
+
         // AJAX endpoint for marque->modèle dependency
         [HttpPost]
         public IActionResult GetModels([FromBody] List<string>? constructors)
@@ -103,11 +103,11 @@ namespace GoWheels.Controllers
             var models = _postsService.GetModels(constructors);
             return Json(models);
         }
-        
+
         private List<SelectListItem> GetStatusOptions(string userRole)
         {
             var options = new List<SelectListItem>();
-            
+
             switch (userRole)
             {
                 case "ADMIN":
@@ -121,7 +121,7 @@ namespace GoWheels.Controllers
                         new SelectListItem("All", "all")
                     });
                     break;
-                    
+
                 case "EXPERT":
                     options.AddRange(new[]
                     {
@@ -131,7 +131,7 @@ namespace GoWheels.Controllers
                         new SelectListItem("All", "active")
                     });
                     break;
-                    
+
                 default: // USER
                     options.AddRange(new[]
                     {
@@ -142,7 +142,7 @@ namespace GoWheels.Controllers
                     });
                     break;
             }
-            
+
             return options;
         }
 
@@ -175,12 +175,12 @@ namespace GoWheels.Controllers
         {
             // Get current user ID
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            
+
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized(); // Shouldn't happen due to [Authorize] but just in case
             }
-            
+
             // Get ALL user's posts (no pagination, no filtering)
             var userPosts = await _context.Posts
                 .Include(p => p.PostImages)
@@ -188,7 +188,7 @@ namespace GoWheels.Controllers
                 .Where(p => p.OwnerId == userId)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
-            
+
             // Pass posts directly to view
             return View(userPosts);
         }
@@ -196,29 +196,53 @@ namespace GoWheels.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
         // POST: Posts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "USER")]
         public async Task<IActionResult> Create(PostCreateViewModel viewmodel)
         {
+            // Get current user ID
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
             if (!ModelState.IsValid)
             {
+                // DEBUG: Show validation errors
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine($"ModelState Error: {error.ErrorMessage}");
+                }
                 goto Repeat_Please;
             }
-            
+
             // Validating Constraints
             if (viewmodel.Images == null || viewmodel.Images.Count == 0)
             {
                 ModelState.AddModelError(nameof(viewmodel.Images), "Please upload at least an image.");
                 goto Repeat_Please;
             }
-            
+
+            // Process Specifications into Dictionary
+            var specifications = new Dictionary<string, string>();
+            if (viewmodel.SpecificationKeys != null && viewmodel.SpecificationValues != null)
+            {
+                for (int i = 0; i < Math.Min(viewmodel.SpecificationKeys.Count, viewmodel.SpecificationValues.Count); i++)
+                {
+                    if (!string.IsNullOrWhiteSpace(viewmodel.SpecificationKeys[i]) &&
+                        !string.IsNullOrWhiteSpace(viewmodel.SpecificationValues[i]))
+                    {
+                        specifications[viewmodel.SpecificationKeys[i]] = viewmodel.SpecificationValues[i];
+                    }
+                }
+            }
+
             // Adding Post to DB 
             var post = new Post
             {
@@ -228,24 +252,26 @@ namespace GoWheels.Controllers
                 PurchaseDate = viewmodel.PurchaseDate,
                 Kilometrage = viewmodel.Kilometrage,
                 Price = viewmodel.Price,
-                OwnerId = viewmodel.OwnerId
+                IsForRent = viewmodel.IsForRent,
+                Specifications = specifications,
+                OwnerId = userId,
+                Status = PostStatus.Pending
             };
-            if (! await _postsService.AddPostAsync(post))
+
+            if (!await _postsService.AddPostAsync(post))
             {
                 ModelState.AddModelError(nameof(Post), "You can't create this post. Please reach out for more information.");
-                goto Repeat_Please; // --> feature : show error
+                goto Repeat_Please;
             }
-            //logs logic
-            var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            // Logs logic - MOVE THIS BEFORE image processing
+            var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await _adminLogsService.LogAsync(
                 action: "POST_CREATED",
                 actorId: actorId,
                 details: $"PostId={post.Id}, OwnerId={post.OwnerId}"
             );
 
-
-            var postImages = new List<PostImage>();
             // Processing Images
             try
             {
@@ -253,12 +279,12 @@ namespace GoWheels.Controllers
                 {
                     var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(iFormFile.FileName);
                     var path = Path.Combine(_webHostEnvironment.WebRootPath, "images", uniqueFileName);
+
                     await using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await iFormFile.CopyToAsync(stream);
-                        stream.Close();
-                    };
-                    
+                    }
+
                     // Creating a PostImage entity
                     var postImage = new PostImage
                     {
@@ -266,87 +292,260 @@ namespace GoWheels.Controllers
                         PostId = post.Id
                     };
                     _context.PostImages.Add(postImage);
-                    await _context.SaveChangesAsync();
                 }
+
+                await _context.SaveChangesAsync(); // Save all images at once
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the actual error for debugging
+                Console.WriteLine($"Image processing error: {ex.Message}");
+
                 ModelState.AddModelError(nameof(viewmodel.Images), "Some error with the uploaded images.");
                 goto Repeat_Please;
             }
-            
-            // Redirecting to Index with success
-            // feature: show a green pop-up: "Successfully creating your post"
+
+            // Success - redirect to Index
             return RedirectToAction(nameof(Index));
-            
-            // Some problem exists
-            Repeat_Please :
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", viewmodel.OwnerId);
+
+        Repeat_Please:
             return View(viewmodel);
         }
 
-        // GET: Posts/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var post = await _postsService.GetPostByIdAsync(id); // --> returns bool
-            if (post == null)
-            {
-                return NotFound();
-            }
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", post.OwnerId);
-            return View(post);
-        }
-
-        // POST: Posts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,CreatedAt,Status,RateAverage,Constructor,ModelName,ReleaseDate,PurchaseDate,Kilometrage,Price,Specifications,OwnerId")] Post post)
-        {
-            if (id != post.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+        /*        // GET: Posts/Edit/5
+                public async Task<IActionResult> Edit(string id)
                 {
-                    _context.Update(post);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PostExists(post.Id))
+                    if (id == null)
                     {
                         return NotFound();
                     }
-                    else
+
+                    var post = await _postsService.GetPostByIdAsync(id); // --> returns bool
+                    if (post == null)
                     {
-                        throw;
+                        return NotFound();
+                    }
+                    ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", post.OwnerId);
+                    return View(post);
+                }
+
+                // POST: Posts/Edit/5
+                // To protect from overposting attacks, enable the specific properties you want to bind to.
+                // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                [Authorize(Roles = "USER,ADMIN")]
+                public async Task<IActionResult> Edit(string id, [Bind("Id,CreatedAt,Status,RateAverage,Constructor,ModelName,ReleaseDate,PurchaseDate,Kilometrage,Price,Specifications,OwnerId")] Post post)
+                {
+                    if (id != post.Id)
+                    {
+                        return NotFound();
+                    }
+
+                    if (ModelState.IsValid)
+                    {
+                        try
+                        {
+                            _context.Update(post);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!PostExists(post.Id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        //logs logic
+                        var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                        await _adminLogsService.LogAsync(
+                            action: "POST_EDITED",
+                            actorId: actorId,
+                            details: $"PostId={post.Id}"
+                        );
+                        return RedirectToAction(nameof(Index));
+                    }
+                    ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", post.OwnerId);
+                    return View(post);
+                }
+        */
+
+        // GET: Posts/Edit/5
+        [Authorize(Roles = "USER,ADMIN")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null) return NotFound();
+
+            var post = await _context.Posts
+                .Include(p => p.PostImages)
+                .Include(p => p.Owner)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (post == null) return NotFound();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isAdmin = User.IsInRole("ADMIN");
+            var isOwner = userId == post.OwnerId;
+
+            if (!isAdmin && !isOwner) return Forbid();
+
+            // Map to ViewModel
+            var viewModel = new PostEditViewModel
+            {
+                Id = post.Id,
+                Constructor = post.Constructor,
+                ModelName = post.ModelName,
+                ReleaseDate = post.ReleaseDate,
+                PurchaseDate = post.PurchaseDate,
+                Kilometrage = post.Kilometrage,
+                Price = post.Price,
+                Status = post.Status,
+                IsForRent = post.IsForRent,
+                OwnerName = post.Owner?.Name ?? "Unknown",
+                CreatedAt = post.CreatedAt,
+                RateAverage = post.RateAverage,
+                RatingsCount = post.RatingsCount,
+                ExistingImages = post.PostImages.Select(pi => new PostImageViewModel
+                {
+                    Id = pi.Id,
+                    ImageUrl = pi.ImageUrl
+                }).ToList()
+            };
+
+            // Add specifications
+            if (post.Specifications != null)
+            {
+                foreach (var spec in post.Specifications)
+                {
+                    viewModel.SpecificationKeys.Add(spec.Key);
+                    viewModel.SpecificationValues.Add(spec.Value);
+                }
+            }
+
+            ViewData["IsAdmin"] = isAdmin;
+            ViewData["IsOwner"] = isOwner;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "USER,ADMIN")]
+        public async Task<IActionResult> Edit(string id, PostEditViewModel viewModel)
+        {
+            if (id != viewModel.Id) return NotFound();
+
+            var existingPost = await _context.Posts
+                .Include(p => p.PostImages)
+                .Include(p => p.Owner)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (existingPost == null) return NotFound();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isAdmin = User.IsInRole("ADMIN");
+            var isOwner = userId == existingPost.OwnerId;
+
+            if (!isAdmin && !isOwner) return Forbid();
+
+            if (!ModelState.IsValid)
+            {
+                ViewData["IsAdmin"] = isAdmin;
+                ViewData["IsOwner"] = isOwner;
+                return View(viewModel);
+            }
+
+            try
+            {
+                // Update basic fields
+                existingPost.Constructor = viewModel.Constructor;
+                existingPost.ModelName = viewModel.ModelName;
+                existingPost.ReleaseDate = viewModel.ReleaseDate;
+                existingPost.PurchaseDate = viewModel.PurchaseDate;
+                existingPost.Kilometrage = viewModel.Kilometrage;
+                existingPost.Price = viewModel.Price;
+
+                // Handle Status
+                if (isAdmin)
+                {
+                    existingPost.Status = viewModel.Status;
+                }
+                else
+                {
+                    existingPost.Status = viewModel.Status == PostStatus.Deleted
+                        ? PostStatus.Deleted
+                        : PostStatus.Pending;
+                }
+
+                // Handle IsForRent
+                if (isAdmin)
+                {
+                    existingPost.IsForRent = viewModel.IsForRent;
+                }
+
+                // Update specifications
+                var specifications = new Dictionary<string, string>();
+                if (viewModel.SpecificationKeys != null && viewModel.SpecificationValues != null)
+                {
+                    for (int i = 0; i < Math.Min(viewModel.SpecificationKeys.Count, viewModel.SpecificationValues.Count); i++)
+                    {
+                        if (!string.IsNullOrWhiteSpace(viewModel.SpecificationKeys[i]) &&
+                            !string.IsNullOrWhiteSpace(viewModel.SpecificationValues[i]))
+                        {
+                            specifications[viewModel.SpecificationKeys[i]] = viewModel.SpecificationValues[i];
+                        }
                     }
                 }
-                //logs logic
-                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                existingPost.Specifications = specifications;
 
+                // Add new images
+                if (viewModel.NewImages != null && viewModel.NewImages.Count > 0)
+                {
+                    foreach (var imageFile in viewModel.NewImages)
+                    {
+                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(imageFile.FileName);
+                        var path = Path.Combine(_webHostEnvironment.WebRootPath, "images", uniqueFileName);
+
+                        await using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await imageFile.CopyToAsync(stream);
+                        }
+
+                        var postImage = new PostImage
+                        {
+                            ImageUrl = "/images/" + uniqueFileName,
+                            PostId = existingPost.Id
+                        };
+                        _context.PostImages.Add(postImage);
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await _adminLogsService.LogAsync(
                     action: "POST_EDITED",
                     actorId: actorId,
-                    details: $"PostId={post.Id}"
+                    details: $"PostId={existingPost.Id}"
                 );
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Details), new { id = existingPost.Id });
             }
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", post.OwnerId);
-            return View(post);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(id)) return NotFound();
+                throw;
+            }
         }
 
+
         // GET: Posts/Delete/5
+        [Authorize(Roles = "USER,ADMIN")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -354,34 +553,75 @@ namespace GoWheels.Controllers
                 return NotFound();
             }
 
-            var post = await _postsService.GetPostByIdAsync(id);
+            var post = await _context.Posts
+                .Include(p => p.Owner)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (post == null)
             {
                 return NotFound();
             }
 
+            // Check permissions
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isAdmin = User.IsInRole("ADMIN");
+            var isOwner = userId == post.OwnerId;
+
+            if (!isAdmin && !isOwner)
+            {
+                return Forbid();
+            }
+
             return View(post);
         }
 
-        // POST: Posts/Delete/5
+        // POST: Posts/Delete/5 (Permanent Removal)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "USER,ADMIN")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var post = await _context.Posts.FindAsync(id);
-            if (post != null)
-            {
-                _context.Posts.Remove(post);
-            }
-            //logs logic
-            var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var post = await _context.Posts
+                .Include(p => p.PostImages)
+                .FirstOrDefaultAsync(p => p.Id == id);
+    
+            if (post == null) return NotFound();
 
-            await _adminLogsService.LogAsync(
-                action: "POST_DELETED",
-                actorId: actorId,
-                details: $"PostId={id}"
-            );
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isAdmin = User.IsInRole("ADMIN");
+            var isOwner = userId == post.OwnerId;
+
+            if (!isAdmin && !isOwner) return Forbid();
+
+            // Delete images from server
+            if (post.PostImages != null)
+            {
+                foreach (var image in post.PostImages)
+                {
+                    if (!string.IsNullOrEmpty(image.ImageUrl) && image.ImageUrl.StartsWith("/images/"))
+                    {
+                        var fileName = Path.GetFileName(image.ImageUrl);
+                        var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", fileName);
+
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                    }
+                }
+            }
+
+            // Delete post
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
+
+            // Log
+            await _adminLogsService.LogAsync(
+                action: "POST_PERMANENTLY_REMOVED",
+                actorId: userId,
+                details: $"PostId={id}, Vehicle={post.Constructor} {post.ModelName}"
+            );
+
             return RedirectToAction(nameof(Index));
         }
 
