@@ -84,6 +84,12 @@ if (!isAltSeeder)
         await DbInitializer.DropAndMigrateDatabaseAsync(scope.ServiceProvider);
     }
 }*/
+// AUTO-MIGRATION EF CORE (Docker / Prod safe)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<GoWheelsDbContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

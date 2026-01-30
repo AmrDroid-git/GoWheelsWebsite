@@ -33,7 +33,8 @@ https://github.com/AmrDroid-git/GoWheelsWebsite/blob/App_ops_docker/GoWheels/doc
 ### Download via terminal (Linux / macOS / WSL)
 
 ```bash
-curl -O https://github.com/AmrDroid-git/GoWheelsWebsite/blob/App_ops_docker/GoWheels/docker-compose.yml
+curl -O https://raw.githubusercontent.com/AmrDroid-git/GoWheelsWebsite/App_ops_docker/GoWheels/docker-compose.yml
+
 ```
 
 Or simply:
