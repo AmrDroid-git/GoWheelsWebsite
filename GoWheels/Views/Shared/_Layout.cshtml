@@ -107,16 +107,18 @@
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <!-- Username -->
+                            <!-- Username as direct link to profile -->
                             <li class="nav-item">
-                                <span class="nav-link">@User.Identity.Name</span>
+                                <a class="nav-link" asp-controller="User" asp-action="Details" asp-route-id="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value">
+                                    @User.Identity.Name
+                                </a>
                             </li>
                             
                             <!-- My Cars (User role only) -->
                             @if (User.IsInRole("USER"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Post" asp-action="MyPosts">My Cars</a>
+                                    <a class="nav-link" asp-controller="Post" asp-action="MyPosts">My Cars</a>
                                 </li>
                             }
                             
