@@ -1,9 +1,3 @@
-Parfait 👍
-Voici un **README en anglais**, clair, professionnel et prêt à être envoyé à ton professeur.
-Il est conçu pour **un déploiement ultra simple**, **sans clonage du dépôt**.
-
----
-
 # 🚀 GoWheels – Docker Deployment Guide (No Repository Cloning)
 
 This document explains how to run the **GoWheels** application using **Docker and Docker Compose**, without cloning the GitHub repository or building the project locally.
@@ -184,13 +178,3 @@ docker logs gowheels-app
 
 This deployment approach allows the **GoWheels** application to be executed quickly and reliably, without manual configuration or repository cloning, ensuring a smooth and reproducible evaluation process.
 
----
-
-If you want, I can also:
-
-* ✨ Adapt this README for an academic report
-* ✨ Add a DevOps explanation section (for documentation)
-* ✨ Provide a short “Deployment Justification” paragraph for grading
-* ✨ Add a one-page **Quick Start** version for the professor
-
-Just tell me 👌
