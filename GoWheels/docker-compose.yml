@@ -1,0 +1,38 @@
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: gowheels_postgres
+    environment:
+      POSTGRES_DB: gowheels
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - gowheels_pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: medteck07/gowheels-app:latest
+    container_name: gowheels-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      ConnectionStrings__DefaultConnection: >
+        Host=gowheels_postgres;
+        Port=5432;
+        Database=gowheels;
+        Username=postgres;
+        Password=postgres
+    restart: unless-stopped
+
+volumes:
+  gowheels_pgdata:
