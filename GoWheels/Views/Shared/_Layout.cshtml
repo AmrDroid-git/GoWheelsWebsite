@@ -57,9 +57,21 @@
             flex: 1 0 auto;
         }
     </style>
+    @Html.AntiForgeryToken()
 </head>
 
 <body class="wrapper">
+    <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+        <div id="ajaxToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toastTitle"></strong>
+                <small class="text-muted" id="toastTime"></small>
+                <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastBody"></div>
+        </div>
+    </div>
+
     <header class="mb-5">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -162,6 +174,78 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function showAjaxToast(title, message, isSuccess = true) {
+            const toastEl = $('#ajaxToast');
+            $('#toastTitle').text(title);
+            $('#toastBody').text(message);
+            $('#toastTime').text(new Date().toLocaleTimeString());
+
+            // colour the header based on success / error
+            toastEl.find('.toast-header')
+                .removeClass('bg-success bg-danger')
+                .addClass(isSuccess ? 'bg-success' : 'bg-danger')
+                .css('color', 'white');
+
+            const toast = new bootstrap.Toast(toastEl[0], { delay: 3000 });
+            toast.show();
+        }
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get CSRF token
+        const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+        
+        // Handle clicks on expert action buttons
+        document.addEventListener('click', async function(e) {
+            const button = e.target.closest('.expert-action-btn');
+            if (!button) return;
+            
+            e.preventDefault();
+            
+            const postId = button.dataset.id;
+            const action = button.dataset.action;
+            const url = `/Expert/${action}/${postId}`;
+            
+            // Disable button to prevent double clicks
+            button.disabled = true;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': token
+                    }
+                });
+                
+                const data = await response.json();
+                
+                // Show toast with message from server
+                if (typeof showAjaxToast === 'function') {
+                    const isSuccess = response.ok;
+                    showAjaxToast(isSuccess ? 'Success' : 'Error', data.message, isSuccess);
+                }
+                
+                if (response.ok) {
+                    // Reload page after 2 seconds on success
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    // Re-enable button on error
+                    button.disabled = false;
+                }
+                
+            } catch (error) {
+                // Log the error for debugging
+                console.error('AJAX request failed:', error);
+
+                if (typeof showAjaxToast === 'function') {
+                    showAjaxToast('Error', 'Network request failed', false);
+                }
+                button.disabled = false;
+            }
+        });
+    });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

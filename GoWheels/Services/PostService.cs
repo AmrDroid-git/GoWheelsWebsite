@@ -8,10 +8,12 @@ namespace GoWheels.Services
     public class PostsService : IPostsService
     {
         private readonly GoWheelsDbContext _context;
+        private readonly IAdminLogsService _adminLogsService;
 
-        public PostsService(GoWheelsDbContext context)
+        public PostsService(GoWheelsDbContext context, IAdminLogsService adminLogsService)
         {
             _context = context;
+            _adminLogsService = adminLogsService;
         }
 
         // ==========================================================
@@ -474,6 +476,56 @@ namespace GoWheels.Services
                 MinYear: posts.Min(p => (int?)p.PurchaseDate.Year) ?? 1950,
                 MaxYear: posts.Max(p => (int?)p.PurchaseDate.Year) ?? DateTime.Now.Year
             );
+        }
+
+        public async Task<(bool Success, string Message)> VerifyPostAsync(string postId, string expertId)
+        {
+            return await ChangePostStatusAsync(postId, expertId, PostStatus.Accepted, "verified");
+        }
+        
+        public async Task<(bool Success, string Message)> RefusePostAsync(string postId, string expertId)
+        {
+            return await ChangePostStatusAsync(postId, expertId, PostStatus.Rejected, "refused");
+        }
+        
+        private async Task<(bool Success, string Message)> ChangePostStatusAsync(
+            string postId, 
+            string expertId, 
+            PostStatus newStatus, 
+            string actionVerb)
+        {
+            try
+            {
+                // Get the post
+                var post = await GetPostByIdAsync(postId);
+                if (post == null)
+                    return (false, "Post not found.");
+                
+                // Check if post is pending
+                if (post.Status != PostStatus.Pending)
+                    return (false, $"Post is already {post.Status.ToString().ToLower()}.");
+                
+                // Update status
+                post.Status = newStatus;
+                var updateSuccess = await UpdatePostAsync(post);
+                
+                if (!updateSuccess)
+                    return (false, "Failed to update post in database.");
+                
+                // Log the action
+                await _adminLogsService.LogAsync(
+                    action: "EXPERT_POST_STATUS_CHANGED",
+                    actorId: expertId,
+                    details: $"PostId={post.Id}, NewStatus={newStatus}"
+                );
+                
+                return (true, $"Post successfully {actionVerb}.");
+            }
+            catch (Exception ex)
+            {
+                // Log exception if needed
+                return (false, "An unexpected error occurred.");
+            }
         }
     }
 }

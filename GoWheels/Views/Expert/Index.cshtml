@@ -1,241 +1,139 @@
 @model IEnumerable<GoWheels.Models.Post>
 
 @{
-    ViewData["Title"] = "Expert View";
+    ViewData["Title"] = "Expert Dashboard";
+    var posts = Model.ToList();
 }
 
-<style>
-    .expert-page {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-        padding: 40px 20px;
-    }
-
-    .expert-container {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        padding: 2.5rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2.5rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-        padding-bottom: 1.5rem;
-        border-bottom: 3px solid rgba(56, 178, 172, 0.2);
-    }
-
-    .page-title {
-        font-weight: 700;
-        font-size: 2.2rem;
-        color: #319795;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    /* Alert Styling */
-    .glass-alert {
-        background: rgba(245, 101, 101, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(245, 101, 101, 0.3);
-        border-left: 4px solid #f56565;
-        border-radius: 12px;
-        padding: 1rem 1.5rem;
-        color: #c53030;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .table-wrapper {
-        background: rgba(255, 255, 255, 0.7);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .table {
-        margin-bottom: 0;
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-    }
-
-    .table thead th {
-        background: linear-gradient(135deg, rgba(56, 178, 172, 0.1) 0%, rgba(49, 151, 149, 0.1) 100%);
-        color: #2d3748;
-        font-weight: 700;
-        padding: 1.2rem 1rem;
-        border-bottom: 2px solid rgba(56, 178, 172, 0.2);
-        text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 0.5px;
-    }
-
-    .table tbody tr {
-        transition: all 0.3s ease;
-    }
-
-    .table tbody tr:hover {
-        background: rgba(56, 178, 172, 0.05);
-        transform: scale(1.01);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .table td {
-        padding: 1.2rem 1rem;
-        vertical-align: middle;
-        color: #4a5568;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    /* Status Badges */
-    .status-badge {
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-weight: 600;
-        font-size: 0.85rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        display: inline-block;
-    }
-
-    .badge-pending {
-        background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
-        color: white;
-    }
-
-    .badge-accepted {
-        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-        color: white;
-    }
-
-    .badge-rejected {
-        background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-        color: white;
-    }
-
-    .badge-default {
-        background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
-        color: white;
-    }
-
-    .btn-details {
-        padding: 0.5rem 1.2rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        display: inline-block;
-    }
-
-    .btn-details:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        color: white;
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: 3rem;
-        color: #a0aec0;
-        font-style: italic;
-    }
-
-    @@media (max-width: 768px) {
-        .expert-container {
-            padding: 1.5rem;
-        }
-        .page-title {
-            font-size: 1.8rem;
-        }
-    }
-</style>
-
-<div class="expert-page">
-    <div class="expert-container">
-        <div class="page-header">
-            <h1 class="page-title">🎓 Expert Dashboard</h1>
-        </div>
-
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-danger alert-dismissible fade show glass-alert" role="alert">
-                <span>⚠️</span>
-                <span>@TempData["ErrorMessage"]</span>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="display-6 fw-bold text-primary">
+                    <i class="fa-solid fa-clipboard-check me-2"></i>Expert Dashboard
+                </h1>
+                <span class="badge bg-secondary">@posts.Count pending</span>
             </div>
-        }
+            <p class="text-muted mb-0 mt-2">
+                Review and verify pending car listings.
+            </p>
+        </div>
+    </div>
 
-        <div class="table-wrapper table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.CreatedAt)</th>
-                        <th>@Html.DisplayNameFor(model => model.Status)</th>
-                        <th>@Html.DisplayNameFor(model => model.Constructor)</th>
-                        <th>@Html.DisplayNameFor(model => model.ModelName)</th>
-                        <th>@Html.DisplayNameFor(model => model.Price)</th>
-                        <th>@Html.DisplayNameFor(model => model.Owner)</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
-                            <td>
-                                @if (item.Status == PostStatus.Pending)
+    <!-- Main Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fa-solid fa-list me-2"></i>Pending Posts for Review
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="text-center">Constructor</th>
+                                    <th class="text-center">Model</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Owner</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in posts)
                                 {
-                                    <span class="status-badge badge-pending">@item.Status</span>
+                                    <tr data-post-id="@item.Id">
+                                        <td class="text-center align-middle">
+                                            <strong>@Html.DisplayFor(modelItem => item.Constructor)</strong>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            @Html.DisplayFor(modelItem => item.ModelName)
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            @if (item.IsForRent)
+                                            {
+                                                <span class="badge bg-info">Rent</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success">Sale</span>
+                                            }
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <span class="fw-bold text-primary">@item.Price.ToString("N0") DT</span>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <small>
+                                                <a href="/user/details/@item.Owner.Id" class="text-decoration-none">
+                                                    @Html.DisplayFor(modelItem => item.Owner.Name)
+                                                </a>
+                                            </small>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <div class="d-flex justify-content-center gap-1">
+                                                <!-- Accept Button -->
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-success px-3 py-1 expert-action-btn"
+                                                        data-action="AcceptPost"
+                                                        data-id="@item.Id">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </button>
+                                                
+                                                <!-- Reject Button -->
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-danger px-3 py-1 expert-action-btn"
+                                                        data-action="RejectPost"
+                                                        data-id="@item.Id">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                                
+                                                <!-- Details Button -->
+                                                <a class="btn btn-sm btn-outline-info px-3 py-1"
+                                                   asp-controller="Post" 
+                                                   asp-action="Details" 
+                                                   asp-route-id="@item.Id">
+                                                    <i class="fa-solid fa-eye me-1"></i>Details
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 }
-                                else if (item.Status == PostStatus.Accepted)
+                                
+                                @if (!posts.Any())
                                 {
-                                    <span class="status-badge badge-accepted">@item.Status</span>
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-check-circle fa-3x mb-3" style="color: #28a745;"></i>
+                                                <h5>All caught up!</h5>
+                                                <p class="mb-0">No pending posts to review at the moment.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 }
-                                else if (item.Status == PostStatus.Rejected)
-                                {
-                                    <span class="status-badge badge-rejected">@item.Status</span>
-                                }
-                                else
-                                {
-                                    <span class="status-badge badge-default">@item.Status</span>
-                                }
-                            </td>
-                            <td>@Html.DisplayFor(modelItem => item.Constructor)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ModelName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Owner.Name)</td>
-                            <td>
-                                <a class="btn-details" asp-controller="Expert" asp-action="DetailsPost" asp-route-id="@item.Id">Details</a>
-                            </td>
-                        </tr>
-                    }
-                    @if (!Model.Any())
-                    {
-                        <tr>
-                            <td colspan="7" class="empty-state">No posts found.</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @if (posts.Any())
+                {
+                    <div class="card-footer bg-light">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                Showing <strong>@posts.Count</strong> pending @(posts.Count == 1 ? "post" : "posts")
+                            </small>
+                            <small class="text-muted">
+                                <i class="fa-solid fa-info-circle me-1"></i>
+                                Click action buttons or details to review posts
+                            </small>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>

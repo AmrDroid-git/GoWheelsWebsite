@@ -44,6 +44,10 @@ namespace GoWheels.Services.Interfaces
         // Get min/max values for range sliders
         public (decimal MinPrice, decimal MaxPrice, int MinKm, int MaxKm, int MinYear, int MaxYear) GetFilterRanges();
 
+
+        // New expert verification methods
+        Task<(bool Success, string Message)> VerifyPostAsync(string postId, string expertId);
+        Task<(bool Success, string Message)> RefusePostAsync(string postId, string expertId);
         
     }
 }

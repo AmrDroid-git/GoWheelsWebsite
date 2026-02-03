@@ -28,7 +28,7 @@ namespace GoWheels.Controllers
 
             return View(posts);
         }
-        
+        /*
         // GET: /Expert/DetailsPost/5
         public async Task<IActionResult> DetailsPost(string id)
         {
@@ -44,9 +44,9 @@ namespace GoWheels.Controllers
             }
 
             return View(post);
-        }
+        }*/
         
-        
+        /*        
         // POST: /Expert/ChangeStatus
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -94,6 +94,36 @@ namespace GoWheels.Controllers
 
             // 4. Redirect back to the Expert Dashboard
             return RedirectToAction(nameof(Index));
+        }
+        */
+        // POST: /Expert/AcceptPost/{id}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AcceptPost(string id)
+        {
+            var expertId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            var (success, message) = await _postsService.VerifyPostAsync(id, expertId);
+            
+            if (!success)
+                return BadRequest(new { message });
+            
+            return Ok(new { message });
+        }
+        
+        // POST: /Expert/RejectPost/{id}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RejectPost(string id)
+        {
+            var expertId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            var (success, message) = await _postsService.RefusePostAsync(id, expertId);
+            
+            if (!success)
+                return BadRequest(new { message });
+            
+            return Ok(new { message });
         }
     }
 }
