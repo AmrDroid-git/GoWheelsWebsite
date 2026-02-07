@@ -14,12 +14,12 @@ namespace GoWheels.Services
             _context = context;
         }
 
-        public async Task LogAsync(string userId, string action, string? details = null)
+        public async Task LogAsync(string actorId, string action, string? details = null)
         {
             var log = new AdminLog
             {
                
-                ActorId = userId,
+                ActorId = actorId,
                 Action = action,
                 Details = details
             };

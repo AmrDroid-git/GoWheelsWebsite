@@ -46,8 +46,8 @@ builder.Services.AddScoped<IRatingsService, RatingsService>();
 builder.Services.AddScoped<IAdminLogsService, AdminLogsService>();
 builder.Services.AddScoped<AuthLogsService>();
 
-string? ALT_SEEDER = Environment.GetEnvironmentVariable("ALT_SEEDER");
-bool isAltSeeder = ALT_SEEDER=="1";
+string? altSeederEnv = Environment.GetEnvironmentVariable("ALT_SEEDER");
+bool isAltSeeder = altSeederEnv == "1";
 if (isAltSeeder)
 {
     Console.WriteLine("=== REGISTERING ALT SEEDER (RANDOM DATA) ===");
