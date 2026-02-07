@@ -17,20 +17,26 @@ namespace GoWheels.Services
         {
             var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await _logsService.LogAsync(
-                action: "USER_LOGIN",
-                actorId: userId
-            );
+            if (userId != null)
+            {
+                await _logsService.LogAsync(
+                    action: "USER_LOGIN",
+                    actorId: userId
+                );
+            }
         }
 
         public async Task LogLogoutAsync(ClaimsPrincipal user)
         {
             var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await _logsService.LogAsync(
-                action: "USER_LOGOUT",
-                actorId: userId
-            );
+            if (userId != null)
+            {
+                await _logsService.LogAsync(
+                    action: "USER_LOGOUT",
+                    actorId: userId
+                );
+            }
         }
 
         public async Task LogRegisterAsync(string userId)

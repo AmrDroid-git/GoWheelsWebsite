@@ -141,11 +141,15 @@ namespace GoWheels.Controllers
                 TempData["ErrorMessage"] = "Failed to update post status.";
             }
             //logs logic
-            await _adminLogsService.LogAsync(
-                action: "POST_STATUS_CHANGED",
-                actorId: User.FindFirstValue(ClaimTypes.NameIdentifier),
-                details: $"PostId={post.Id}, NewStatus={newStatus}"
-            );
+            var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (actorId != null)
+            {
+                await _adminLogsService.LogAsync(
+                    action: "POST_STATUS_CHANGED",
+                    actorId: actorId,
+                    details: $"PostId={post.Id}, NewStatus={newStatus}"
+                );
+            }
 
 
             // Stay on the same details page
@@ -168,10 +172,14 @@ namespace GoWheels.Controllers
             {
                 TempData["SuccessMessage"] = "Post deleted from database permanently.";
                 //logs logic
-                await _adminLogsService.LogAsync(
-                    action: "POST_DELETE",
-                    actorId: User.FindFirstValue(ClaimTypes.NameIdentifier)
-                );
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (actorId != null)
+                {
+                    await _adminLogsService.LogAsync(
+                        action: "POST_DELETE",
+                        actorId: actorId
+                    );
+                }
                 // Redirect to the main list since the post no longer exists
                 return RedirectToAction(nameof(PostsManagement));
             }

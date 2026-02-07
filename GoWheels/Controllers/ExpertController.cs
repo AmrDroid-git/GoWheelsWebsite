@@ -102,6 +102,10 @@ namespace GoWheels.Controllers
         public async Task<IActionResult> AcceptPost(string id)
         {
             var expertId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (expertId == null)
+            {
+                return Unauthorized();
+            }
             
             var (success, message) = await _postsService.VerifyPostAsync(id, expertId);
             
@@ -117,6 +121,10 @@ namespace GoWheels.Controllers
         public async Task<IActionResult> RejectPost(string id)
         {
             var expertId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (expertId == null)
+            {
+                return Unauthorized();
+            }
             
             var (success, message) = await _postsService.RefusePostAsync(id, expertId);
             

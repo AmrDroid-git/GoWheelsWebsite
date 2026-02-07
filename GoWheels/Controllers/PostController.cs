@@ -219,14 +219,14 @@ namespace GoWheels.Controllers
                 {
                     Console.WriteLine($"ModelState Error: {error.ErrorMessage}");
                 }
-                goto Repeat_Please;
+                return View(viewmodel);
             }
 
             // Validating Constraints
             if (viewmodel.Images == null || viewmodel.Images.Count == 0)
             {
                 ModelState.AddModelError(nameof(viewmodel.Images), "Please upload at least an image.");
-                goto Repeat_Please;
+                return View(viewmodel);
             }
 
             // Process Specifications into Dictionary
@@ -261,16 +261,19 @@ namespace GoWheels.Controllers
             if (!await _postsService.AddPostAsync(post))
             {
                 ModelState.AddModelError(nameof(Post), "You can't create this post. Please reach out for more information.");
-                goto Repeat_Please;
+                return View(viewmodel);
             }
 
             // Logs logic - MOVE THIS BEFORE image processing
             var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _adminLogsService.LogAsync(
-                action: "POST_CREATED",
-                actorId: actorId,
-                details: $"PostId={post.Id}, OwnerId={post.OwnerId}"
-            );
+            if (actorId != null)
+            {
+                await _adminLogsService.LogAsync(
+                    action: "POST_CREATED",
+                    actorId: actorId,
+                    details: $"PostId={post.Id}, OwnerId={post.OwnerId}"
+                );
+            }
 
             // Processing Images
             try
@@ -302,14 +305,11 @@ namespace GoWheels.Controllers
                 Console.WriteLine($"Image processing error: {ex.Message}");
 
                 ModelState.AddModelError(nameof(viewmodel.Images), "Some error with the uploaded images.");
-                goto Repeat_Please;
+                return View(viewmodel);
             }
 
             // Success - redirect to Index
             return RedirectToAction(nameof(Index));
-
-        Repeat_Please:
-            return View(viewmodel);
         }
 
         /*        // GET: Posts/Edit/5
@@ -528,11 +528,14 @@ namespace GoWheels.Controllers
                 await _context.SaveChangesAsync();
 
                 var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                await _adminLogsService.LogAsync(
-                    action: "POST_EDITED",
-                    actorId: actorId,
-                    details: $"PostId={existingPost.Id}"
-                );
+                if (actorId != null)
+                {
+                    await _adminLogsService.LogAsync(
+                        action: "POST_EDITED",
+                        actorId: actorId,
+                        details: $"PostId={existingPost.Id}"
+                    );
+                }
 
                 return RedirectToAction(nameof(Details), new { id = existingPost.Id });
             }
@@ -616,11 +619,14 @@ namespace GoWheels.Controllers
             await _context.SaveChangesAsync();
 
             // Log
-            await _adminLogsService.LogAsync(
-                action: "POST_PERMANENTLY_REMOVED",
-                actorId: userId,
-                details: $"PostId={id}, Vehicle={post.Constructor} {post.ModelName}"
-            );
+            if (userId != null)
+            {
+                await _adminLogsService.LogAsync(
+                    action: "POST_PERMANENTLY_REMOVED",
+                    actorId: userId,
+                    details: $"PostId={id}, Vehicle={post.Constructor} {post.ModelName}"
+                );
+            }
 
             return RedirectToAction(nameof(Index));
         }

@@ -46,12 +46,17 @@ namespace GoWheels.Controllers.Api
             {
                 // Return the created comment with user info for the UI
                 var createdComment = await _commentsService.GetCommentByIdAsync(comment.Id);
+                if (createdComment == null)
+                {
+                    return BadRequest("Failed to retrieve created comment.");
+                }
+                
                 return Ok(new
                 {
                     id = createdComment.Id,
                     body = createdComment.Body,
                     createdAt = createdComment.CreatedAt,
-                    userName = createdComment.User.Name,
+                    userName = createdComment.User?.Name ?? "Unknown",
                     userId = createdComment.UserId
                 });
                 /* TODO: cant render as long as  its base controll( api conntroller), decide wether keep it base or not

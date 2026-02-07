@@ -38,20 +38,28 @@ namespace GoWheels.Controllers
             //logs logic
             var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await _adminLogsService.LogAsync(
-                action: "USERS_LIST_VIEWED",
-                actorId: actorId
-            );
+            if (actorId != null)
+            {
+                await _adminLogsService.LogAsync(
+                    action: "USERS_LIST_VIEWED",
+                    actorId: actorId
+                );
+            }
             return View(users);
         }
 
         // GET: User/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string? id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 // If no ID provided, show current user's profile
                 id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            }
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
             }
 
             var user = await _usersService.GetUserByIdAsync(id);
@@ -80,11 +88,14 @@ namespace GoWheels.Controllers
 
             // Logs logic
             var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _adminLogsService.LogAsync(
-                action: "USER_PROFILE_VIEWED",
-                actorId: actorId,
-                details: $"ViewedUserId={id}"
-            );
+            if (actorId != null)
+            {
+                await _adminLogsService.LogAsync(
+                    action: "USER_PROFILE_VIEWED",
+                    actorId: actorId,
+                    details: $"ViewedUserId={id}"
+                );
+            }
 
             return View(user);
         }
@@ -130,11 +141,14 @@ namespace GoWheels.Controllers
             
             // Log the edit
             var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _adminLogsService.LogAsync(
-                action: "USER_PROFILE_EDITED",
-                actorId: actorId,
-                details: $"UserId={user.Id}"
-            );
+            if (actorId != null)
+            {
+                await _adminLogsService.LogAsync(
+                    action: "USER_PROFILE_EDITED",
+                    actorId: actorId,
+                    details: $"UserId={user.Id}"
+                );
+            }
             
             TempData["SuccessMessage"] = "Profile updated successfully.";
             return RedirectToAction(nameof(Details), new { id = user.Id });
