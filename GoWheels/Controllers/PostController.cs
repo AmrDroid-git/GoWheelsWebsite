@@ -394,6 +394,13 @@ namespace GoWheels.Controllers
 
             if (!isAdmin && !isOwner) return Forbid();
 
+            // Non-admins cannot edit deleted posts (they are irreversible)
+            if (!isAdmin && post.Status == PostStatus.Deleted)
+            {
+                TempData["ErrorMessage"] = "Deleted posts cannot be edited.";
+                return RedirectToAction(nameof(Details), new { id = post.Id });
+            }
+
             // Map to ViewModel
             var viewModel = new PostEditViewModel
             {
@@ -477,9 +484,22 @@ namespace GoWheels.Controllers
                 }
                 else
                 {
-                    existingPost.Status = viewModel.Status == PostStatus.Deleted
-                        ? PostStatus.Deleted
-                        : PostStatus.Pending;
+                    // User can ONLY change status to Deleted, and cannot revert from Deleted
+                    if (existingPost.Status == PostStatus.Deleted)
+                    {
+                        // Already deleted, keep it deleted
+                        existingPost.Status = PostStatus.Deleted;
+                    }
+                    else if (viewModel.Status == PostStatus.Deleted)
+                    {
+                        // User chose to delete it
+                        existingPost.Status = PostStatus.Deleted;
+                    }
+                    else
+                    {
+                        // For any other change, reset to Pending (re-verify after edit)
+                        existingPost.Status = PostStatus.Pending;
+                    }
                 }
 
                 // Handle IsForRent
