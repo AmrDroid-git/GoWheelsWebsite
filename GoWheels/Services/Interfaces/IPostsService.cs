@@ -26,7 +26,6 @@ namespace GoWheels.Services.Interfaces
         Task<List<Post>> GetTopRatedPostsAsync(int count);
 
         Task<List<Post>> GetPostsByStateAsync(PostStatus status);
-        Task<bool> ValidatePostAsync(string postId, PostStatus status, string expertId);
         Task<List<Post>> GetPostsByOwnerAsync(string userId);
         
         

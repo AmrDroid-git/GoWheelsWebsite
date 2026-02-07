@@ -285,26 +285,9 @@ namespace GoWheels.Services
         }
         
         // ==========================================================
-        // 11. ROLE-BASED LOGIC (Validation & Owner)
+        // 11. ROLE-BASED LOGIC (Owner)
         // ==========================================================
 
-        public async Task<bool> ValidatePostAsync(string postId, PostStatus status, string expertId)
-        {
-            try
-            {
-                var post = await _context.Posts.FindAsync(postId);
-                if (post == null) return false;
-
-                post.Status = status;
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error validating post: {ex.Message}");
-                return false;
-            }
-        }
         
         // ==========================================================
         // 12. UTILITIES (Intersection)
@@ -521,7 +504,7 @@ namespace GoWheels.Services
                 
                 return (true, $"Post successfully {actionVerb}.");
             }
-            catch (Exception ex)
+            catch
             {
                 // Log exception if needed
                 return (false, "An unexpected error occurred.");
