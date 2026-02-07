@@ -147,13 +147,6 @@
                         </div>
                     </form>
 
-                    <hr class="my-4" />
-
-                    <h6 class="card-subtitle mb-3 text-danger">Danger Zone</h6>
-                    <p class="small text-muted">Permanently delete this post from the database. This action cannot be undone.</p>
-                    <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
-                        <i class="fa-solid fa-skull-crossbones me-2"></i>Permanent Delete
-                    </button>
                 </div>
             </div>
 
@@ -187,30 +180,6 @@
                         <a href="/user/details/@Model.OwnerId" class="btn btn-outline-primary btn-sm">View User Profile</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirmModalLabel">Confirm Permanent Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to permanently delete <strong>@Model.Constructor @Model.ModelName</strong>?
-                <br /><br />
-                This will remove the post and all its images from the database and storage forever.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form asp-action="DeletePost" method="post">
-                    <input type="hidden" name="id" value="@Model.Id" />
-                    <button type="submit" class="btn btn-danger">Yes, Delete Permanently</button>
-                </form>
             </div>
         </div>
     </div>

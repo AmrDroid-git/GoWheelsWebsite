@@ -397,7 +397,6 @@ namespace GoWheels.Controllers
             // Non-admins cannot edit deleted posts (they are irreversible)
             if (!isAdmin && post.Status == PostStatus.Deleted)
             {
-                TempData["ErrorMessage"] = "Deleted posts cannot be edited.";
                 return RedirectToAction(nameof(Details), new { id = post.Id });
             }
 
@@ -484,20 +483,10 @@ namespace GoWheels.Controllers
                 }
                 else
                 {
-                    // User can ONLY change status to Deleted, and cannot revert from Deleted
-                    if (existingPost.Status == PostStatus.Deleted)
+                    // For non-admins, if they edited anything, reset to Pending 
+                    // (unless it was already Deleted, but they shouldn't be able to edit Deleted anyway)
+                    if (existingPost.Status != PostStatus.Deleted)
                     {
-                        // Already deleted, keep it deleted
-                        existingPost.Status = PostStatus.Deleted;
-                    }
-                    else if (viewModel.Status == PostStatus.Deleted)
-                    {
-                        // User chose to delete it
-                        existingPost.Status = PostStatus.Deleted;
-                    }
-                    else
-                    {
-                        // For any other change, reset to Pending (re-verify after edit)
                         existingPost.Status = PostStatus.Pending;
                     }
                 }
@@ -522,6 +511,27 @@ namespace GoWheels.Controllers
                     }
                 }
                 existingPost.Specifications = specifications;
+                
+                // Handle image deletions
+                if (viewModel.ImagesToDelete != null && viewModel.ImagesToDelete.Count > 0)
+                {
+                    var imagesToRemove = existingPost.PostImages
+                        .Where(pi => viewModel.ImagesToDelete.Contains(pi.Id))
+                        .ToList();
+
+                    foreach (var img in imagesToRemove)
+                    {
+                        // Remove from file system
+                        var filePath = Path.Combine(_webHostEnvironment.WebRootPath, img.ImageUrl.TrimStart('/'));
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                        
+                        // Remove from DB
+                        _context.PostImages.Remove(img);
+                    }
+                }
 
                 // Add new images
                 if (viewModel.NewImages != null && viewModel.NewImages.Count > 0)
@@ -598,7 +608,7 @@ namespace GoWheels.Controllers
             return View(post);
         }
 
-        // POST: Posts/Delete/5 (Permanent Removal)
+        // POST: Posts/Delete/5 (Soft Delete for users)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "USER,ADMIN")]
@@ -616,39 +626,21 @@ namespace GoWheels.Controllers
 
             if (!isAdmin && !isOwner) return Forbid();
 
-            // Delete images from server
-            if (post.PostImages != null)
-            {
-                foreach (var image in post.PostImages)
-                {
-                    if (!string.IsNullOrEmpty(image.ImageUrl) && image.ImageUrl.StartsWith("/images/"))
-                    {
-                        var fileName = Path.GetFileName(image.ImageUrl);
-                        var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", fileName);
-
-                        if (System.IO.File.Exists(filePath))
-                        {
-                            System.IO.File.Delete(filePath);
-                        }
-                    }
-                }
-            }
-
-            // Delete post
-            _context.Posts.Remove(post);
+            // Soft delete: Change status to Deleted
+            post.Status = PostStatus.Deleted;
             await _context.SaveChangesAsync();
 
             // Log
             if (userId != null)
             {
                 await _adminLogsService.LogAsync(
-                    action: "POST_PERMANENTLY_REMOVED",
+                    action: "POST_DELETED",
                     actorId: userId,
                     details: $"PostId={id}, Vehicle={post.Constructor} {post.ModelName}"
                 );
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(MyPosts));
         }
 
         private bool PostExists(string id)

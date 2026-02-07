@@ -156,41 +156,6 @@ namespace GoWheels.Controllers
             return RedirectToAction(nameof(DetailsPost), new { id = post.Id });
         }
 
-        // POST: /Admin/DeletePost
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletePost(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var success = await _postsService.DeletePostAsync(id);
-
-            if (success)
-            {
-                TempData["SuccessMessage"] = "Post deleted from database permanently.";
-                //logs logic
-                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (actorId != null)
-                {
-                    await _adminLogsService.LogAsync(
-                        action: "POST_DELETE",
-                        actorId: actorId
-                    );
-                }
-                // Redirect to the main list since the post no longer exists
-                return RedirectToAction(nameof(PostsManagement));
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Failed to delete post.";
-                return RedirectToAction(nameof(DetailsPost), new { id = id });
-            }
-        }
-        
-        
         //USERS MANAGEMENT
         
         // GET: /Admin/UsersManagement

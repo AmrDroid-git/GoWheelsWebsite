@@ -23,7 +23,7 @@
                     <!-- Simple Warning -->
                     <div class="alert alert-warning mb-4">
                         <i class="fa-solid fa-exclamation-circle me-2"></i>
-                        The post will be permanently deleted along with its images, comments, and ratings.
+                        The post will be marked as deleted and will no longer be visible to other users.
                     </div>
 
                     <!-- Action Buttons -->
@@ -32,19 +32,11 @@
                             <i class="fa-solid fa-times me-1"></i> Cancel
                         </a>
                         
-                        @if (Model.Status != GoWheels.Models.PostStatus.Deleted)
-                        {
-                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">
-                                <i class="fa-solid fa-archive me-1"></i> Archive Instead
-                            </a>
-                        }
-                        
                         <form asp-action="Delete" method="post">
                             @Html.AntiForgeryToken()
                             <input type="hidden" asp-for="Id" />
-                            <button type="submit" class="btn btn-danger w-100" 
-                                    onclick="return confirm('Delete this post permanently? This cannot be undone.')">
-                                <i class="fa-solid fa-trash me-1"></i> Delete Permanently
+                            <button type="submit" class="btn btn-danger w-100">
+                                <i class="fa-solid fa-trash me-1"></i> Mark as Deleted
                             </button>
                         </form>
                     </div>
