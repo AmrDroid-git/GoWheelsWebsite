@@ -1,0 +1,217 @@
+@model GoWheels.Models.Post
+@{
+    ViewData["Title"] = "Admin - Post Details";
+}
+
+<div class="container-fluid mt-4 px-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="PostsManagement">Posts Management</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Post Details</li>
+                </ol>
+            </nav>
+            <div class="d-flex justify-content-between align-items-center bg-light p-4 rounded shadow-sm">
+                <div>
+                    <h1 class="display-5 fw-bold mb-0 text-primary">@Model.Constructor @Model.ModelName</h1>
+                    <p class="text-muted mb-0">Posted on @Model.CreatedAt.ToString("f") by <a href="/user/details/@Model.OwnerId">@Model.Owner.Name</a></p>
+                </div>
+                <div>
+                    <partial name="_StatusPill" model="Model.Status" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Main Content (Left) -->
+        <div class="col-lg-8">
+            <!-- Images Section -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0"><i class="fa-solid fa-images me-2 text-info"></i>Images</h5>
+                </div>
+                <div class="card-body">
+                    <div id="postImageCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded">
+                            @if (Model.PostImages != null && Model.PostImages.Any())
+                            {
+                                int i = 0;
+                                foreach (var img in Model.PostImages)
+                                {
+                                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                                        <img src="@img.ImageUrl" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Post image">
+                                    </div>
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                <div class="carousel-item active">
+                                    <img src="/images/no-image.png" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="No image available">
+                                </div>
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#postImageCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#postImageCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0"><i class="fa-solid fa-circle-info me-2 text-info"></i>Specifications</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span class="text-muted">Price:</span>
+                                    <span class="fw-bold text-success">@Model.Price.ToString("N0") DT</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span class="text-muted">Kilometrage:</span>
+                                    <span>@Model.Kilometrage.ToString("N0") km</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span class="text-muted">Release Date:</span>
+                                    <span>@Model.ReleaseDate.ToString("yyyy")</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span class="text-muted">Purchase Date:</span>
+                                    <span>@Model.PurchaseDate.ToString("yyyy-MM-dd")</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                    <span class="text-muted">Rating:</span>
+                                    <span class="text-warning">
+                                        <i class="fa-solid fa-star me-1"></i>@(Model.RateAverage?.ToString("F1") ?? "N/A")
+                                        <small class="text-muted">(@Model.RatingsCount ratings)</small>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                @if (Model.Specifications != null)
+                                {
+                                    foreach (var spec in Model.Specifications)
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                            <span class="text-muted">@spec.Key:</span>
+                                            <span>@spec.Value</span>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar (Right) -->
+        <div class="col-lg-4">
+            <!-- Status Management Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0"><i class="fa-solid fa-user-shield me-2"></i>Admin Actions</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-3 text-muted">Update Status</h6>
+                    <form asp-action="ChangeStatus" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <div class="d-grid gap-2">
+                            <div class="btn-group-vertical" role="group" aria-label="Status selection">
+                                <button type="submit" name="newStatus" value="@PostStatus.Accepted" class="btn btn-outline-success @(Model.Status == PostStatus.Accepted ? "active" : "")">
+                                    <i class="fa-solid fa-check-circle me-2"></i>Verify Post
+                                </button>
+                                <button type="submit" name="newStatus" value="@PostStatus.Pending" class="btn btn-outline-warning @(Model.Status == PostStatus.Pending ? "active" : "")">
+                                    <i class="fa-solid fa-hourglass-half me-2"></i>Set to Pending
+                                </button>
+                                <button type="submit" name="newStatus" value="@PostStatus.Rejected" class="btn btn-outline-danger @(Model.Status == PostStatus.Rejected ? "active" : "")">
+                                    <i class="fa-solid fa-times-circle me-2"></i>Reject Post
+                                </button>
+                                <button type="submit" name="newStatus" value="@PostStatus.Deleted" class="btn btn-outline-secondary @(Model.Status == PostStatus.Deleted ? "active" : "")">
+                                    <i class="fa-solid fa-trash-can me-2"></i>Mark as Deleted
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <hr class="my-4" />
+
+                    <h6 class="card-subtitle mb-3 text-danger">Danger Zone</h6>
+                    <p class="small text-muted">Permanently delete this post from the database. This action cannot be undone.</p>
+                    <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+                        <i class="fa-solid fa-skull-crossbones me-2"></i>Permanent Delete
+                    </button>
+                </div>
+            </div>
+
+            <!-- Owner Info Card -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0"><i class="fa-solid fa-user me-2 text-info"></i>Owner Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; font-size: 1.5rem;">
+                                @Model.Owner.Name[0]
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">@Model.Owner.Name</h6>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item d-flex justify-content-between px-0">
+                            <span class="text-muted">Phone:</span>
+                            <span>@Model.Owner.PhoneNumber</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between px-0">
+                            <span class="text-muted">Address:</span>
+                            <span>@Model.Owner.Address</span>
+                        </li>
+                    </ul>
+                    <div class="d-grid mt-3">
+                        <a href="/user/details/@Model.OwnerId" class="btn btn-outline-primary btn-sm">View User Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">Confirm Permanent Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to permanently delete <strong>@Model.Constructor @Model.ModelName</strong>?
+                <br /><br />
+                This will remove the post and all its images from the database and storage forever.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="DeletePost" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-danger">Yes, Delete Permanently</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -226,7 +226,7 @@ namespace GoWheels.Controllers
         // GET: /Admin/ExpertsList
         public async Task<IActionResult> ExpertsList()
         {
-            var experts = await _usersService.GetUsersByRoleAsync("Expert");
+            var experts = await _usersService.GetUsersByRoleAsync("EXPERT");
             ViewData["CurrentRole"] = "EXPERT";
             return View("Users/ExpertsList", experts);
         }
@@ -234,7 +234,7 @@ namespace GoWheels.Controllers
         // GET: /Admin/AdminsList
         public async Task<IActionResult> AdminsList()
         {
-            var admins = await _usersService.GetUsersByRoleAsync("Admin");
+            var admins = await _usersService.GetUsersByRoleAsync("ADMIN");
             ViewData["CurrentRole"] = "ADMIN";
             return View("Users/AdminsList", admins);
         }
