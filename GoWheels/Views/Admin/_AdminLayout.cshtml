@@ -1,0 +1,27 @@
+@{
+    Layout = "/Views/Shared/_Layout.cshtml"; // Use main layout
+}
+
+<!-- Add DataTables to head -->
+@section Head {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
+}
+
+<!-- Main content area -->
+@RenderBody()
+
+<!-- DataTables JS -->
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    @*<script>
+        $(function () {
+            $('table.data-table').DataTable({
+                pageLength: 25,
+                language: {
+                    search: "Search:"
+                }
+            });
+        })
+    </script>*@
+    @RenderSection("AdminScripts", required: false)
+}

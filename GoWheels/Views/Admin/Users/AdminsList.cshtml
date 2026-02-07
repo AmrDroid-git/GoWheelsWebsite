@@ -1,194 +1,69 @@
 @model IEnumerable<GoWheels.Models.ApplicationUser>
 
 @{
-    ViewData["Title"] = "List of Admins";
-    string role = ViewData["CurrentRole"] as string ?? "Admin";
+    ViewData["Title"] = "Administrators";
 }
 
-<style>
-    .list-page {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-        padding: 40px 20px;
-    }
-
-    .list-container {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        padding: 2.5rem;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2.5rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-        padding-bottom: 1.5rem;
-        border-bottom: 3px solid rgba(229, 62, 62, 0.2);
-    }
-
-    .page-title {
-        font-weight: 700;
-        font-size: 2.2rem;
-        color: #e53e3e;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .btn-back {
-        padding: 0.6rem 1.5rem;
-        border: 2px solid rgba(229, 62, 62, 0.3);
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.9);
-        color: #e53e3e;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .btn-back:hover {
-        background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-        color: white;
-        border-color: transparent;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(229, 62, 62, 0.4);
-    }
-
-    .table-wrapper {
-        background: rgba(255, 255, 255, 0.7);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .table {
-        margin-bottom: 0;
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-    }
-
-    .table thead th {
-        background: linear-gradient(135deg, rgba(245, 101, 101, 0.1) 0%, rgba(229, 62, 62, 0.1) 100%);
-        color: #2d3748;
-        font-weight: 700;
-        padding: 1.2rem 1rem;
-        border-bottom: 2px solid rgba(229, 62, 62, 0.2);
-        text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 0.5px;
-    }
-
-    .table tbody tr {
-        transition: all 0.3s ease;
-    }
-
-    .table tbody tr:hover {
-        background: rgba(229, 62, 62, 0.05);
-        transform: scale(1.01);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .table td {
-        padding: 1.2rem 1rem;
-        vertical-align: middle;
-        color: #4a5568;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .badge-admin {
-        background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-weight: 600;
-        font-size: 0.85rem;
-        box-shadow: 0 2px 8px rgba(229, 62, 62, 0.3);
-    }
-
-    .text-muted {
-        color: #a0aec0;
-    }
-
-    .star-rating {
-        color: #ecc94b;
-    }
-
-    .empty-state {
-        text-align: center;
-        padding: 3rem;
-        color: #a0aec0;
-        font-style: italic;
-    }
-
-    @@media (max-width: 768px) {
-        .list-container {
-            padding: 1.5rem;
-        }
-        .page-title {
-            font-size: 1.8rem;
-        }
-    }
-</style>
-
-<div class="list-page">
-    <div class="list-container">
-        <div class="page-header">
-            <h1 class="page-title">🛡️ List of Admins</h1>
-            <a asp-action="UsersManagement" class="btn-back">← Back</a>
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a asp-action="UsersManagement" class="text-decoration-none mb-3 d-inline-block">
+                <i class="fa-solid fa-arrow-left me-1"></i> Back to Users
+            </a>
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="display-6 fw-bold">
+                    <i class="fa-solid fa-shield-alt me-2 text-danger"></i>Administrators
+                </h1>
+                <span class="badge bg-danger fs-6">@Model.Count() admins</span>
+            </div>
+            <p class="text-muted mb-0">System administrators with full control</p>
         </div>
+    </div>
 
-        <div class="table-wrapper table-responsive">
-            <table class="table">
-                <thead>
+    <!-- Admins Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger bg-opacity-10 border-danger">
+            <h5 class="mb-0 text-dark">
+                <i class="fa-solid fa-list me-2"></i>Admins List
+            </h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover data-table">
+                <thead class="bg-light">
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Address</th>
+                        <th>Phone</th>
                         <th>Email</th>
-                        <th>Phone Number</th>
-                        <th>Roles</th>
-                        <th>Rate Average</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var user in Model)
+                    @foreach (var admin in Model)
                     {
                         <tr>
-                            <td><small class="text-muted">@user.Id</small></td>
-                            <td><strong>@user.Name</strong></td>
-                            <td>@user.Address</td>
-                            <td>@user.Email</td>
-                            <td>@user.PhoneNumber</td>
+                            <td><strong>@admin.Name</strong></td>
+                            <td>@admin.Address</td>
+                            <td>@admin.PhoneNumber</td>
+                            <td>@admin.Email</td>
                             <td>
-                                <span class="badge-admin">@role</span>
-                            </td>
-                            <td>
-                                @if (user.RateAverage != null)
-                                {
-                                    <span>@user.RateAverage <span class="star-rating">⭐</span></span>
-                                }
-                                else
-                                {
-                                    <span class="text-muted fst-italic">not rated</span>
-                                }
+                                <a class="btn btn-sm btn-outline-info"
+                                   asp-controller="User" 
+                                   asp-action="Details" 
+                                   asp-route-id="@admin.Id">
+                                    <i class="fa-solid fa-eye"></i> Profile
+                                </a>
                             </td>
                         </tr>
                     }
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="7" class="empty-state">No admins found.</td>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-user-slash fa-2x mb-2"></i>
+                                <p class="mb-0">No administrators found.</p>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -196,3 +71,17 @@
         </div>
     </div>
 </div>
+
+@section AdminScripts {
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        $('.data-table').DataTable({
+            order: [[0, 'asc']],
+            pageLength: 25,
+            language: {
+                search: 'Search admins:'
+            }
+        });
+    });
+    </script>
+}

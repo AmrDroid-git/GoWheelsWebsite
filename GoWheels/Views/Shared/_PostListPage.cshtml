@@ -1,0 +1,133 @@
+@model IEnumerable<GoWheels.Models.Post>
+
+@{
+    // Parameters - these should be passed from the calling view
+    string pageTitle = ViewData["PageTitle"] as string ?? "Posts";
+    string iconClass = ViewData["IconClass"] as string ?? "fa-solid fa-list";
+    string iconColor = ViewData["IconColor"] as string ?? "primary";
+    string badgeClass = ViewData["BadgeClass"] as string ?? "bg-primary";
+    string description = ViewData["Description"] as string ?? "List of posts";
+    string backAction = ViewData["BackAction"] as string ?? "PostsManagement";
+    string backText = ViewData["BackText"] as string ?? "Back to Posts";
+}
+
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a asp-action="@backAction" class="text-decoration-none mb-3 d-inline-block">
+                <i class="fa-solid fa-arrow-left me-1"></i> @backText
+            </a>
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="display-6 fw-bold">
+                    <i class="@iconClass me-2 text-@iconColor"></i>@pageTitle
+                </h1>
+                <span class="badge @badgeClass fs-6">@Model.Count()</span>
+            </div>
+            <p class="text-muted mb-0">@description</p>
+        </div>
+    </div>
+
+    <!-- Post Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-@iconColor bg-opacity-10 border-@iconColor">
+            <h5 class="mb-0 text-dark">
+                <i class="fa-solid fa-list-check me-2"></i>@pageTitle List
+                <small class="text-muted ms-2">Click details to review</small>
+            </h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover data-table">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Created</th>
+                        <th>Constructor</th>
+                        <th>Model</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Owner</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CreatedAt.ToString("yyyy-MM-dd")</td>
+                            <td>@item.Constructor</td>
+                            <td>@item.ModelName</td>
+                            <td>
+                                @if (item.IsForRent)
+                                {
+                                    <span class="badge bg-info">Rent</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Sale</span>
+                                }
+                            </td>
+                            <td>@item.Price.ToString("N0") DT</td>
+                            <td>
+                                <a href="/user/details/@item.Owner.Id" class="text-decoration-none">
+                                    @item.Owner.Name
+                                </a>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-1">
+                                    <a class="btn btn-sm btn-outline-info"
+                                       asp-controller="Post" 
+                                       asp-action="Details" 
+                                       asp-route-id="@item.Id">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-warning"
+                                       asp-controller="Post" 
+                                       asp-action="Edit" 
+                                       asp-route-id="@item.Id">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </a>
+                                    @if (item.Status == PostStatus.Deleted)
+                                    {
+                                        <a class="btn btn-sm btn-outline-success"
+                                           asp-action="DetailsPost" 
+                                           asp-route-id="@item.Id">
+                                            <i class="fa-solid fa-rotate-left"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-sm btn-outline-danger"
+                                           asp-action="DetailsPost" 
+                                           asp-route-id="@item.Id">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-inbox fa-2x mb-2"></i>
+                                <p class="mb-0">No posts found.</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        $('.data-table').DataTable({
+            order: [[0, 'asc']],
+            pageLength: 25,
+            language: { search: "Search posts:" },
+            columnDefs: [{ orderable: false, targets: 5 }]
+        });
+    });
+</script>

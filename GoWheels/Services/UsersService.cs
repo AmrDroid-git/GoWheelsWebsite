@@ -219,5 +219,27 @@ namespace GoWheels.Services
                 return (false, "An unexpected error occurred while creating the user.");
             }
         }
+
+        public async Task<(int userCount, int expertCount, int adminCount)> GetRoleCountsAsync()
+        {
+            var roleCounts = await _context.UserRoles
+                .Join(_context.Roles,
+                    ur => ur.RoleId,
+                    r => r.Id,
+                    (ur, r) => new { RoleName = r.Name })
+                .GroupBy(x => x.RoleName)
+                .Select(g => new
+                {
+                    RoleName = g.Key,
+                    Count = g.Count()
+                })
+                .ToListAsync();
+            
+            return (
+                userCount: roleCounts.FirstOrDefault(rc => rc.RoleName == "USER")?.Count ?? 0,
+                expertCount: roleCounts.FirstOrDefault(rc => rc.RoleName == "EXPERT")?.Count ?? 0,
+                adminCount: roleCounts.FirstOrDefault(rc => rc.RoleName == "ADMIN")?.Count ?? 0
+            );
+        }
     }
 }

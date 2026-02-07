@@ -40,9 +40,28 @@ namespace GoWheels.Controllers
 
         // --- POSTS MANAGEMENT SECTION ---
 
+
         // GET: /Admin/PostsManagement
-        public IActionResult PostsManagement()
+        public async Task<IActionResult> PostsManagement()
         {
+            try
+            {
+                // Single query for all post counts
+                var (pending, accepted, rejected, deleted) = await _postsService.GetPostCountsAsync();
+                
+                ViewData["PendingCount"] = pending;
+                ViewData["AcceptedCount"] = accepted;
+                ViewData["RejectedCount"] = rejected;
+                ViewData["DeletedCount"] = deleted;
+            }
+            catch
+            {
+                ViewData["PendingCount"] = 0;
+                ViewData["AcceptedCount"] = 0;
+                ViewData["RejectedCount"] = 0;
+                ViewData["DeletedCount"] = 0;
+            }
+            
             return View();
         }
 
@@ -167,8 +186,24 @@ namespace GoWheels.Controllers
         //USERS MANAGEMENT
         
         // GET: /Admin/UsersManagement
-        public IActionResult UsersManagement()
+        public async Task<IActionResult> UsersManagement()
         {
+            try
+            {
+                // Single query for all role counts
+                var (userCount, expertCount, adminCount) = await _usersService.GetRoleCountsAsync();
+                
+                ViewData["UserCount"] = userCount;
+                ViewData["ExpertCount"] = expertCount;
+                ViewData["AdminCount"] = adminCount;
+            }
+            catch
+            {
+                ViewData["UserCount"] = 0;
+                ViewData["ExpertCount"] = 0;
+                ViewData["AdminCount"] = 0;
+            }
+            
             return View();
         }
         

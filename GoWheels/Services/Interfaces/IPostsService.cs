@@ -49,5 +49,6 @@ namespace GoWheels.Services.Interfaces
         Task<(bool Success, string Message)> VerifyPostAsync(string postId, string expertId);
         Task<(bool Success, string Message)> RefusePostAsync(string postId, string expertId);
         
+        Task<(int pending, int accepted, int rejected, int deleted)> GetPostCountsAsync();
     }
 }

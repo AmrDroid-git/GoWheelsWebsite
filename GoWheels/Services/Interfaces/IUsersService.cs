@@ -40,5 +40,7 @@ namespace GoWheels.Services.Interfaces
         Task LogoutUserAsync();
         
         Task<(bool Success, string ErrorMessage)> CreateUserAsync(ApplicationUser user, string password);
+
+        Task<(int userCount, int expertCount, int adminCount)> GetRoleCountsAsync();
     }
 }

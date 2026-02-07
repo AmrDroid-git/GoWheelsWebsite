@@ -527,5 +527,24 @@ namespace GoWheels.Services
                 return (false, "An unexpected error occurred.");
             }
         }
+
+        public async Task<(int pending, int accepted, int rejected, int deleted)> GetPostCountsAsync()
+        {
+            var counts = await _context.Posts
+                .GroupBy(p => p.Status)
+                .Select(g => new 
+                { 
+                    Status = g.Key, 
+                    Count = g.Count() 
+                })
+                .ToListAsync();
+            
+            return (
+                pending: counts.FirstOrDefault(c => c.Status == PostStatus.Pending)?.Count ?? 0,
+                accepted: counts.FirstOrDefault(c => c.Status == PostStatus.Accepted)?.Count ?? 0,
+                rejected: counts.FirstOrDefault(c => c.Status == PostStatus.Rejected)?.Count ?? 0,
+                deleted: counts.FirstOrDefault(c => c.Status == PostStatus.Deleted)?.Count ?? 0
+            );
+        }
     }
 }
