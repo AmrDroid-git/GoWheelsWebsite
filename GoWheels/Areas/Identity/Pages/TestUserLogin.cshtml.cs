@@ -13,7 +13,7 @@ namespace GoWheels.Pages
             _userManager = userManager;
         }
 
-        public string DisplayName { get; set; }
+        public string DisplayName { get; set; } = string.Empty;
 
         public async Task OnGetAsync()
         {

@@ -12,9 +12,9 @@ namespace GoWheels.Models
         
       
         [MaxLength(128)]
-        public string ActorId { get; set; } 
+        public string ActorId { get; set; } = null!;
         [ForeignKey(nameof(ActorId))]
-        public ApplicationUser Actor { get; set; } 
+        public ApplicationUser Actor { get; set; } = null!;
 
         [Required]
         [MaxLength(200)]
