@@ -11,7 +11,7 @@
     var currentPage = ViewBag.CurrentPage as int? ?? 1;
     var totalPages = ViewBag.TotalPages as int? ?? 1;
 
-    string GetPageUrl(int pageNumber)
+    string? GetPageUrl(int pageNumber)
     {
         // Create a route values dictionary
         var routeValues = new Dictionary<string, object?>
