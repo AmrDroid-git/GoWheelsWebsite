@@ -52,6 +52,7 @@ public class PostEditViewModel
     
     // Images
     public List<PostImageViewModel> ExistingImages { get; set; } = new();
+    public List<string> ImagesToDelete { get; set; } = new();
     public ICollection<IFormFile>? NewImages { get; set; }
     
     // Read-only info for display

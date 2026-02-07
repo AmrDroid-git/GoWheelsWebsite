@@ -391,7 +391,7 @@
                         <!-- Image Preview Area -->
                         <div class="mb-3">
                             <h6>Preview</h6>
-                            <div class="row" id="imagePreviewContainer">
+                            <div class="row g-3" id="imagePreviewContainer">
                                 <div class="col-12">
                                     <div class="alert alert-info">
                                         <i class="fa-solid fa-info-circle me-2"></i>
@@ -519,23 +519,24 @@
                     return;
                 }
                 
-                // Show first few images
-                const maxPreviews = 4;
-                for (let i = 0; i < Math.min(files.length, maxPreviews); i++) {
-                    const file = files[i];
+                Array.from(files).forEach((file, index) => {
                     const reader = new FileReader();
                     
                     reader.onload = function(e) {
                         const colDiv = document.createElement('div');
                         colDiv.className = 'col-md-3 col-6 mb-3';
                         colDiv.innerHTML = `
-                            <div class="card h-100">
-                                <img src="${e.target.result}" 
-                                     class="card-img-top" 
-                                     alt="Preview"
-                                     style="height: 150px; object-fit: cover;">
+                            <div class="card h-100 shadow-sm border-0">
+                                <div class="position-relative">
+                                    <img src="${e.target.result}" 
+                                         class="card-img-top" 
+                                         alt="Preview"
+                                         style="height: 150px; object-fit: cover; border-radius: 8px 8px 0 0;">
+                                    ${index === 0 ? '<span class="badge bg-primary position-absolute top-0 start-0 m-2">Main</span>' : ''}
+                                </div>
                                 <div class="card-body p-2">
-                                    <small class="text-muted">${file.name}</small>
+                                    <small class="text-muted d-block text-truncate" title="${file.name}">${file.name}</small>
+                                    <small class="text-secondary">${(file.size / 1024).toFixed(0)} KB</small>
                                 </div>
                             </div>
                         `;
@@ -543,27 +544,7 @@
                     };
                     
                     reader.readAsDataURL(file);
-                }
-                
-                // Show count for additional images
-                if (files.length > maxPreviews) {
-                    const remaining = files.length - maxPreviews;
-                    const colDiv = document.createElement('div');
-                    colDiv.className = 'col-md-3 col-6 mb-3';
-                    colDiv.innerHTML = `
-                        <div class="card h-100 bg-light d-flex align-items-center justify-content-center"
-                             style="height: 200px;">
-                            <div class="text-center">
-                                <i class="fa-solid fa-images fa-2x text-muted mb-2"></i>
-                                <p class="mb-0">
-                                    <strong>+${remaining}</strong><br>
-                                    <small>more image${remaining !== 1 ? 's' : ''}</small>
-                                </p>
-                            </div>
-                        </div>
-                    `;
-                    previewContainer.appendChild(colDiv);
-                }
+                });
             });
             
 // Form validation for required fields
