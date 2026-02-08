@@ -28,6 +28,9 @@ namespace GoWheels.Services
                     float currentSum = (post.RateAverage ?? 0) * post.RatingsCount;
                     post.RatingsCount++;
                     post.RateAverage = (float)Math.Round((currentSum + rating.Value) / post.RatingsCount, 2, MidpointRounding.AwayFromZero);
+                    
+                    _context.Entry(post).Property(p => p.RateAverage).IsModified = true;
+                    _context.Entry(post).Property(p => p.RatingsCount).IsModified = true;
                 }
 
                 _context.PostsRatings.Add(rating);
@@ -51,6 +54,9 @@ namespace GoWheels.Services
                     float currentSum = (user.RateAverage ?? 0) * user.RatingsCount;
                     user.RatingsCount++;
                     user.RateAverage = (float)Math.Round((currentSum + rating.Value) / user.RatingsCount, 2, MidpointRounding.AwayFromZero);
+
+                    _context.Entry(user).Property(u => u.RateAverage).IsModified = true;
+                    _context.Entry(user).Property(u => u.RatingsCount).IsModified = true;
                 }
 
                 _context.UsersRatings.Add(rating);
@@ -122,40 +128,40 @@ namespace GoWheels.Services
 
         private async Task RecalculatePostAverage(string postId)
         {
-            var post = await _context.Posts.FindAsync(postId);
-            if (post == null) return;
-
             var ratings = await _context.PostsRatings.Where(r => r.RatedPostId == postId).ToListAsync();
+            float? rateAverage = null;
+            int ratingsCount = 0;
+
             if (ratings.Any())
             {
-                post.RatingsCount = ratings.Count;
-                post.RateAverage = (float)Math.Round(ratings.Average(r => r.Value), 2, MidpointRounding.AwayFromZero);
+                ratingsCount = ratings.Count;
+                rateAverage = (float)Math.Round(ratings.Average(r => r.Value), 2, MidpointRounding.AwayFromZero);
             }
-            else
-            {
-                post.RatingsCount = 0;
-                post.RateAverage = null;
-            }
-            await _context.SaveChangesAsync();
+
+            await _context.Posts
+                .Where(p => p.Id == postId)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(p => p.RateAverage, rateAverage)
+                    .SetProperty(p => p.RatingsCount, ratingsCount));
         }
 
         private async Task RecalculateUserAverage(string userId)
         {
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null) return;
-
             var ratings = await _context.UsersRatings.Where(r => r.RatedUserId == userId).ToListAsync();
+            float? rateAverage = null;
+            int ratingsCount = 0;
+
             if (ratings.Any())
             {
-                user.RatingsCount = ratings.Count;
-                user.RateAverage = (float)Math.Round(ratings.Average(r => r.Value), 2, MidpointRounding.AwayFromZero);
+                ratingsCount = ratings.Count;
+                rateAverage = (float)Math.Round(ratings.Average(r => r.Value), 2, MidpointRounding.AwayFromZero);
             }
-            else
-            {
-                user.RatingsCount = 0;
-                user.RateAverage = null;
-            }
-            await _context.SaveChangesAsync();
+
+            await _context.Users
+                .Where(u => u.Id == userId)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(u => u.RateAverage, rateAverage)
+                    .SetProperty(u => u.RatingsCount, ratingsCount));
         }
 
         public async Task<bool> DeletePostRatingAsync(string id)
@@ -181,6 +187,9 @@ namespace GoWheels.Services
                         post.RatingsCount = 0;
                         post.RateAverage = null;
                     }
+
+                    _context.Entry(post).Property(p => p.RateAverage).IsModified = true;
+                    _context.Entry(post).Property(p => p.RatingsCount).IsModified = true;
                 }
 
                 _context.PostsRatings.Remove(r);
@@ -216,6 +225,9 @@ namespace GoWheels.Services
                         user.RatingsCount = 0;
                         user.RateAverage = null;
                     }
+
+                    _context.Entry(user).Property(u => u.RateAverage).IsModified = true;
+                    _context.Entry(user).Property(u => u.RatingsCount).IsModified = true;
                 }
 
                 _context.UsersRatings.Remove(r);
@@ -302,9 +314,11 @@ namespace GoWheels.Services
                     post.RateAverage = null;
                     post.RatingsCount = 0;
                 }
+
+                _context.Entry(post).Property(p => p.RateAverage).IsModified = true;
+                _context.Entry(post).Property(p => p.RatingsCount).IsModified = true;
             }
 
-            _context.Posts.UpdateRange(posts);
             await _context.SaveChangesAsync();
         }
         
@@ -334,9 +348,11 @@ namespace GoWheels.Services
                     user.RateAverage = null;
                     user.RatingsCount = 0;
                 }
+
+                _context.Entry(user).Property(u => u.RateAverage).IsModified = true;
+                _context.Entry(user).Property(u => u.RatingsCount).IsModified = true;
             }
 
-            _context.Users.UpdateRange(users);
             await _context.SaveChangesAsync();
         }
     }
