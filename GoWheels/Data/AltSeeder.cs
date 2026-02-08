@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GoWheels.Data
 {
-    public class AltSeeder: BackgroundService
+    public class AltSeeder
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<AltSeeder> _logger;
@@ -45,23 +45,6 @@ namespace GoWheels.Data
             _logger = logger;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            _logger.LogInformation("AltSeeder Service is starting.");
-            
-            using var scope = _serviceProvider.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<GoWheelsDbContext>();
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            
-            // Migrate and seed
-            await context.Database.MigrateAsync();
-            await SeedRandomDataAsync(context, userManager);
-            
-            _logger.LogInformation("AltSeeder Service completed.");
-        }
-
-
-        
         // Helper methods
         private string RandomWord()
         {
@@ -127,10 +110,6 @@ namespace GoWheels.Data
                 Console.WriteLine("2. Clearing existing data...");
                 await ClearDatabase(context);
             }
-            
-            // 3. Create database structure
-            Console.WriteLine("3. Migrating database...");
-            await context.Database.MigrateAsync();
             
             // 4. Create users and build ID maps
             Console.WriteLine("4. Creating users...");

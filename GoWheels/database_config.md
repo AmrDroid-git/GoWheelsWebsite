@@ -4,7 +4,7 @@ Make sure to have `docker-desktop` and `WSL` installed
 
 - To run a docker container 
     - Open WSL
-    - `cd gowheels-db`
+    - `cd GoWheels-Database`
     - `docker compose up -d`
 
 
@@ -20,7 +20,7 @@ Make sure to have `docker-desktop` and `WSL` installed
 Make sure to have `docker.io` and `docker-compose-v2` installed (use `apt`)
 
 - To run a docker container :
-    - `cd gowheels-db`
+    - `cd GoWheels-Database`
     - `sudo docker compose up -d`
 
 

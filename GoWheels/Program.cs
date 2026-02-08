@@ -45,19 +45,11 @@ builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
 builder.Services.AddScoped<IAdminLogsService, AdminLogsService>();
 builder.Services.AddScoped<AuthLogsService>();
+builder.Services.AddScoped<DbInitializer>();
+builder.Services.AddScoped<AltSeeder>();
 
-string? altSeederEnv = Environment.GetEnvironmentVariable("ALT_SEEDER");
-bool isAltSeeder = altSeederEnv == "1";
-if (isAltSeeder)
-{
-    Console.WriteLine("=== REGISTERING ALT SEEDER (RANDOM DATA) ===");
-    builder.Services.AddHostedService<AltSeeder>();
-}
-else
-{
-    Console.WriteLine("=== REGISTERING DEFAULT DB INITIALIZER ===");
-    builder.Services.AddHostedService<DbInitializer>();
-}
+var remakeDatabase = builder.Configuration.GetValue<bool>("DatabaseSettings:RemakeDatabase");
+var useAltSeeder = builder.Configuration.GetValue<bool>("DatabaseSettings:UseAltSeeder");
 
 
 // Controllers
@@ -76,11 +68,28 @@ var app = builder.Build();
 
 
 // DB Initialization (Migration must happen before app starts serving requests)
-if (!isAltSeeder)
+if (remakeDatabase)
 {
     using (var scope = app.Services.CreateScope())
     {
-        await DbInitializer.DropAndMigrateDatabaseAsync(scope.ServiceProvider);
+        var services = scope.ServiceProvider;
+        
+        // 1. Drop and Migrate
+        await DbInitializer.DropAndMigrateDatabaseAsync(services);
+        
+        // 2. Seed
+        if (useAltSeeder)
+        {
+            var altSeeder = services.GetRequiredService<AltSeeder>();
+            var context = services.GetRequiredService<GoWheelsDbContext>();
+            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            await altSeeder.SeedRandomDataAsync(context, userManager);
+        }
+        else
+        {
+            var dbInitializer = services.GetRequiredService<DbInitializer>();
+            await dbInitializer.SeedAsync(services);
+        }
     }
 }
 

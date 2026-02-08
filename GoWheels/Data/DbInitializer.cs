@@ -6,56 +6,34 @@ using GoWheels.Services.Interfaces;
 
 namespace GoWheels.Data
 {
-    public class DbInitializer : BackgroundService
+    public class DbInitializer
     {
-        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<DbInitializer> _logger;
 
-        public DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitializer> logger)
+        public DbInitializer(ILogger<DbInitializer> logger)
         {
-            _serviceProvider = serviceProvider;
             _logger = logger;
-        }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            _logger.LogInformation("Database Initializer Service is starting.");
-
-            try
-            {
-                using (var scope = _serviceProvider.CreateScope())
-                {
-                    var services = scope.ServiceProvider;
-                    _logger.LogInformation("Seeding database...");
-                    await SeedAsync(services);
-                    _logger.LogInformation("Database seeding completed.");
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while seeding the database.");
-            }
         }
 
         public static async Task DropAndMigrateDatabaseAsync(IServiceProvider services)
         {
             var context = services.GetRequiredService<GoWheelsDbContext>();
-            // await context.Database.EnsureDeletedAsync();
+            await context.Database.EnsureDeletedAsync();
             await context.Database.MigrateAsync();
         }
 
-        private async Task SeedAsync(IServiceProvider services)
+        public async Task SeedAsync(IServiceProvider services)
         {
+            _logger.LogInformation("Seeding database...");
+            
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             var context = services.GetRequiredService<GoWheelsDbContext>();
             var ratingsService = services.GetRequiredService<IRatingsService>();
             
             await SeedRolesAndDefaultUsersAsync(context, roleManager, services);
-            await SeedJsonDataAsync(context);
-
-            await ratingsService.RecalculateAllPostsRateAverageAsync();
-            await ratingsService.RecalculateAllUsersRateAverageAsync();
+            await SeedJsonDataAsync(context, ratingsService);
+            
+            _logger.LogInformation("Database seeding completed.");
         }
 
         private async Task SeedRolesAndDefaultUsersAsync(GoWheelsDbContext context, RoleManager<IdentityRole> roleManager, IServiceProvider services)
@@ -119,86 +97,44 @@ namespace GoWheels.Data
             }
         }
 
-        private async Task SeedJsonDataAsync(GoWheelsDbContext context)
+        private async Task SeedJsonDataAsync(GoWheelsDbContext context, IRatingsService ratingsService)
         {
-            if (!await context.Posts.AnyAsync())
-            {
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                var basePath = Path.Combine("Data", "Seed");
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var basePath = Path.Combine("Data", "Seed");
 
-                context.ChangeTracker.AutoDetectChangesEnabled = false;
+            context.ChangeTracker.AutoDetectChangesEnabled = false;
 
-                var requiredUserIds = new HashSet<string>();
-                var requiredPostIds = new HashSet<string>();
+            // 1. Seed Users
+            var seededUsers = await SeedTable("users.json", context.Users, basePath, options, context);
+            var seededUserIds = new HashSet<string>(seededUsers.Select(u => u.Id));
+            
+            // Add default users to the set of available users for referential integrity
+            var defaultUserIds = await context.Users.Select(u => u.Id).ToListAsync();
+            foreach (var id in defaultUserIds) seededUserIds.Add(id);
 
-                async Task PeekAndCollectIds<T>(string fileName, int limit, Action<T> collector)
-                {
-                    var path = Path.Combine(basePath, fileName);
-                    if (File.Exists(path))
-                    {
-                        using var stream = File.OpenRead(path);
-                        var asyncData = JsonSerializer.DeserializeAsyncEnumerable<T>(stream, options);
-                        int count = 0;
-                        await foreach (var item in asyncData)
-                        {
-                            if (item != null) collector(item);
-                            if (++count >= limit) break;
-                        }
-                    }
-                }
-                
-                const int limit = 10;
+            // 2. Seed Posts
+            var seededPosts = await SeedTable("posts_clean.json", context.Posts, basePath, options, context, 
+                p => seededUserIds.Contains(p.OwnerId));
+            var seededPostIds = new HashSet<string>(seededPosts.Select(p => p.Id));
 
-                await PeekAndCollectIds<RatingPost>("ratings_posts.json", limit, r => {
-                    requiredUserIds.Add(r.OwnerId);
-                    requiredPostIds.Add(r.RatedPostId);
-                });
+            // 3. Seed Dependent Data
+            await SeedTable("post_images.json", context.PostImages, basePath, options, context,
+                pi => seededPostIds.Contains(pi.PostId));
+            
+            await SeedTable("ratings_posts.json", context.PostsRatings, basePath, options, context,
+                r => seededUserIds.Contains(r.OwnerId) && seededPostIds.Contains(r.RatedPostId));
+            
+            await SeedTable("comments_seed.json", context.Comments, basePath, options, context,
+                c => seededUserIds.Contains(c.UserId) && seededPostIds.Contains(c.PostId));
 
-                await PeekAndCollectIds<Comment>("comments_seed.json", limit, c => {
-                    requiredUserIds.Add(c.UserId);
-                    requiredPostIds.Add(c.PostId);
-                });
-
-                await PeekAndCollectIds<PostImage>("post_images.json", limit, pi => {
-                    requiredPostIds.Add(pi.PostId);
-                });
-
-                var ownerIdsForRequiredPosts = new HashSet<string>();
-                await PeekAndCollectIds<Post>("posts_clean.json", int.MaxValue, p => {
-                    if (requiredPostIds.Contains(p.Id))
-                        ownerIdsForRequiredPosts.Add(p.OwnerId);
-                });
-                foreach (var id in ownerIdsForRequiredPosts) requiredUserIds.Add(id);
-
-                var seededUsers = await SeedTable("users.json", context.Users, basePath, options, context, null, 
-                    u => requiredUserIds.Contains(u.Id));
-                
-                var seededUserIds = new HashSet<string>(seededUsers.Select(u => u.Id));
-                var defaultUserIds = await context.Users.Select(u => u.Id).ToListAsync();
-                foreach (var id in defaultUserIds) seededUserIds.Add(id);
-
-                var seededPosts = await SeedTable("posts_clean.json", context.Posts, basePath, options, context, null, 
-                    p => requiredPostIds.Contains(p.Id) 
-                    && seededUserIds.Contains(p.OwnerId)
-                    );
-                
-                var seededPostIds = new HashSet<string>(seededPosts.Select(p => p.Id));
-
-                await SeedTable("post_images.json", context.PostImages, basePath, options, context, limit,
-                    pi => seededPostIds.Contains(pi.PostId));
-                
-                await SeedTable("ratings_posts.json", context.PostsRatings, basePath, options, context, limit,
-                    r => seededUserIds.Contains(r.OwnerId) && seededPostIds.Contains(r.RatedPostId));
-                
-                await SeedTable("comments_seed.json", context.Comments, basePath, options, context, limit,
-                    c => seededUserIds.Contains(c.UserId) && seededPostIds.Contains(c.PostId));
-
-                await context.SaveChangesAsync();
-                context.ChangeTracker.AutoDetectChangesEnabled = true;
-            }
+            await context.SaveChangesAsync();
+            context.ChangeTracker.AutoDetectChangesEnabled = true;
+            
+            await ratingsService.RecalculateAllPostsRateAverageAsync();
+            await ratingsService.RecalculateAllUsersRateAverageAsync();
         }
 
-        private async Task<List<T>> SeedTable<T>(string fileName, DbSet<T> dbSet, string basePath, JsonSerializerOptions options, GoWheelsDbContext context, int? maxRecords = null, Func<T, bool>? filter = null) where T : class
+        private async Task<List<T>> SeedTable<T>(string fileName, DbSet<T> dbSet, string basePath, JsonSerializerOptions options, GoWheelsDbContext context, Func<T, bool>? filter = null) where T : class
         {
             var path = Path.Combine(basePath, fileName);
             var seededData = new List<T>();
@@ -207,8 +143,6 @@ namespace GoWheels.Data
             {
                 using var stream = File.OpenRead(path);
                 var asyncData = JsonSerializer.DeserializeAsyncEnumerable<T>(stream, options);
-                
-                int count = 0;
 
                 await foreach (var item in asyncData)
                 {
@@ -216,10 +150,6 @@ namespace GoWheels.Data
                     if (filter != null && !filter(item)) continue;
                     
                     seededData.Add(item);
-                    count++;
-
-                    if (maxRecords.HasValue && count >= maxRecords.Value)
-                        break;
                 }
 
                 if (seededData.Any())
