@@ -181,11 +181,11 @@ namespace GoWheels.Controllers
                 return Unauthorized(); // Shouldn't happen due to [Authorize] but just in case
             }
 
-            // Get ALL user's posts (no pagination, no filtering)
+            // Get ALL user's posts (no pagination, no filtering by other statuses, but exclude Deleted)
             var userPosts = await _context.Posts
                 .Include(p => p.PostImages)
                 .Include(p => p.Owner)
-                .Where(p => p.OwnerId == userId)
+                .Where(p => p.OwnerId == userId && p.Status != PostStatus.Deleted)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
 
