@@ -13,7 +13,7 @@ namespace GoWheels.Services
             _logsService = logsService;
         }
 
-        public async Task LogLoginAsync(string userId)
+        public async Task LogLoginAsync(string? userId)
         {
             if (!string.IsNullOrEmpty(userId))
             {
@@ -43,12 +43,15 @@ namespace GoWheels.Services
             }
         }
 
-        public async Task LogRegisterAsync(string userId)
+        public async Task LogRegisterAsync(string? userId)
         {
-            await _logsService.LogAsync(
-                action: "USER_REGISTERED",
-                actorId: userId
-            );
+            if (!string.IsNullOrEmpty(userId))
+            {
+                await _logsService.LogAsync(
+                    action: "USER_REGISTERED",
+                    actorId: userId
+                );
+            }
         }
     }
 }

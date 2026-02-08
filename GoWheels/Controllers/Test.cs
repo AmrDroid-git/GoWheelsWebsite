@@ -3,11 +3,13 @@ using System.Runtime.InteropServices.JavaScript;
 using GoWheels.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoWheels.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "ADMIN")]
     public class Test : ControllerBase
     {
         private readonly IPostsService _postsService;

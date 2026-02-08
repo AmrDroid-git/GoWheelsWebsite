@@ -40,6 +40,7 @@ namespace GoWheels.Controllers
             return View(recentPosts);
         }*/
 
+        [Authorize(Roles = "ADMIN")]
         public IActionResult TestDb()
         {
             var totalPosts = _context.Posts.Count();
@@ -170,7 +171,7 @@ namespace GoWheels.Controllers
         }
 
         // GET: Posts/MyPosts
-        [Authorize(Roles = "USER")] // Both USER and EXPERT can see their own posts
+        [Authorize] // Both USER and EXPERT can see their own posts
         public async Task<IActionResult> MyPosts()
         {
             // Get current user ID
@@ -194,6 +195,7 @@ namespace GoWheels.Controllers
         }
 
         // GET: Posts/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -202,7 +204,7 @@ namespace GoWheels.Controllers
         // POST: Posts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "USER")]
+        [Authorize]
         public async Task<IActionResult> Create(PostCreateViewModel viewmodel)
         {
             // Get current user ID
@@ -376,7 +378,7 @@ namespace GoWheels.Controllers
         */
 
         // GET: Posts/Edit/5
-        [Authorize(Roles = "USER,ADMIN")]
+        [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null) return NotFound();
@@ -441,7 +443,7 @@ namespace GoWheels.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "USER,ADMIN")]
+        [Authorize]
         public async Task<IActionResult> Edit(string id, PostEditViewModel viewModel)
         {
             if (id != viewModel.Id) return NotFound();
@@ -578,7 +580,7 @@ namespace GoWheels.Controllers
 
 
         // GET: Posts/Delete/5
-        [Authorize(Roles = "USER,ADMIN")]
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -611,7 +613,7 @@ namespace GoWheels.Controllers
         // POST: Posts/Delete/5 (Soft Delete for users)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "USER,ADMIN")]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var post = await _context.Posts

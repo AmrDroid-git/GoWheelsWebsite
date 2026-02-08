@@ -48,12 +48,25 @@
                             <td>@admin.PhoneNumber</td>
                             <td>@admin.Email</td>
                             <td>
-                                <a class="btn btn-sm btn-outline-info"
-                                   asp-controller="User" 
-                                   asp-action="Details" 
-                                   asp-route-id="@admin.Id">
-                                    <i class="fa-solid fa-eye"></i> Profile
-                                </a>
+                                <div class="d-flex gap-1">
+                                    <a class="btn btn-sm btn-outline-info"
+                                       asp-controller="User" 
+                                       asp-action="Details" 
+                                       asp-route-id="@admin.Id"
+                                       title="View Profile">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    @if (admin.Id != User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)
+                                    {
+                                        <form asp-action="DeleteUser" asp-route-id="@admin.Id" method="post" 
+                                              onsubmit="return confirm('ARE YOU SURE? This will delete Admin @admin.Name and ALL their data!');" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete Admin">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
                             </td>
                         </tr>
                     }

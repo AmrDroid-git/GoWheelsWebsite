@@ -14,7 +14,7 @@ namespace GoWheels.Services
             _context = context;
         }
 
-        public async Task LogAsync(string actorId, string action, string? details = null)
+        public async Task LogAsync(string? actorId, string action, string? details = null)
         {
             if (string.IsNullOrEmpty(actorId)) return;
 

@@ -203,5 +203,82 @@ namespace GoWheels.Controllers
             ViewData["CurrentRole"] = "ADMIN";
             return View("Users/AdminsList", admins);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PromoteToExpert(string id)
+        {
+            var success = await _usersService.ChangeUserRoleAsync(id, "EXPERT");
+            if (success)
+            {
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _adminLogsService.LogAsync(actorId, "USER_PROMOTED_TO_EXPERT", $"UserId={id}");
+                TempData["SuccessMessage"] = "User promoted to Expert successfully.";
+                return RedirectToAction(nameof(UsersList));
+            }
+
+            TempData["ErrorMessage"] = "Failed to promote user to Expert.";
+            return RedirectToAction(nameof(UsersList));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PromoteToAdmin(string id)
+        {
+            var success = await _usersService.ChangeUserRoleAsync(id, "ADMIN");
+            if (success)
+            {
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _adminLogsService.LogAsync(actorId, "EXPERT_PROMOTED_TO_ADMIN", $"UserId={id}");
+                TempData["SuccessMessage"] = "Expert promoted to Admin successfully.";
+                return RedirectToAction(nameof(ExpertsList));
+            }
+
+            TempData["ErrorMessage"] = "Failed to promote expert to Admin.";
+            return RedirectToAction(nameof(ExpertsList));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DemoteToUser(string id)
+        {
+            var success = await _usersService.ChangeUserRoleAsync(id, "USER");
+            if (success)
+            {
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _adminLogsService.LogAsync(actorId, "EXPERT_DEMOTED_TO_USER", $"UserId={id}");
+                TempData["SuccessMessage"] = "Expert demoted to User successfully.";
+                return RedirectToAction(nameof(ExpertsList));
+            }
+
+            TempData["ErrorMessage"] = "Failed to demote expert.";
+            return RedirectToAction(nameof(ExpertsList));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var currentUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (id == currentUser)
+            {
+                TempData["ErrorMessage"] = "You cannot delete yourself.";
+                return RedirectToAction(nameof(UsersManagement));
+            }
+
+            var success = await _usersService.DeleteUserAsync(id);
+            if (success)
+            {
+                var actorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _adminLogsService.LogAsync(actorId, "USER_DELETED", $"UserId={id}");
+                TempData["SuccessMessage"] = "User deleted successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete user.";
+            }
+
+            return RedirectToAction(nameof(UsersManagement));
+        }
     }
 }

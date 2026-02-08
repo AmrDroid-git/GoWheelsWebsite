@@ -48,12 +48,36 @@
                             <td>@expert.PhoneNumber</td>
                             <td>@expert.Email</td>
                             <td>
-                                <a class="btn btn-sm btn-outline-info"
-                                   asp-controller="User" 
-                                   asp-action="Details" 
-                                   asp-route-id="@expert.Id">
-                                    <i class="fa-solid fa-eye"></i> Profile
-                                </a>
+                                <div class="d-flex gap-1">
+                                    <a class="btn btn-sm btn-outline-info"
+                                       asp-controller="User" 
+                                       asp-action="Details" 
+                                       asp-route-id="@expert.Id"
+                                       title="View Profile">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    <form asp-action="PromoteToAdmin" asp-route-id="@expert.Id" method="post" 
+                                          onsubmit="return confirm('Promote @expert.Name to Admin?');" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Promote to Admin">
+                                            <i class="fa-solid fa-user-shield"></i>
+                                        </button>
+                                    </form>
+
+                                    <form asp-action="DemoteToUser" asp-route-id="@expert.Id" method="post" 
+                                          onsubmit="return confirm('Demote @expert.Name to regular User?');" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="Demote to User">
+                                            <i class="fa-solid fa-user-minus"></i>
+                                        </button>
+                                    </form>
+
+                                    <form asp-action="DeleteUser" asp-route-id="@expert.Id" method="post" 
+                                          onsubmit="return confirm('ARE YOU SURE? This will delete Expert @expert.Name and ALL their data!');" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete Expert">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     }
