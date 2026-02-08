@@ -33,8 +33,8 @@ namespace GoWheels.Services.Interfaces
         Task<bool> UpdateUserRatingAverageAsync(string userId);
         
         // --- Authentication ---
-        // Returns true if login is successful (email & password match)
-        Task<bool> LoginUserAsync(string email, string password, bool rememberMe);
+        // Returns the user if login is successful (email & password match)
+        Task<ApplicationUser?> LoginUserAsync(string email, string password, bool rememberMe);
         
         // Optional: Good practice to have a Logout method here too
         Task LogoutUserAsync();

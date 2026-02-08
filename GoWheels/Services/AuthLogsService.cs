@@ -13,17 +13,21 @@ namespace GoWheels.Services
             _logsService = logsService;
         }
 
-        public async Task LogLoginAsync(ClaimsPrincipal user)
+        public async Task LogLoginAsync(string userId)
         {
-            var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (userId != null)
+            if (!string.IsNullOrEmpty(userId))
             {
                 await _logsService.LogAsync(
                     action: "USER_LOGIN",
                     actorId: userId
                 );
             }
+        }
+
+        public async Task LogLoginAsync(ClaimsPrincipal user)
+        {
+            var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+            await LogLoginAsync(userId);
         }
 
         public async Task LogLogoutAsync(ClaimsPrincipal user)

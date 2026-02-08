@@ -16,9 +16,15 @@ namespace GoWheels.Services
 
         public async Task LogAsync(string actorId, string action, string? details = null)
         {
+            if (string.IsNullOrEmpty(actorId)) return;
+
+            // Check if user exists to avoid FK violation (PostgresException: 23503)
+            // This can happen if a user has a stale session cookie after a database reset
+            var userExists = await _context.Users.AnyAsync(u => u.Id == actorId);
+            if (!userExists) return;
+
             var log = new AdminLog
             {
-               
                 ActorId = actorId,
                 Action = action,
                 Details = details

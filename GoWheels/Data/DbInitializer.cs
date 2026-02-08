@@ -49,11 +49,11 @@ namespace GoWheels.Data
 
             var rolesMap = await roleManager.Roles.ToDictionaryAsync(r => r.Name!, r => r.Id);
 
-            var defaultUsers = new List<(string UserName, string Email, string Role)>
+            var defaultUsers = new List<(string Name, string UserName, string Email, string Role, string PhoneNumber)>
             {
-                ("admin", "admin@gowheels.local", "ADMIN"),
-                ("expert", "expert@gowheels.local", "EXPERT"),
-                ("user", "user@gowheels.local", "USER")
+                ("Aymen", "neyem_admin", "admin@gowheels.local", "ADMIN", "99999999"),
+                ("Skander", "skon_expert", "expert@gowheels.local", "EXPERT", "99999998"),
+                ("Zied", "zaydoun_user_saghroun", "user@gowheels.local", "USER", "99999997")
             };
 
             var passwordHasher = services.GetRequiredService<IPasswordHasher<ApplicationUser>>();
@@ -64,14 +64,15 @@ namespace GoWheels.Data
                 var existingUser = await context.Users.FirstOrDefaultAsync(u => u.UserName == seed.UserName);
                 if (existingUser == null)
                 {
-                    var user = new ApplicationUser
+                    var user = new ApplicationUser  
                     {
+                        Name = seed.Name,
                         UserName = seed.UserName,
                         NormalizedUserName = seed.UserName.ToUpper(),
                         Email = seed.Email,
                         NormalizedEmail = seed.Email.ToUpper(),
                         EmailConfirmed = true,
-                        PhoneNumber = "98756683",
+                        PhoneNumber = seed.PhoneNumber,
                         Address = "CUN",
                         SecurityStamp = Guid.NewGuid().ToString()
                     };

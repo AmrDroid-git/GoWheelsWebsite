@@ -143,18 +143,18 @@ namespace GoWheels.Services
 
         // In Services/UsersService.cs
 
-        public async Task<bool> LoginUserAsync(string email, string password, bool rememberMe)
+        public async Task<ApplicationUser?> LoginUserAsync(string email, string password, bool rememberMe)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return false;
+                return null;
             }
 
             // Pass 'rememberMe' to isPersistent
             var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: rememberMe, lockoutOnFailure: false);
 
-            return result.Succeeded;
+            return result.Succeeded ? user : null;
         }
 
         public async Task LogoutUserAsync()

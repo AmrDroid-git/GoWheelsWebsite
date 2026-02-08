@@ -414,7 +414,7 @@ namespace GoWheels.Services
             return userRole switch
             {
                 "ADMIN" => new List<PostStatus> { PostStatus.Pending, PostStatus.Accepted, PostStatus.Rejected }, // active
-                "EXPERT" => new List<PostStatus> { PostStatus.Pending },
+                "EXPERT" => new List<PostStatus> { PostStatus.Pending, PostStatus.Accepted, PostStatus.Rejected },
                 _ => new List<PostStatus> { PostStatus.Accepted } // USER
             };
         }

@@ -88,12 +88,12 @@ namespace GoWheels.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 // CHANGE: We now pass 'Input.RememberMe' to the service
-                bool succeeded = await _usersService.LoginUserAsync(Input.Email, Input.Password, Input.RememberMe);
+                var user = await _usersService.LoginUserAsync(Input.Email, Input.Password, Input.RememberMe);
 
-                if (succeeded)
+                if (user != null)
                 {
                     _logger.LogInformation("User logged in.");
-                    await _authLogsService.LogLoginAsync(User);
+                    await _authLogsService.LogLoginAsync(user.Id);
                     // CHANGE: Redirect specifically to the new test page
                     return RedirectToPage("/Index");
                 }
