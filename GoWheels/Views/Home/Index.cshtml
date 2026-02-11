@@ -1,19 +1,83 @@
-﻿<div class="hero-section mb-5">
-    <div class="container">
-        <h1 class="mb-4">Discover. Connect. Drive.</h1>
-        <p class="mb-4">Advanced car marketplace connecting buyers, sellers, and renters with verified listings and
+@model List<GoWheels.Models.Post>
+
+<div class="hero-section">
+    <div class="floating-cars">
+        <i class="bi bi-car-front-fill floating-car car-1"></i>
+        <i class="bi bi-car-front-fill floating-car car-2"></i>
+        <i class="bi bi-truck floating-car car-3"></i>
+    </div>
+    <div class="container position-relative">
+        <h1 class="mb-4 hero-title">
+            <span class="word-animate" style="--delay: 0s">Discover.</span>
+            <span class="word-animate" style="--delay: 0.2s">Connect.</span>
+            <span class="word-animate" style="--delay: 0.4s">Drive.</span>
+        </h1>
+        <p class="mb-4 hero-subtitle">Advanced car marketplace connecting buyers, sellers, and renters with verified listings and
             smart matching.</p>
-        <a asp-action="Index" asp-controller="Post" class="btn btn-primary btn-lg">Explore Inventory</a>
+        <a asp-action="Index" asp-controller="Post" class="btn btn-primary btn-lg btn-pulse">Explore Inventory</a>
     </div>
 </div>
 
+<!-- Sliding Car Carousel -->
+@if (Model != null && Model.Any())
+{
+    <div class="carousel-section mb-5">
+        <div class="container">
+            <h2 class="text-center mb-4 section-title">Featured Vehicles</h2>
+        </div>
+        <div class="carousel-wrapper">
+            <div class="carousel-track">
+                @foreach (var post in Model)
+                {
+                    @if (post.PostImages != null && post.PostImages.Any())
+                    {
+                        <div class="carousel-item-wrapper">
+                            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="carousel-car-card">
+                                <div class="carousel-car-image" style="background-image: url('@post.PostImages.First().ImageUrl')">
+                                    <div class="carousel-car-overlay">
+                                        <div class="carousel-car-info">
+                                            <h5>@post.Constructor @post.ModelName</h5>
+                                            <p class="mb-1"><i class="bi bi-calendar"></i> @post.ReleaseDate.Year</p>
+                                            <p class="mb-0"><strong>@post.Price.ToString("N0") DT</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                @* Duplicate for seamless loop *@
+                @foreach (var post in Model)
+                {
+                    @if (post.PostImages != null && post.PostImages.Any())
+                    {
+                        <div class="carousel-item-wrapper">
+                            <a asp-controller="Post" asp-action="Details" asp-route-id="@post.Id" class="carousel-car-card">
+                                <div class="carousel-car-image" style="background-image: url('@post.PostImages.First().ImageUrl')">
+                                    <div class="carousel-car-overlay">
+                                        <div class="carousel-car-info">
+                                            <h5>@post.Constructor @post.ModelName</h5>
+                                            <p class="mb-1"><i class="bi bi-calendar"></i> @post.ReleaseDate.Year</p>
+                                            <p class="mb-0"><strong>@post.Price.ToString("N0") DT</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+
 <div class="container">
-    <h2 class="text-center mb-5">Platform Features</h2>
+    <h2 class="text-center mb-5 section-title">Platform Features</h2>
     <div class="row">
         <div class="col-md-4 mb-4">
-            <div class="card feature-card h-100 bg-light">
+            <div class="card feature-card h-100 bg-light" data-aos="fade-up" data-aos-delay="0">
                 <div class="card-body text-center">
-                    <i class="bi bi-shield-check text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <i class="bi bi-shield-check text-primary mb-3 icon-bounce" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title text-dark">Smart Verification</h5>
                     <p class="card-text text-muted">AI :) -powered verification system ensures all listings are
                         authentic and up-to-date.</p>
@@ -21,9 +85,9 @@
             </div>
         </div>
         <div class="col-md-4 mb-4">
-            <div class="card feature-card h-100 bg-light">
+            <div class="card feature-card h-100 bg-light" data-aos="fade-up" data-aos-delay="100">
                 <div class="card-body text-center">
-                    <i class="bi bi-star-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <i class="bi bi-star-fill text-primary mb-3 icon-spin" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title text-dark">Rating System</h5>
                     <p class="card-text text-muted">Transparent ratings from verified users to help you make informed
                         decisions.</p>
@@ -31,9 +95,9 @@
             </div>
         </div>
         <div class="col-md-4 mb-4">
-            <div class="card feature-card h-100 bg-light">
+            <div class="card feature-card h-100 bg-light" data-aos="fade-up" data-aos-delay="200">
                 <div class="card-body text-center">
-                    <i class="bi bi-chat-dots-fill text-primary mb-3" style="font-size: 2.5rem;"></i>
+                    <i class="bi bi-chat-dots-fill text-primary mb-3 icon-pulse" style="font-size: 2.5rem;"></i>
                     <h5 class="card-title text-dark">Community Feedback</h5>
                     <p class="card-text text-muted">Engage with our community through verified comments and reviews.</p>
                 </div>

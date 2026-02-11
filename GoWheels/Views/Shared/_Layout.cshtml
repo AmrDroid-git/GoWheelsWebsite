@@ -18,33 +18,100 @@
         .navbar-brand img {
             height: 40px;
             width: auto;
+            transition: transform 0.6s ease-out;
+            animation: wheelSpin 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .navbar-brand:hover img {
+            animation: wheelRoll 0.6s ease-in-out forwards;
+        }
+
+        @@keyframes wheelSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes wheelRoll {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .navbar {
-            background-color: #212529 !important;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
         }
 
         .navbar .nav-link {
             color: #f8f9fa !important;
             font-family: 'Orbitron', sans-serif;
             font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .navbar .nav-link:hover::before {
+            width: 80%;
         }
 
         .navbar .nav-link:hover {
-            color: #adb5bd !important;
+            color: #667eea !important;
+            background-color: rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar .btn-link.nav-link {
+            display: inline-block;
         }
 
         .footer {
-            background-color: #f8f9fa !important;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
             color: #212529 !important;
+            padding: 2rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
         }
 
         .footer a {
             color: #212529 !important;
+            transition: color 0.3s ease;
         }
 
         .footer a:hover {
-            color: #495057 !important;
+            color: #667eea !important;
         }
 
         .wrapper {
@@ -55,6 +122,12 @@
 
         .content {
             flex: 1 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        main {
+            padding-bottom: 3rem;
         }
     </style>
     @if (IsSectionDefined("Head"))
@@ -76,7 +149,7 @@
         </div>
     </div>
 
-    <header class="mb-5">
+    <header class="">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
@@ -194,6 +267,26 @@
             const toast = new bootstrap.Toast(toastEl[0], { delay: 3000 });
             toast.show();
         }
+
+        // Scroll animation observer
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('aos-animate');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('[data-aos]').forEach(el => {
+                observer.observe(el);
+            });
+        });
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {

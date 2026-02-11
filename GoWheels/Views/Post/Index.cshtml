@@ -6,7 +6,7 @@
     var models = ViewBag.Models as List<string>;
     var filterRanges = ViewBag.FilterRanges as (decimal MinPrice, decimal MaxPrice, int MinKm, int MaxKm, int MinYear, int MaxYear)?;
     var statusOptions = ViewBag.StatusOptions as List<SelectListItem>;
-    
+
     var totalCount = ViewBag.TotalCount as int? ?? 0;
     var currentPage = ViewBag.CurrentPage as int? ?? 1;
     var totalPages = ViewBag.TotalPages as int? ?? 1;
@@ -61,8 +61,9 @@
     }
 }
 @* yes, imported here not in sections script *@
+<link rel="stylesheet" href="~/css/post-index.css" asp-append-version="true" />
 <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.js"></script>
-<div class="container-fluid px-4">
+<div class="container-fluid px-4 mt-5">
     <div class="row">
         <!-- Main Content Area on RIGHT -->
         <div class="col-md-9 order-lg-2 order-1 justify-content-center">
@@ -70,12 +71,12 @@
             <div class="mb-4">
                 @if (User.Identity?.IsAuthenticated == true && User.IsInRole("USER"))
                 {
-                    <a asp-action="Create" class="btn btn-primary btn-lg">
-                        <i class="fa-solid fa-plus me-2"></i><strong>Create New</strong>
+                    <a asp-action="Create" class="btn btn-create-new btn-lg">
+                        <i class="fa-solid fa-plus me-2"></i><strong>Create New Post</strong>
                     </a>
                 }
                 <button id="toggle-filter" class="btn btn-outline-secondary btn-lg ms-2">
-                    <i class="fa-solid fa-filter me-2"></i>Toggle Filters
+                    <i class="fa-solid fa-filter me-2"></i>Filters
                 </button>
             </div>
 
@@ -407,118 +408,6 @@
 
 <!-- Overlay for mobile -->
 <div class="sidebar-overlay"></div>
-
-
-<style>
-
-    /* Overlay for mobile sidebar */
-    .sidebar-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 1040;
-    }
-
-    .sidebar-overlay.active {
-        display: block;
-    }
-
-    /* Mobile sidebar styling */
-    @@media (max-width: 991.98px) {
-        .filter-sidebar {
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: auto;
-            max-height: 80vh;
-            overflow-y: auto;
-            z-index: 1050;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease-in-out;
-            margin: 0;
-            border-radius: 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .filter-sidebar.open {
-            transform: translateY(0);
-        }
-    }
-    
-    #toggle-filter {
-        display: none;
-    }
-
-    /* Show only on mobile */
-    @@media (max-width: 991.98px) {
-        #toggle-filter {
-            display: inline-block;
-        }
-        
-        .filter-sidebar.open {
-            transform: translateY(0);
-        }
-    }
-
-</style>
-
-<style>
-    /* noUiSlider Custom Styling */
-    .noUi-target {
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        box-shadow: none;
-    }
-
-    .noUi-connect {
-        background: #0d6efd;
-    }
-
-    .noUi-handle {
-        border: 2px solid #0d6efd;
-        background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        cursor: pointer;
-    }
-
-    .noUi-handle:hover {
-        background: #f8f9fa;
-    }
-
-    .noUi-handle:after, .noUi-handle:before {
-        display: none;
-    }
-
-    /* Tooltip styling */
-    .noUi-tooltip {
-        background: #212529;
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-    }
-
-    /* Mobile adjustments */
-    /*@@media (max-width: 768px) {
-        .noUi-horizontal {
-            height: 6px;
-        }
-        
-        .noUi-handle {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            right: -10px;
-            top: -8px;
-        }
-    }*/
-</style>
-    
 
 
 @section Scripts {

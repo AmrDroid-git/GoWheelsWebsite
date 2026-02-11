@@ -1,7 +1,7 @@
 @model GoWheels.Models.Post
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = $"{Model.Constructor} {Model.ModelName} - Details";
     var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
     var isUser = User.IsInRole("USER");
     var isAdmin = User.IsInRole("ADMIN");
@@ -10,541 +10,453 @@
     bool loggedIn = User.Identity?.IsAuthenticated == true;
     bool canComment = isUser || isExpert;
     bool canRate = (isUser && !isOwner) || isExpert;
+
+    var mainImage = Model.PostImages?.FirstOrDefault()?.ImageUrl ?? "/images/no-car.jpg";
 }
 
+<link rel="stylesheet" href="~/css/post-details.css" asp-append-version="true" />
 
+<!-- Hero Section with Main Image Background -->
+<div class="details-hero">
+    <div class="details-hero-bg" style="background-image: url('@mainImage');"></div>
 
-        @*
-        <div class="col-md-4">
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-warning text-dark">
-                    <h5 class="mb-0">Rate this Car</h5>
-                </div>
-                <div class="card-body text-center">
-                    <div id="postRatingStars" class="fs-2 text-warning mb-3" style="cursor: pointer;">
-                        <i class="bi bi-star" data-value="1"></i>
-                        <i class="bi bi-star" data-value="2"></i>
-                        <i class="bi bi-star" data-value="3"></i>
-                        <i class="bi bi-star" data-value="4"></i>
-                        <i class="bi bi-star" data-value="5"></i>
-                    </div>
-                    <button id="submitPostRating" class="btn btn-warning w-100">Submit Rating</button>
-                </div>
-            </div>
-        </div>
-        *@
-
-
-
-    
-    @*
-    <!-- Comments Section -->
-    <div class="row mt-4">
-        <div class="col-md-8">
-            <h4>Comments (<span id="commentCount">@Model.Comments.Count</span>)</h4>
-            
-            <div id="commentList" class="mt-3">
-                @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
-                {
-                    <div class="card mb-3 shadow-sm border-0 bg-light" id="comment-@comment.Id">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="card-subtitle mb-2 text-primary">@comment.User.Name</h6>
-                                <small class="text-muted">@comment.CreatedAt.ToString("g")</small>
-                            </div>
-                            <p class="card-text">@comment.Body</p>
-                            @if (User.Identity.IsAuthenticated && (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value == comment.UserId || User.IsInRole("ADMIN")))
-                            {
-                                <button class="btn btn-sm btn-link text-danger p-0 delete-comment" data-id="@comment.Id">Delete</button>
-                            }
-                        </div>
-                    </div>
-                }
-                @if (!Model.Comments.Any())
-                {
-                    <div id="noCommentsMessage" class="alert alert-info">No comments yet. Be the first to comment!</div>
-                }
-            </div>
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="card mt-4 shadow-sm">
-                    <div class="card-body">
-                        <h6>Leave a Comment</h6>
-                        <div class="mb-3">
-                            <textarea id="commentBody" class="form-control" rows="3" placeholder="Write your comment here..."></textarea>
-                        </div>
-                        <button id="submitComment" class="btn btn-primary">Post Comment</button>
-                    </div>
-                </div>
-            } else {
-                <div class="alert alert-warning mt-4">
-                    Please <a href="/Identity/Account/Login">login</a> to leave a comment.
-                </div>
-            }
-        </div>
+    <!-- Price Badge -->
+    <div class="price-badge">
+        <div class="price-badge-label">Price</div>
+        <div class="price-badge-value">@Model.Price.ToString("N0") DT</div>
     </div>
-    *@
 
+    <div class="details-hero-content">
+        <h1 class="details-title">@Model.Constructor @Model.ModelName</h1>
 
-<div class="container-fluid mt-4 px-5">
-    <div class="row">
-        <div class="col-12">
-            <!-- Header Section -->
-            <div class="header-section mb-2 p-4">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="display-4 fw-bold mb-0 text-primary">@Model.Constructor @Model.ModelName</h1>
-                </div>
+        <div class="details-meta">
+            <div class="details-meta-item">
+                <i class="fa-solid fa-calendar"></i>
+                <span>@Model.PurchaseDate.ToString("yyyy")</span>
             </div>
-            <div class="d-flex justify-content-between mb-5">
-                <span class="left-span">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</span>
-                <div class="right-span">
-                    <partial name="_StatusPill" model="Model.Status" />
-                </div>
+            <div class="details-meta-item">
+                <i class="fa-solid fa-tachometer-alt"></i>
+                <span>@((Model.Kilometrage / 1000).ToString())K km</span>
             </div>
-<!-- Specifications Section -->
-<div class="specifications-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-    <h2 class="mb-4 pb-2 text-success border-bottom border-success">Specifications</h2>
-    <div class="row">
-        <!-- Basic Information Column (LEFT) - KEEP THIS AS IS -->
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body py-4">
-                    <h3 class="card-title mb-4 text-info">Basic Information</h3>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                            <span class="fs-5 text-primary"><i class="fa-solid fa-money-bill-wave me-3"></i>Price:</span>
-                            <span class="fs-5 fw-bold text-success">@Model.Price.ToString("N0") DT</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                            <span class="fs-5 text-primary"><i class="fa-solid fa-star me-3"></i>Price Rating:</span>
-                            <span class="fs-5 text-warning">
-                                <span id="postRateAverage">@(Model.RateAverage?.ToString("F1") ?? "N/A")</span>
-                                <small class="text-muted">(@Model.RatingsCount ratings)</small>
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                            <span class="fs-5 text-primary"><i class="fa-solid fa-tachometer-alt me-3"></i>Kilometrage:</span>
-                            <span class="fs-5 text-dark">@((Model.Kilometrage / 1000).ToString())K km</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                            <span class="fs-5 text-primary"><i class="fa-solid fa-calendar-alt me-3"></i>Purchased:</span>
-                            <span class="fs-5 text-dark">@Model.PurchaseDate.ToString("yyyy-MM-dd")</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                            <span class="fs-5 text-primary"><i class="fa-solid fa-calendar me-3"></i>Released At:</span>
-                            <span class="fs-5 text-dark">@Model.ReleaseDate.ToString("yyyy-MM-dd")</span>
-                        </li>
-                        @if (Model.Specifications.ContainsKey("Gouvernorat"))
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                                <span class="fs-5 text-primary"><i class="fa-solid fa-map me-3"></i>Gouvernat:</span>
-                                <span class="fs-5 text-dark">@Model.Specifications["Gouvernorat"]</span>
-                            </li>
-                        }
-                    </ul>
-                </div>
+            <div class="details-meta-item">
+                <i class="fa-solid fa-star"></i>
+                <span id="postRateAverage">@(Model.RateAverage?.ToString("F1") ?? "N/A")</span> (@Model.RatingsCount reviews)
             </div>
-        </div>
-        
-        <!-- Technical Specifications Column (RIGHT) - UPDATED -->
-        <div class="col-md-6 mb-4">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body py-4">
-                    <h3 class="card-title mb-4 text-info">Technical Specifications</h3>
-                    <ul class="list-group list-group-flush">
-                        @{
-                            // Common specifications with icons
-                            var commonSpecs = new Dictionary<string, string>
-                            {
-                                { "Gearbox", "fa-solid fa-cog" },
-                                { "Transmission", "fa-solid fa-sync-alt" },
-                                { "Énergie", "fa-solid fa-gas-pump" },
-                                { "Carrosserie", "fa-solid fa-car" },
-                                { "État général", "fa-solid fa-check-circle" },
-                                { "Anciens propriétaires", "fa-solid fa-users" },
-                                { "Puissance fiscale", "fa-solid fa-tachometer-alt" }
-                            };
-                            
-                            // Show common specs first if they exist
-                            foreach (var spec in commonSpecs)
-                            {
-                                @if (Model.Specifications.ContainsKey(spec.Key))
-                                {
-                                    <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                                        <span class="fs-5 text-primary"><i class="@spec.Value me-3"></i>@spec.Key:</span>
-                                        @if (spec.Key == "État général")
-                                        {
-                                            <span class="fs-5 @(Model.Specifications[spec.Key] == "Normal" ? "text-warning" : Model.Specifications[spec.Key] == "Bon" ? "text-success" : Model.Specifications[spec.Key] == "Très bon" ? "text-success fw-bold" : "text-dark")">
-                                                @Model.Specifications[spec.Key]
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            <span class="fs-5 text-dark">@Model.Specifications[spec.Key]</span>
-                                        }
-                                    </li>
-                                }
-                            }
-                            
-                            // Show other specifications (not in common list)
-                            foreach (var spec in Model.Specifications)
-                            {
-                                @if (!commonSpecs.ContainsKey(spec.Key))
-                                {
-                                    <li class="list-group-item d-flex justify-content-between align-items-center py-3 border-bottom">
-                                        <span class="fs-5 text-primary"><i class="fa-solid fa-list me-3"></i>@spec.Key:</span>
-                                        <span class="fs-5 text-dark">@spec.Value</span>
-                                    </li>
-                                }
-                            }
-                            
-                            // If no specifications at all (excluding Gouvernorat which is in left column)
-                            if (!Model.Specifications.Any() || Model.Specifications.Count == 1 && Model.Specifications.ContainsKey("Gouvernorat"))
-                            {
-                                <li class="list-group-item d-flex justify-content-center align-items-center py-3">
-                                    <span class="fs-5 text-muted">No additional specifications provided</span>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </div>
+            <div class="details-meta-item">
+                <partial name="_StatusPill" model="Model.Status" />
             </div>
         </div>
     </div>
 </div>
 
-            <!-- Image Gallery Section -->
-            <div class="image-gallery-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-                <h2 class="mb-4 pb-2 text-danger border-bottom border-danger">Photos:</h2>
-                @if (Model.PostImages.Any())
-                {
-                    <div id="postImageCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner rounded">
-                            @for (int i = 0; i < Model.PostImages.Count; i++)
-                            {
-                                <div class="carousel-item @(i == 0 ? "active" : "")">
-                                    <img src="@Model.PostImages.ElementAt(i).ImageUrl"
-                                         class="d-block w-100"
-                                         alt="@Model.ModelName"
-                                         style="max-height: 600px; object-fit: cover;">
-                                </div>
-                            }
+<div class="container-fluid px-4 py-5" style="max-width: 1400px;">
+    <!-- Image Gallery Section -->
+    @if (Model.PostImages != null && Model.PostImages.Any())
+    {
+        <div class="details-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fa-solid fa-images"></i>
+                </div>
+                <h2 class="section-title">Photo Gallery</h2>
+            </div>
+
+            <div class="image-gallery-modern">
+                <!-- Main Image Display -->
+                <div class="gallery-main-image" id="mainGalleryImage" data-index="0">
+                    <img src="@mainImage" alt="@Model.ModelName" id="mainImg">
+                    <div class="gallery-zoom-hint">
+                        <i class="fa-solid fa-search-plus"></i>
+                        <span>Click to zoom</span>
+                    </div>
+                </div>
+
+                <!-- Thumbnail Grid -->
+                <div class="gallery-thumbnails">
+                    @for (int i = 0; i < Model.PostImages.Count; i++)
+                    {
+                        <div class="gallery-thumbnail @(i == 0 ? "active" : "")" data-index="@i" data-image="@Model.PostImages.ElementAt(i).ImageUrl">
+                            <img src="@Model.PostImages.ElementAt(i).ImageUrl" alt="@Model.ModelName - Image @(i + 1)">
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#postImageCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#postImageCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Specifications Section -->
+    <div class="details-section">
+        <div class="section-header">
+            <div class="section-icon">
+                <i class="fa-solid fa-cogs"></i>
+            </div>
+            <h2 class="section-title">Specifications</h2>
+        </div>
+
+        <div class="specs-grid">
+            <!-- Basic Information Card -->
+            <div class="spec-card">
+                <h4 class="mb-4" style="color: #667eea; font-weight: 700;">
+                    <i class="fa-solid fa-info-circle me-2"></i>Basic Information
+                </h4>
+
+                <div class="spec-item">
+                    <div class="spec-label">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <span>Price</span>
                     </div>
-                    <div class="mt-3" style="overflow-x: auto; white-space: nowrap;">
-                        @for (int i = 0; i < Model.PostImages.Count; i++)
-                        {
-                            <div class="mb-3 col-4 d-inline-block">
-                                <img src="@Model.PostImages.ElementAt(i).ImageUrl"
-                                     class="img-thumbnail"
-                                     alt="@Model.ModelName"
-                                     style="cursor: pointer; height: 150px; object-fit: cover; border: 2px solid #dee2e6;"
-                                     onclick="showImage(@i)">
-                            </div>
-                        }
+                    <div class="spec-value highlight">@Model.Price.ToString("N0") DT</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Price Rating</span>
                     </div>
-                }
-                else
+                    <div class="spec-value" style="color: #ffc107;">
+                        @(Model.RateAverage?.ToString("F1") ?? "N/A")
+                        <small style="color: #6c757d;">(@Model.RatingsCount)</small>
+                    </div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">
+                        <i class="fa-solid fa-tachometer-alt"></i>
+                        <span>Kilometrage</span>
+                    </div>
+                    <div class="spec-value">@((Model.Kilometrage / 1000).ToString())K km</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">
+                        <i class="fa-solid fa-calendar-alt"></i>
+                        <span>Purchase Date</span>
+                    </div>
+                    <div class="spec-value">@Model.PurchaseDate.ToString("yyyy-MM-dd")</div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-label">
+                        <i class="fa-solid fa-calendar"></i>
+                        <span>Release Date</span>
+                    </div>
+                    <div class="spec-value">@Model.ReleaseDate.ToString("yyyy-MM-dd")</div>
+                </div>
+
+                @if (Model.Specifications.ContainsKey("Gouvernorat"))
                 {
-                    <div class="alert alert-info">
-                        No images available for this post.
+                    <div class="spec-item">
+                        <div class="spec-label">
+                            <i class="fa-solid fa-map-marker-alt"></i>
+                            <span>Location</span>
+                        </div>
+                        <div class="spec-value">@Model.Specifications["Gouvernorat"]</div>
                     </div>
                 }
             </div>
 
-            <!-- Expert Review Buttons (for pending posts) -->
-            @if (isExpert && !isOwner && Model.Status == GoWheels.Models.PostStatus.Pending)
-            {
-                <div class="expert-review-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-                    <h2 class="mb-4 pb-2 border-bottom" style="color: #6c757d;">
-                        <i class="fa-solid fa-clipboard-check me-2"></i>Expert Review
-                    </h2>
-                    <div class="text-center p-4">
-                        <div class="alert alert-warning mb-4">
-                            <i class="fa-solid fa-exclamation-triangle me-2"></i>
-                            This post is awaiting your review. Please examine the details carefully.
-                        </div>
-        <div class="d-flex justify-content-center gap-3">
-            <button type="button" 
-                    class="btn btn-success btn-lg px-5 expert-action-btn"
-                    data-action="AcceptPost"
-                    data-id="@Model.Id">
-                <i class="fa-solid fa-check me-2"></i>Accept Post
-            </button>
-            <button type="button" 
-                    class="btn btn-danger btn-lg px-5 expert-action-btn"
-                    data-action="RejectPost"
-                    data-id="@Model.Id">
-                <i class="fa-solid fa-times me-2"></i>Reject Post
-            </button>
-        </div>
-                    </div>
-                </div>
-            }
+            <!-- Technical Specifications Card -->
+            <div class="spec-card">
+                <h4 class="mb-4" style="color: #667eea; font-weight: 700;">
+                    <i class="fa-solid fa-tools me-2"></i>Technical Details
+                </h4>
 
-            <!-- Rating Section - Simple -->
-            @if (canRate)
-            {
-                <div class="rating-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-                    <h2 class="mb-4 pb-2 text-warning border-bottom border-warning">
-                        <i class="fa-solid fa-star me-2"></i>Rate this Car
-                    </h2>
-                    
-                    <div class="text-center p-4">
-                        <div id="postRatingStars" class="fs-1 text-warning mb-4" style="cursor: pointer;">
-                            <i class="bi bi-star" data-value="1"></i>
-                            <i class="bi bi-star" data-value="2"></i>
-                            <i class="bi bi-star" data-value="3"></i>
-                            <i class="bi bi-star" data-value="4"></i>
-                            <i class="bi bi-star" data-value="5"></i>
-                        </div>
-                        
-                        <button id="submitPostRating" class="btn btn-warning btn-lg px-5">
-                            <i class="fa-solid fa-check me-2"></i>Submit Rating
-                        </button>
-                    </div>
-                </div>
-            }
+                @{
+                    var techSpecs = new Dictionary<string, string>
+                    {
+                        { "Gearbox", "fa-solid fa-cog" },
+                        { "Transmission", "fa-solid fa-sync-alt" },
+                        { "Énergie", "fa-solid fa-gas-pump" },
+                        { "Carrosserie", "fa-solid fa-car" },
+                        { "État général", "fa-solid fa-check-circle" },
+                        { "Anciens propriétaires", "fa-solid fa-users" },
+                        { "Puissance fiscale", "fa-solid fa-gauge" }
+                    };
 
-            <!-- Owner Information Section -->
-            <div class="owner-section mb-5 p-4 rounded" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-                <h2 class="mb-4 pb-2 text-dark border-bottom border-dark">Owner Information</h2>
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body py-4">
-                        <div class="row">
-                            <div class="col-md-2 text-center">
-                                <img src="@(Model.Owner.ImageUrl ?? "/avatar.jpg")"
-                                     class="rounded-circle img-fluid"
-                                     alt="@Model.Owner.Name"
-                                     style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #0d6efd;">
+                    var hasSpecs = false;
+                    foreach (var spec in techSpecs)
+                    {
+                        if (Model.Specifications.ContainsKey(spec.Key))
+                        {
+                            hasSpecs = true;
+                            <div class="spec-item">
+                                <div class="spec-label">
+                                    <i class="@spec.Value"></i>
+                                    <span>@spec.Key</span>
+                                </div>
+                                @if (spec.Key == "État général")
+                                {
+                                    var etat = Model.Specifications[spec.Key];
+                                    var etatColor = etat == "Normal" ? "#ffc107" : etat == "Bon" ? "#28a745" : etat == "Très bon" ? "#20c997" : "#6c757d";
+                                    <div class="spec-value" style="color: @etatColor;">@etat</div>
+                                }
+                                else
+                                {
+                                    <div class="spec-value">@Model.Specifications[spec.Key]</div>
+                                }
                             </div>
-                            <div class="col-md-10">
-                                <h3 class="card-title mb-3 text-primary">@Model.Owner.Name</h3>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p class="card-text fs-5 mb-2 text-dark">
-                                            <i class="fa-solid fa-phone me-3 text-success"></i>@Model.Owner.PhoneNumber
-                                        </p>
-                                        <p class="card-text fs-5 mb-2 text-dark">
-                                            <i class="fa-solid fa-car me-3 text-info"></i>Total Posts: @Model.Owner.Posts.Count
-                                        </p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="card-text fs-5 mb-2 text-dark">
-                                            <i class="fa-solid fa-map-marker-alt me-3 text-danger"></i>@Model.Owner.Address
-                                        </p>
-                                        @{
-                                            int rating = 3;//Model.Owner.RateAverage;
-                                            int maxStars = 5; // Maximum number of stars
-                                        }
+                        }
+                    }
 
-                                        <p class="card-text fs-5 mb-2 text-dark">
-                                            @if (rating > 0) // Check if the rating exists
+                    // Show other specs not in the predefined list
+                    foreach (var spec in Model.Specifications)
+                    {
+                        if (!techSpecs.ContainsKey(spec.Key) && spec.Key != "Gouvernorat")
+                        {
+                            hasSpecs = true;
+                            <div class="spec-item">
+                                <div class="spec-label">
+                                    <i class="fa-solid fa-list"></i>
+                                    <span>@spec.Key</span>
+                                </div>
+                                <div class="spec-value">@spec.Value</div>
+                            </div>
+                        }
+                    }
+
+                    if (!hasSpecs)
+                    {
+                        <div class="text-center text-muted py-4">
+                            <i class="fa-solid fa-info-circle me-2"></i>
+                            No additional technical specifications provided
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Expert Review Section (only for pending posts viewed by experts) -->
+    @if (isExpert && !isOwner && Model.Status == GoWheels.Models.PostStatus.Pending)
+    {
+        <div class="expert-review-section">
+            <div class="expert-review-header">
+                <i class="fa-solid fa-clipboard-check" style="font-size: 2rem; color: #ff9800;"></i>
+                <h3 style="margin: 0; color: #2c3e50; font-weight: 700;">Expert Review Required</h3>
+            </div>
+
+            <div class="alert alert-warning mb-4" style="border-left: 4px solid #ff9800;">
+                <i class="fa-solid fa-exclamation-triangle me-2"></i>
+                This post is awaiting your professional review. Please examine all details carefully before making a decision.
+            </div>
+
+            <div class="expert-review-buttons">
+                <button type="button"
+                        class="btn-action btn-action-success expert-action-btn"
+                        data-action="AcceptPost"
+                        data-id="@Model.Id">
+                    <i class="fa-solid fa-check me-2"></i>Accept Post
+                </button>
+                <button type="button"
+                        class="btn-action btn-action-danger expert-action-btn"
+                        data-action="RejectPost"
+                        data-id="@Model.Id">
+                    <i class="fa-solid fa-times me-2"></i>Reject Post
+                </button>
+            </div>
+        </div>
+    }
+
+    <!-- Rating Section -->
+    @if (canRate)
+    {
+        <div class="details-section">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <h2 class="section-title">Rate this Vehicle</h2>
+            </div>
+
+            <div class="rating-container">
+                <p style="font-size: 1.2rem; color: #6c757d; margin-bottom: 2rem;">
+                    Share your experience with this vehicle by giving it a rating
+                </p>
+
+                <div class="rating-stars-large" id="postRatingStars">
+                    <i class="bi bi-star" data-value="1"></i>
+                    <i class="bi bi-star" data-value="2"></i>
+                    <i class="bi bi-star" data-value="3"></i>
+                    <i class="bi bi-star" data-value="4"></i>
+                    <i class="bi bi-star" data-value="5"></i>
+                </div>
+
+                <button id="submitPostRating" class="rating-submit-btn">
+                    <i class="fa-solid fa-paper-plane me-2"></i>Submit Rating
+                </button>
+            </div>
+        </div>
+    }
+
+    <!-- Owner Information Section -->
+    <div class="details-section">
+        <div class="section-header">
+            <div class="section-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <h2 class="section-title">Owner Information</h2>
+        </div>
+
+        <div class="owner-card">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center mb-4 mb-md-0">
+                    <img src="@(Model.Owner.ImageUrl ?? "/images/default-avatar.png")"
+                         class="owner-avatar"
+                         alt="@Model.Owner.Name"
+                         onerror="this.src='/images/default-avatar.png';">
+                </div>
+                <div class="col-md-9 owner-info">
+                    <h3 class="owner-name">@Model.Owner.Name</h3>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="owner-detail">
+                                <i class="fa-solid fa-phone"></i>
+                                <span>@Model.Owner.PhoneNumber</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="owner-detail">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>@Model.Owner.Email</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="owner-detail">
+                                <i class="fa-solid fa-map-marker-alt"></i>
+                                <span>@(Model.Owner.Address ?? "Not provided")</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="owner-detail">
+                                <i class="fa-solid fa-car"></i>
+                                <span>@Model.Owner.Posts.Count Total Posts</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="owner-detail">
+                                <i class="fa-solid fa-star"></i>
+                                <span>
+                                    @if (Model.Owner.RateAverage.HasValue && Model.Owner.RateAverage > 0)
+                                    {
+                                        for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= (int)Model.Owner.RateAverage)
                                             {
-                                                for (int i = 0; i < maxStars; i++)
-                                                {
-                                                    if (i < rating)
-                                                    {
-                                                        <i class="bi bi-star-fill text-warning"></i> // Filled star for existing rating
-                                                    }
-                                                    else
-                                                    {
-                                                        <i class="bi bi-star"></i> // Empty star for the remaining stars
-                                                    }
-                                                }
+                                                <i class="bi bi-star-fill" style="color: #ffd700;"></i>
                                             }
-                                        </p>
-                                    </div>
-                                </div>
+                                            else
+                                            {
+                                                <i class="bi bi-star" style="color: #ffd700;"></i>
+                                            }
+                                        }
+                                        <span class="ms-2">@Model.Owner.RateAverage.Value.ToString("F1")/5.0</span>
+                                    }
+                                    else
+                                    {
+                                        <span>No ratings yet</span>
+                                    }
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-<!-- Comments Section -->
-<div class="comments-section mb-5 p-4 rounded bg-light border">
-    <h2 class="mb-4 pb-2 text-purple border-bottom border-purple">
-        Comments (<span id="commentCount">@Model.Comments.Count</span>)
-    </h2>
-
-    <div class="card border-0 shadow-sm">
-        <div class="card-body py-4">
-            <div id="commentList" class="mt-3">
-                @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
-                {
-                    <partial name="_SingleComment" model="comment" />
-                }
-
-                @if (!Model.Comments.Any())
-                {
-                    <div id="noCommentsMessage" class="alert alert-info">
-                        @if (canComment)
-                        {
-                            <i class="fa-solid fa-info-circle me-2"></i>
-                            <span>No comments yet. Be the first to comment!</span>
-                        }
-                        else
-                        {
-                            <i class="fa-solid fa-info-circle me-2"></i>
-                            <span>No comments on this post.</span>
-                        }
-                    </div>
-                }
+    <!-- Comments Section -->
+    <div class="details-section">
+        <div class="section-header">
+            <div class="section-icon">
+                <i class="fa-solid fa-comments"></i>
             </div>
+            <h2 class="section-title">
+                Comments <span style="color: #667eea;">(<span id="commentCount">@Model.Comments.Count</span>)</span>
+            </h2>
+        </div>
 
-            <!-- Comment UI / Login CTA -->
-            @if (!loggedIn)
+        <div id="commentList">
+            @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
             {
-                <div class="alert alert-warning mt-4">
-                    Please <a href="/Login">login</a> to leave a comment.
-                </div>
+                <partial name="_SingleComment" model="comment" />
             }
-            else if (canComment)
+
+            @if (!Model.Comments.Any())
             {
-                <div class="card mt-4 shadow-sm border-0">
-                    <div class="card-body">
-                        <h6>Leave a Comment</h6>
-                        <div class="mb-3">
-                            <textarea id="commentBody"
-                                      class="form-control"
-                                      rows="3"
-                                      placeholder="Write your comment here..."></textarea>
-                        </div>
-                        <button id="submitComment" class="btn btn-primary">Post Comment</button>
-                    </div>
+                <div id="noCommentsMessage" class="alert alert-info" style="border-left: 4px solid #667eea;">
+                    <i class="fa-solid fa-info-circle me-2"></i>
+                    @if (canComment)
+                    {
+                        <span>No comments yet. Be the first to share your thoughts!</span>
+                    }
+                    else
+                    {
+                        <span>No comments on this post yet.</span>
+                    }
                 </div>
             }
         </div>
-    </div>
-</div>
 
-            <!-- Action Buttons -->
-            <div class="action-buttons d-flex justify-content-between align-items-center py-4">
-                @if (isAdmin || isOwner)
-                {
-                    <div class="d-flex">
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-lg me-3 px-4">
-                            <i class="fa-solid fa-pen me-2"></i>Edit
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-lg px-4">
-                            <i class="fa-solid fa-trash me-2"></i>Delete
-                        </a>
-                    </div>
-                }
-                <a asp-action="Index" class="btn btn-secondary btn-lg px-4">
-                    <i class="fa-solid fa-arrow-left me-2"></i>Back to List
+        @if (!loggedIn)
+        {
+            <div class="alert alert-warning mt-4" style="border-left: 4px solid #ff9800;">
+                <i class="fa-solid fa-sign-in-alt me-2"></i>
+                Please <a href="/Login" style="font-weight: 700; color: #667eea;">login</a> to leave a comment.
+            </div>
+        }
+        else if (canComment)
+        {
+            <div class="comment-form">
+                <h5 class="mb-3" style="color: #2c3e50; font-weight: 700;">
+                    <i class="fa-solid fa-pen me-2"></i>Leave a Comment
+                </h5>
+                <textarea id="commentBody"
+                          class="form-control comment-textarea"
+                          rows="4"
+                          placeholder="Share your thoughts about this vehicle..."></textarea>
+                <button id="submitComment" class="btn-action btn-action-primary mt-3">
+                    <i class="fa-solid fa-paper-plane me-2"></i>Post Comment
+                </button>
+            </div>
+        }
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons-container">
+        <div class="d-flex gap-3">
+            @if (isAdmin || isOwner)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-action btn-action-primary">
+                    <i class="fa-solid fa-pen me-2"></i>Edit Post
                 </a>
-            </div>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn-action btn-action-danger">
+                    <i class="fa-solid fa-trash me-2"></i>Delete Post
+                </a>
+            }
         </div>
+        <a asp-action="Index" class="btn-action btn-action-secondary">
+            <i class="fa-solid fa-arrow-left me-2"></i>Back to Listings
+        </a>
     </div>
 </div>
 
-<style>
-    .header-section {
-        border-bottom: 2px solid #0d6efd;
-    }
-
-    h1, h2, h3, h4, h5 {
-        font-weight: bold;
-    }
-
-    .text-purple {
-        color: #6f42c1 !important;
-    }
-
-    .border-purple {
-        border-color: #6f42c1 !important;
-    }
-
-    .list-group-item {
-        border: none;
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    .card {
-        border-radius: 10px;
-    }
-
-    .btn-lg {
-        font-size: 1.25rem;
-        padding: 0.75rem 1.5rem;
-    }
-
-    .fs-5 {
-        font-size: 1.25rem !important;
-    }
-
-    .carousel-item img {
-        height: 600px;
-        object-fit: cover;
-    }
-
-    .img-thumbnail {
-        cursor: pointer;
-        transition: transform 0.3s;
-        height: 150px;
-        object-fit: cover;
-        border: 2px solid #dee2e6;
-    }
-
-    .img-thumbnail:hover {
-        transform: scale(1.05);
-        border-color: #0d6efd;
-    }
-
-    .comment {
-        background-color: #e9ecef;
-        border: 1px solid #dee2e6;
-    }
-
-    .specifications-section, .image-gallery-section, .owner-section, .comments-section {
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-    }
-
-
-        .rating-section {
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 10px;
-    }
-    
-    .card {
-        border-radius: 10px;
-    }
-    
-    #postRatingStars i {
-        transition: all 0.2s ease;
-        margin: 0 3px;
-    }
-    
-    #postRatingStars i:hover {
-        transform: scale(1.2);
-    }
-    
-    .progress {
-        background-color: #e9ecef;
-        border-radius: 5px;
-    }
-    
-    .progress-bar {
-        border-radius: 5px;
-    }
-    
-    .border-warning {
-        border-color: #ffc107 !important;
-    }
-</style>
+<!-- Lightbox Modal -->
+<div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-close" id="lightboxClose">
+        <i class="fa-solid fa-times"></i>
+    </div>
+    <div class="lightbox-nav lightbox-prev" id="lightboxPrev">
+        <i class="fa-solid fa-chevron-left"></i>
+    </div>
+    <div class="lightbox-content">
+        <img src="" alt="Zoomed Image" id="lightboxImage">
+    </div>
+    <div class="lightbox-nav lightbox-next" id="lightboxNext">
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+</div>
 
 @section Scripts {
     <script>
@@ -552,8 +464,71 @@
             const postId = "@Model.Id";
             let selectedRating = 0;
 
-            
-            // Rating Stars Hover/Click
+            // ==================== Image Gallery ====================
+            const images = @Html.Raw(Json.Serialize(Model.PostImages?.Select(img => img.ImageUrl).ToList() ?? new List<string>()));
+            let currentImageIndex = 0;
+
+            // Thumbnail click
+            $('.gallery-thumbnail').click(function() {
+                const index = parseInt($(this).data('index'));
+                const imageUrl = $(this).data('image');
+
+                $('.gallery-thumbnail').removeClass('active');
+                $(this).addClass('active');
+
+                $('#mainImg').attr('src', imageUrl);
+                $('#mainGalleryImage').data('index', index);
+                currentImageIndex = index;
+            });
+
+            // Main image click - open lightbox
+            $('#mainGalleryImage').click(function() {
+                currentImageIndex = parseInt($(this).data('index'));
+                openLightbox(currentImageIndex);
+            });
+
+            function openLightbox(index) {
+                if (images.length === 0) return;
+
+                currentImageIndex = index;
+                $('#lightboxImage').attr('src', images[index]);
+                $('#lightboxModal').addClass('active');
+                $('body').css('overflow', 'hidden');
+            }
+
+            function closeLightbox() {
+                $('#lightboxModal').removeClass('active');
+                $('body').css('overflow', 'auto');
+            }
+
+            $('#lightboxClose, #lightboxModal').click(function(e) {
+                if (e.target === this) {
+                    closeLightbox();
+                }
+            });
+
+            $('#lightboxPrev').click(function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                $('#lightboxImage').attr('src', images[currentImageIndex]);
+            });
+
+            $('#lightboxNext').click(function(e) {
+                e.stopPropagation();
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                $('#lightboxImage').attr('src', images[currentImageIndex]);
+            });
+
+            // Keyboard navigation
+            $(document).keydown(function(e) {
+                if (!$('#lightboxModal').hasClass('active')) return;
+
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') $('#lightboxPrev').click();
+                if (e.key === 'ArrowRight') $('#lightboxNext').click();
+            });
+
+            // ==================== Rating System ====================
             $('#postRatingStars i').hover(function () {
                 const val = $(this).data('value');
                 fillStars(val);
@@ -578,9 +553,13 @@
             // Submit Rating
             $('#submitPostRating').click(function () {
                 if (selectedRating === 0) {
-                    alert('Please select a rating value.');
+                    showToast('Please select a rating', 'Please select a star rating before submitting.', false);
                     return;
                 }
+
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<span class="loading-spinner"></span> Submitting...');
 
                 $.ajax({
                     url: '/api/Rating/Post',
@@ -591,28 +570,32 @@
                         value: selectedRating
                     }),
                     success: function (response) {
-                        alert('Thank you for your rating!');
-                        location.reload(); // Simplest way to update averages for now
+                        showToast('Success!', 'Thank you for your rating!', true);
+                        setTimeout(() => location.reload(), 1500);
                     },
                     error: function (xhr) {
                         if (xhr.status === 401) {
-                            alert('Please login to rate.');
+                            showToast('Not Authorized', 'Please login to rate.', false);
                         } else {
-                            alert('Error: ' + (xhr.responseText || 'Failed to submit rating.'));
+                            showToast('Error', xhr.responseText || 'Failed to submit rating.', false);
                         }
+                        btn.prop('disabled', false).html(originalText);
                     }
                 });
             });
 
-            // Submit Comment
+            // ==================== Comment System ====================
             $('#submitComment').click(function () {
                 const body = $('#commentBody').val();
                 if (!body.trim()) {
-                    alert('Comment cannot be empty.');
+                    showToast('Empty Comment', 'Please write something before posting.', false);
                     return;
                 }
 
-                $(this).prop('disabled', true).text('Posting...');
+                const btn = $(this);
+                const originalText = btn.html();
+                btn.prop('disabled', true).html('<span class="loading-spinner"></span> Posting...');
+
                 $.ajax({
                     url: '/api/Comment',
                     type: 'POST',
@@ -624,36 +607,24 @@
                     success: function (comment) {
                         $('#commentBody').val('');
                         $('#noCommentsMessage').remove();
-                        
-                        const commentHtml = `
-                            <div class="comment mb-4 p-3 rounded bg-white border" id="comment-${comment.id}">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="${comment.userImageUrl || '/avatar.jpg'}" onerror="this.onerror=null; this.src='/avatar.jpg';" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
-                                    <div>
-                                        <h5 class="mb-0">${comment.userName}</h5>
-                                        <small class="text-muted">Just Now</small>
-                                    </div>
-                                </div>
-                                <p class="mb-0">${comment.body}</p>
-                                <button class="btn btn-sm btn-link text-danger p-0 delete-comment" data-id="${comment.id}">Delete</button>
-                            </div>
-                        `;
+
+                        // Create comment HTML using _SingleComment partial structure
+                        const commentHtml = createCommentHTML(comment);
                         $('#commentList').prepend(commentHtml);
-                        
+
                         const countSpan = $('#commentCount');
                         countSpan.text(parseInt(countSpan.text()) + 1);
+
+                        showToast('Success!', 'Your comment has been posted.', true);
                     },
                     error: function (xhr) {
-                        console.log('Error:', xhr.responseText);
-                        alert('Error: ' + (xhr.responseText || 'Failed to post comment.'));
+                        showToast('Error', xhr.responseText || 'Failed to post comment.', false);
                     },
                     complete: function() {
-                        console.log('Complete');
-                        $('#submitComment').prop('disabled', false).text('Post Comment');
+                        btn.prop('disabled', false).html(originalText);
                     }
                 });
             });
-            
 
             // Delete Comment
             $(document).on('click', '.delete-comment', function () {
@@ -670,25 +641,57 @@
                             $(this).remove();
                             const countSpan = $('#commentCount');
                             countSpan.text(parseInt(countSpan.text()) - 1);
-                            
-                            if ($('#commentList').children().length === 0) {
-                                $('#commentList').append('<div id="noCommentsMessage" class="alert alert-info">No comments yet. Be the first to comment!</div>');
+
+                            if ($('#commentList').children('.comment-card').length === 0) {
+                                $('#commentList').prepend('<div id="noCommentsMessage" class="alert alert-info" style="border-left: 4px solid #667eea;"><i class="fa-solid fa-info-circle me-2"></i>No comments yet. Be the first to share your thoughts!</div>');
                             }
                         });
+                        showToast('Deleted', 'Comment has been removed.', true);
                     },
                     error: function (xhr) {
-                        alert('Error: ' + (xhr.responseText || 'Failed to delete comment.'));
+                        showToast('Error', xhr.responseText || 'Failed to delete comment.', false);
                     }
                 });
             });
+
+            // Helper function to create comment HTML matching _SingleComment partial
+            function createCommentHTML(comment) {
+                return `
+                    <div class="comment-card" id="comment-${comment.id}">
+                        <div class="comment-header">
+                            <img src="${comment.userImageUrl || '/images/default-avatar.png'}"
+                                 class="comment-avatar"
+                                 alt="${comment.userName}"
+                                 onerror="this.src='/images/default-avatar.png';">
+                            <div class="flex-grow-1">
+                                <div class="comment-author">${comment.userName}</div>
+                                <div class="comment-date">Just now</div>
+                            </div>
+                        </div>
+                        <div class="comment-body">${escapeHtml(comment.body)}</div>
+                        <button class="btn btn-sm btn-link text-danger p-0 delete-comment" data-id="${comment.id}">
+                            <i class="fa-solid fa-trash me-1"></i>Delete
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Helper to escape HTML
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // Toast notification function
+            function showToast(title, message, isSuccess) {
+                // Using the global toast function if available
+                if (typeof showAjaxToast === 'function') {
+                    showAjaxToast(title, message, isSuccess);
+                } else {
+                    alert(title + ': ' + message);
+                }
+            }
         });
-    </script>
-
-
-    <script>
-        function showImage(index) {
-            const carousel = new bootstrap.Carousel(document.getElementById('postImageCarousel'));
-            carousel.to(index);
-        }
     </script>
 }

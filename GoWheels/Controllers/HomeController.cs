@@ -1,21 +1,25 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using GoWheels.Models;
+using GoWheels.Services.Interfaces;
 
 namespace GoWheels.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IPostsService _postsService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IPostsService postsService)
     {
         _logger = logger;
+        _postsService = postsService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var recentPosts = await _postsService.GetRecentPostsAsync(12);
+        return View(recentPosts);
     }
 
     public IActionResult Privacy()
