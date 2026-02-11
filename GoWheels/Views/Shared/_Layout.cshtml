@@ -11,6 +11,7 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.0/dist/nouislider.min.css" />
+    <link rel="stylesheet" href="~/css/theme-variables.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GoWheels.styles.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
@@ -48,6 +49,12 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
             padding: 1rem 0;
+            transition: all var(--transition-base);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-lg);
+            padding: 0.5rem 0;
         }
 
         .navbar-brand {
@@ -76,9 +83,9 @@
             left: 50%;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: var(--primary-gradient);
             transform: translateX(-50%);
-            transition: width 0.3s ease;
+            transition: width var(--transition-base);
         }
 
         .navbar .nav-link:hover::before {
@@ -86,7 +93,7 @@
         }
 
         .navbar .nav-link:hover {
-            color: #667eea !important;
+            color: var(--primary-color) !important;
             background-color: rgba(102, 126, 234, 0.1);
             transform: translateY(-2px);
         }
@@ -96,22 +103,36 @@
         }
 
         .footer {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
-            color: #212529 !important;
-            padding: 2rem 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            background: var(--bg-gradient-light) !important;
+            color: var(--dark) !important;
+            padding: 2.5rem 0;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
             flex-shrink: 0;
             position: relative;
             z-index: 10;
+            border-top: 3px solid transparent;
+            border-image: var(--primary-gradient) 1;
         }
 
         .footer a {
-            color: #212529 !important;
-            transition: color 0.3s ease;
+            color: var(--dark) !important;
+            transition: all var(--transition-base);
+            font-weight: 500;
         }
 
         .footer a:hover {
-            color: #667eea !important;
+            color: var(--primary-color) !important;
+            transform: translateX(3px);
+        }
+
+        .footer-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .wrapper {
@@ -244,7 +265,21 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - GoWheels
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <span class="footer-brand">GoWheels</span>
+                    <p class="mt-2 mb-0 small">Your trusted automotive marketplace</p>
+                </div>
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    &copy; 2026 - GoWheels. All rights reserved.
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <a href="#" class="text-decoration-none me-3"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-decoration-none me-3"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="text-decoration-none me-3"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -258,15 +293,39 @@
             $('#toastBody').text(message);
             $('#toastTime').text(new Date().toLocaleTimeString());
 
-            // colour the header based on success / error
+            // Enhanced color styling based on success / error
+            const headerClass = isSuccess ? 'bg-success' : 'bg-danger';
             toastEl.find('.toast-header')
-                .removeClass('bg-success bg-danger')
-                .addClass(isSuccess ? 'bg-success' : 'bg-danger')
+                .removeClass('bg-success bg-danger bg-warning bg-info')
+                .addClass(headerClass)
                 .css('color', 'white');
+
+            // Add gradient for success
+            if (isSuccess) {
+                toastEl.find('.toast-header').css({
+                    'background': 'linear-gradient(135deg, #28a745 0%, #20c997 100%)',
+                    'border': 'none'
+                });
+            } else {
+                toastEl.find('.toast-header').css({
+                    'background': 'linear-gradient(135deg, #dc3545 0%, #c82333 100%)',
+                    'border': 'none'
+                });
+            }
 
             const toast = new bootstrap.Toast(toastEl[0], { delay: 3000 });
             toast.show();
         }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
         // Scroll animation observer
         document.addEventListener('DOMContentLoaded', function() {

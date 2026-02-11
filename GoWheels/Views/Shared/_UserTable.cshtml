@@ -2,52 +2,63 @@
     var role = ViewData["CurrentRole"] as string ?? "USER";
     var roleBadge = role switch
     {
-        "USER" => "bg-primary",
-        "EXPERT" => "bg-success",
-        "ADMIN" => "bg-danger",
+        "USER" => "bg-gradient-primary",
+        "EXPERT" => "bg-gradient-success",
+        "ADMIN" => "bg-gradient-danger",
         _ => "bg-secondary"
     };
 }
 
-<table class="table table-hover data-table">
-    <thead class="bg-light">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Posts</th>
-            <th>Rating</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (int i = 1; i <= 10; i++)
-        {
+<div class="card border-0 shadow-sm" style="border-radius: var(--radius-lg); overflow: hidden;">
+    <table class="table table-hover data-table mb-0">
+        <thead style="background: var(--primary-gradient);">
             <tr>
-                <td><strong>@role User @i</strong></td>
-                <td>user@(i)example.com</td>
-                <td>+216 12 345 67@(i.ToString("00"))</td>
-                <td>
-                    <span class="badge bg-secondary">@(i * 3) posts</span>
-                </td>
-                <td>
-                    @if (role == "EXPERT")
-                    {
-                        <span class="text-warning">
-                            4.@i <i class="fa-solid fa-star"></i>
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="text-muted">Not rated</span>
-                    }
-                </td>
-                <td>
-                    <a class="btn btn-sm btn-outline-info" href="#">
-                        <i class="fa-solid fa-eye me-1"></i> Details
-                    </a>
-                </td>
+                <th class="text-white" style="padding: 1rem; font-weight: var(--font-weight-semibold);">Name</th>
+                <th class="text-white" style="padding: 1rem; font-weight: var(--font-weight-semibold);">Email</th>
+                <th class="text-white" style="padding: 1rem; font-weight: var(--font-weight-semibold);">Phone</th>
+                <th class="text-white" style="padding: 1rem; font-weight: var(--font-weight-semibold);">Posts</th>
+                <th class="text-white" style="padding: 1rem; font-weight: var(--font-weight-semibold);">Rating</th>
+                <th class="text-white" style="padding: 1rem; font-weight: var(--font-weight-semibold);">Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @for (int i = 1; i <= 10; i++)
+            {
+                <tr style="transition: all var(--transition-base);">
+                    <td style="padding: 1rem;"><strong>@role User @i</strong></td>
+                    <td style="padding: 1rem;">user@(i)example.com</td>
+                    <td style="padding: 1rem;">+216 12 345 67@(i.ToString("00"))</td>
+                    <td style="padding: 1rem;">
+                        <span class="badge bg-gradient-info" style="border-radius: var(--radius-md); padding: 0.4rem 0.8rem;">
+                            @(i * 3) posts
+                        </span>
+                    </td>
+                    <td style="padding: 1rem;">
+                        @if (role == "EXPERT")
+                        {
+                            <span style="color: var(--warning-color); font-weight: var(--font-weight-semibold);">
+                                <i class="fa-solid fa-star"></i> 4.@i
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Not rated</span>
+                        }
+                    </td>
+                    <td style="padding: 1rem;">
+                        <a class="btn btn-sm btn-outline-primary" href="#"
+                           style="border-radius: var(--radius-md); transition: all var(--transition-bounce);">
+                            <i class="fa-solid fa-eye me-1"></i> Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .data-table tbody tr:hover {
+        background-color: rgba(102, 126, 234, 0.05);
+    }
+</style>

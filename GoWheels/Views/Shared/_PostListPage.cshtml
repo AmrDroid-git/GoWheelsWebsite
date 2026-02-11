@@ -5,100 +5,120 @@
     string pageTitle = ViewData["PageTitle"] as string ?? "Posts";
     string iconClass = ViewData["IconClass"] as string ?? "fa-solid fa-list";
     string iconColor = ViewData["IconColor"] as string ?? "primary";
-    string badgeClass = ViewData["BadgeClass"] as string ?? "bg-primary";
+    string badgeClass = ViewData["BadgeClass"] as string ?? "bg-gradient-primary";
     string description = ViewData["Description"] as string ?? "List of posts";
     string backAction = ViewData["BackAction"] as string ?? "PostsManagement";
     string backText = ViewData["BackText"] as string ?? "Back to Posts";
 }
 
-<div class="container py-4">
+<div class="container py-5">
     <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
-            <a asp-action="@backAction" class="text-decoration-none mb-3 d-inline-block">
-                <i class="fa-solid fa-arrow-left me-1"></i> @backText
+            <a asp-action="@backAction" class="text-decoration-none mb-3 d-inline-flex align-items-center"
+               style="color: var(--primary-color); font-weight: var(--font-weight-semibold); transition: all var(--transition-base);">
+                <i class="fa-solid fa-arrow-left me-2"></i> @backText
             </a>
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="display-6 fw-bold">
-                    <i class="@iconClass me-2 text-@iconColor"></i>@pageTitle
-                </h1>
-                <span class="badge @badgeClass fs-6">@Model.Count()</span>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div>
+                    <h1 class="display-5 fw-bold mb-2" style="background: var(--primary-gradient);
+                        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                        <i class="@iconClass me-2"></i>@pageTitle
+                    </h1>
+                    <p class="text-muted mb-0">@description</p>
+                </div>
+                <span class="@badgeClass px-4 py-2" style="border-radius: var(--radius-lg);
+                      font-size: var(--font-size-xl); font-weight: var(--font-weight-bold);
+                      box-shadow: var(--shadow-primary);">
+                    @Model.Count()
+                </span>
             </div>
-            <p class="text-muted mb-0">@description</p>
         </div>
     </div>
 
     <!-- Post Table -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-@iconColor bg-opacity-10 border-@iconColor">
-            <h5 class="mb-0 text-dark">
+    <div class="card border-0 shadow-sm" style="border-radius: var(--radius-lg); overflow: hidden;">
+        <div class="card-header text-white" style="background: var(--primary-gradient); border: none; padding: 1.5rem;">
+            <h5 class="mb-0" style="font-weight: var(--font-weight-bold);">
                 <i class="fa-solid fa-list-check me-2"></i>@pageTitle List
-                <small class="text-muted ms-2">Click details to review</small>
+                <small class="ms-3 opacity-75" style="font-size: var(--font-size-sm);">Click details to review</small>
             </h5>
         </div>
         <div class="card-body p-0">
-            <table class="table table-hover data-table">
-                <thead class="bg-light">
+            <table class="table table-hover data-table mb-0">
+                <thead style="background: var(--bg-secondary);">
                     <tr>
-                        <th>Created</th>
-                        <th>Constructor</th>
-                        <th>Model</th>
-                        <th>Type</th>
-                        <th>Price</th>
-                        <th>Owner</th>
-                        <th>Actions</th>
+                        <th style="padding: 1rem; font-weight: var(--font-weight-semibold);">Created</th>
+                        <th style="padding: 1rem; font-weight: var(--font-weight-semibold);">Constructor</th>
+                        <th style="padding: 1rem; font-weight: var(--font-weight-semibold);">Model</th>
+                        <th style="padding: 1rem; font-weight: var(--font-weight-semibold);">Type</th>
+                        <th style="padding: 1rem; font-weight: var(--font-weight-semibold);">Price</th>
+                        <th style="padding: 1rem; font-weight: var(--font-weight-semibold);">Owner</th>
+                        <th style="padding: 1rem; font-weight: var(--font-weight-semibold);">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>@item.CreatedAt.ToString("yyyy-MM-dd")</td>
-                            <td>@item.Constructor</td>
-                            <td>@item.ModelName</td>
-                            <td>
+                        <tr style="transition: all var(--transition-base);">
+                            <td style="padding: 1rem;">@item.CreatedAt.ToString("yyyy-MM-dd")</td>
+                            <td style="padding: 1rem; font-weight: var(--font-weight-medium);">@item.Constructor</td>
+                            <td style="padding: 1rem;">@item.ModelName</td>
+                            <td style="padding: 1rem;">
                                 @if (item.IsForRent)
                                 {
-                                    <span class="badge bg-info">Rent</span>
+                                    <span class="badge bg-gradient-info" style="border-radius: var(--radius-md); padding: 0.4rem 0.8rem;">
+                                        <i class="fa-solid fa-key me-1"></i>Rent
+                                    </span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-success">Sale</span>
+                                    <span class="badge bg-gradient-success" style="border-radius: var(--radius-md); padding: 0.4rem 0.8rem;">
+                                        <i class="fa-solid fa-dollar-sign me-1"></i>Sale
+                                    </span>
                                 }
                             </td>
-                            <td>@item.Price.ToString("N0") DT</td>
-                            <td>
-                                <a href="/user/details/@item.Owner.Id" class="text-decoration-none">
-                                    @item.Owner.Name
+                            <td style="padding: 1rem; font-weight: var(--font-weight-semibold); color: var(--success-color);">
+                                @item.Price.ToString("N0") DT
+                            </td>
+                            <td style="padding: 1rem;">
+                                <a href="/user/details/@item.Owner.Id" class="text-decoration-none"
+                                   style="color: var(--primary-color); font-weight: var(--font-weight-medium);
+                                          transition: all var(--transition-base);">
+                                    <i class="fa-solid fa-user me-1"></i>@item.Owner.Name
                                 </a>
                             </td>
-                            <td>
-                                <div class="d-flex gap-1">
-                                    <a class="btn btn-sm btn-outline-info"
-                                       asp-controller="Post" 
-                                       asp-action="Details" 
-                                       asp-route-id="@item.Id">
+                            <td style="padding: 1rem;">
+                                <div class="d-flex gap-2">
+                                    <a class="btn btn-sm btn-outline-primary"
+                                       asp-controller="Post"
+                                       asp-action="Details"
+                                       asp-route-id="@item.Id"
+                                       style="border-radius: var(--radius-md); transition: all var(--transition-bounce);">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
                                     <a class="btn btn-sm btn-outline-warning"
-                                       asp-controller="Post" 
-                                       asp-action="Edit" 
-                                       asp-route-id="@item.Id">
+                                       asp-controller="Post"
+                                       asp-action="Edit"
+                                       asp-route-id="@item.Id"
+                                       style="border-radius: var(--radius-md); transition: all var(--transition-bounce);">
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
                                     @if (item.Status == PostStatus.Deleted)
                                     {
                                         <a class="btn btn-sm btn-outline-success"
-                                           asp-action="DetailsPost" 
-                                           asp-route-id="@item.Id">
+                                           asp-action="DetailsPost"
+                                           asp-route-id="@item.Id"
+                                           style="border-radius: var(--radius-md); transition: all var(--transition-bounce);">
                                             <i class="fa-solid fa-rotate-left"></i>
                                         </a>
                                     }
                                     else
                                     {
                                         <a class="btn btn-sm btn-outline-danger"
-                                           asp-action="DetailsPost" 
-                                           asp-route-id="@item.Id">
+                                           asp-action="DetailsPost"
+                                           asp-route-id="@item.Id"
+                                           style="border-radius: var(--radius-md); transition: all var(--transition-bounce);">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     }
@@ -109,9 +129,11 @@
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="7" class="text-center py-5 text-muted">
-                                <i class="fa-solid fa-inbox fa-2x mb-2"></i>
-                                <p class="mb-0">No posts found.</p>
+                            <td colspan="7" class="text-center py-5">
+                                <div style="color: var(--gray);">
+                                    <i class="fa-solid fa-inbox fa-3x mb-3" style="opacity: 0.3;"></i>
+                                    <p class="mb-0" style="font-size: var(--font-size-lg);">No posts found.</p>
+                                </div>
                             </td>
                         </tr>
                     }
@@ -120,6 +142,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    .data-table tbody tr:hover {
+        background-color: rgba(102, 126, 234, 0.05);
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {

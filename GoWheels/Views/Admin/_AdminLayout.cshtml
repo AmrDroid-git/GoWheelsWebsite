@@ -5,23 +5,91 @@
 <!-- Add DataTables to head -->
 @section Head {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
+    <style>
+        /* Admin Layout Enhancements */
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-alert {
+            border: none;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            animation: slideInDown 0.5s ease;
+            border-left: 4px solid;
+        }
+
+        .admin-alert.alert-success {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(32, 201, 151, 0.1) 100%);
+            border-left-color: var(--success-color);
+        }
+
+        .admin-alert.alert-danger {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(200, 35, 51, 0.1) 100%);
+            border-left-color: var(--danger-color);
+        }
+
+        @@keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* DataTables Enhancement */
+        .dataTables_wrapper {
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .dataTables_filter input {
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-lighter);
+            padding: 0.5rem 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .dataTables_filter input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+            outline: none;
+        }
+
+        table.dataTable thead th {
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 600;
+            padding: 1rem;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.05);
+        }
+    </style>
 }
 
 <!-- Main content area -->
-<div class="container mt-3">
+<div class="admin-container mt-4">
     @if (TempData["SuccessMessage"] != null)
     {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success admin-alert alert-dismissible fade show" role="alert">
             <i class="fa-solid fa-circle-check me-2"></i>
-            @TempData["SuccessMessage"]
+            <strong>Success!</strong> @TempData["SuccessMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
     @if (TempData["ErrorMessage"] != null)
     {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger admin-alert alert-dismissible fade show" role="alert">
             <i class="fa-solid fa-circle-exclamation me-2"></i>
-            @TempData["ErrorMessage"]
+            <strong>Error!</strong> @TempData["ErrorMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }

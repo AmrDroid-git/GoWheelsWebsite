@@ -2,25 +2,25 @@
 
 @if (Model == GoWheels.Models.PostStatus.Accepted)
 {
-    <span class="badge bg-success">
+    <span class="badge bg-gradient-success px-3 py-2" style="border-radius: var(--radius-md); font-weight: 600; box-shadow: var(--shadow-success);">
         <i class="fa-solid fa-circle-check me-1"></i> Verified
     </span>
 }
 else if (Model == GoWheels.Models.PostStatus.Pending)
 {
-    <span class="badge bg-warning text-dark">
+    <span class="badge bg-gradient-warning px-3 py-2" style="border-radius: var(--radius-md); font-weight: 600; box-shadow: var(--shadow-md);">
         <i class="fa-solid fa-hourglass-half me-1"></i> Pending
     </span>
 }
 else if (Model == GoWheels.Models.PostStatus.Rejected)
 {
-    <span class="badge bg-danger">
+    <span class="badge bg-gradient-danger px-3 py-2" style="border-radius: var(--radius-md); font-weight: 600; box-shadow: var(--shadow-danger);">
         <i class="fa-solid fa-circle-exclamation me-1"></i> Rejected
     </span>
 }
 else if (Model == GoWheels.Models.PostStatus.Deleted)
 {
-    <span class="badge bg-danger">
+    <span class="badge bg-gradient-danger px-3 py-2" style="border-radius: var(--radius-md); font-weight: 600; box-shadow: var(--shadow-danger);">
         <i class="fa-solid fa-trash me-1"></i> Deleted
     </span>
 }

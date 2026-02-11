@@ -26,18 +26,19 @@ namespace GoWheels.Data
         {
             _logger.LogInformation("Seeding database...");
             
-            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-            var context = services.GetRequiredService<GoWheelsDbContext>();
-            var ratingsService = services.GetRequiredService<IRatingsService>();
-            
-            await SeedRolesAndDefaultUsersAsync(context, roleManager, services);
-            await SeedJsonDataAsync(context, ratingsService);
+            await SeedRolesAndDefaultUsersAsync(services);
+            await SeedJsonDataAsync(services);
             
             _logger.LogInformation("Database seeding completed.");
         }
 
-        private async Task SeedRolesAndDefaultUsersAsync(GoWheelsDbContext context, RoleManager<IdentityRole> roleManager, IServiceProvider services)
+        private async Task SeedRolesAndDefaultUsersAsync(IServiceProvider services)
         {
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            var context = services.GetRequiredService<GoWheelsDbContext>();
+            var ratingsService = services.GetRequiredService<IRatingsService>();
+            var passwordHasher = services.GetRequiredService<IPasswordHasher<ApplicationUser>>();
+            
             var roles = new[] { "ADMIN", "EXPERT", "USER" };
             foreach (var role in roles)
             {
@@ -53,10 +54,9 @@ namespace GoWheels.Data
             {
                 ("Aymen", "neyem_admin", "admin@gowheels.local", "ADMIN", "99999999"),
                 ("Skander", "skon_expert", "expert@gowheels.local", "EXPERT", "99999998"),
-                ("Zied", "zaydoun_user_saghroun", "user@gowheels.local", "USER", "99999997")
+                ("Zied", "zaydoun_saghroun", "user@gowheels.local", "USER", "99999997")
             };
 
-            var passwordHasher = services.GetRequiredService<IPasswordHasher<ApplicationUser>>();
             var usersToCreate = new List<(ApplicationUser User, string Role)>();
 
             foreach (var seed in defaultUsers)
@@ -98,15 +98,20 @@ namespace GoWheels.Data
             }
         }
 
-        private async Task SeedJsonDataAsync(GoWheelsDbContext context, IRatingsService ratingsService)
+        private async Task SeedJsonDataAsync(IServiceProvider services)
         {
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            var context = services.GetRequiredService<GoWheelsDbContext>();
+            var ratingsService = services.GetRequiredService<IRatingsService>();
+            var passwordHasher = services.GetRequiredService<IPasswordHasher<ApplicationUser>>();
+            
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var basePath = Path.Combine("Data", "Seed");
 
             context.ChangeTracker.AutoDetectChangesEnabled = false;
 
             // 1. Seed Users
-            var seededUsers = await SeedTable("users.json", context.Users, basePath, options, context);
+            var seededUsers = await SeedTable("users.json", context.Users, basePath, options, services);
             var seededUserIds = new HashSet<string>(seededUsers.Select(u => u.Id));
             
             // Add default users to the set of available users for referential integrity
@@ -114,18 +119,18 @@ namespace GoWheels.Data
             foreach (var id in defaultUserIds) seededUserIds.Add(id);
 
             // 2. Seed Posts
-            var seededPosts = await SeedTable("posts_clean.json", context.Posts, basePath, options, context, 
+            var seededPosts = await SeedTable("posts_clean.json", context.Posts, basePath, options, services, 
                 p => seededUserIds.Contains(p.OwnerId));
             var seededPostIds = new HashSet<string>(seededPosts.Select(p => p.Id));
 
             // 3. Seed Dependent Data
-            await SeedTable("post_images.json", context.PostImages, basePath, options, context,
+            await SeedTable("post_images.json", context.PostImages, basePath, options, services,
                 pi => seededPostIds.Contains(pi.PostId));
             
-            await SeedTable("ratings_posts.json", context.PostsRatings, basePath, options, context,
+            await SeedTable("ratings_posts.json", context.PostsRatings, basePath, options, services,
                 r => seededUserIds.Contains(r.OwnerId) && seededPostIds.Contains(r.RatedPostId));
             
-            await SeedTable("comments_seed.json", context.Comments, basePath, options, context,
+            await SeedTable("comments_seed.json", context.Comments, basePath, options, services,
                 c => seededUserIds.Contains(c.UserId) && seededPostIds.Contains(c.PostId));
 
             await context.SaveChangesAsync();
@@ -135,8 +140,15 @@ namespace GoWheels.Data
             await ratingsService.RecalculateAllUsersRateAverageAsync();
         }
 
-        private async Task<List<T>> SeedTable<T>(string fileName, DbSet<T> dbSet, string basePath, JsonSerializerOptions options, GoWheelsDbContext context, Func<T, bool>? filter = null) where T : class
+        private async Task<List<T>> SeedTable<T>(string fileName, DbSet<T> dbSet, string basePath, JsonSerializerOptions options, IServiceProvider services, Func<T, bool>? filter = null) where T : class
         {
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            var context = services.GetRequiredService<GoWheelsDbContext>();
+            var ratingsService = services.GetRequiredService<IRatingsService>();
+            var passwordHasher = services.GetRequiredService<IPasswordHasher<ApplicationUser>>();
+            
+            var rolesMap = await roleManager.Roles.ToDictionaryAsync(r => r.Name!, r => r.Id);
+            
             var path = Path.Combine(basePath, fileName);
             var seededData = new List<T>();
             
@@ -162,9 +174,22 @@ namespace GoWheels.Data
                             u.NormalizedUserName ??= u.UserName?.ToUpper();
                             u.NormalizedEmail ??= u.Email?.ToUpper();
                             u.SecurityStamp ??= Guid.NewGuid().ToString();
+                            u.PasswordHash = passwordHasher.HashPassword(u, "Password123!");
                         }
                     }
                     await dbSet.AddRangeAsync(seededData);
+                    if (typeof(T) == typeof(ApplicationUser))
+                    {
+                        var userRolesToAdd = seededData
+                            .Cast<ApplicationUser>()
+                            .Select(x => new IdentityUserRole<string>
+                            {
+                                UserId = x.Id,
+                                RoleId = rolesMap["USER"]
+                            });
+                        await context.UserRoles.AddRangeAsync(userRolesToAdd);
+                        await context.SaveChangesAsync();
+                    }
                 }
             }
             return seededData;

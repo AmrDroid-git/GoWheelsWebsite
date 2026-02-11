@@ -301,10 +301,10 @@
         <div class="owner-card">
             <div class="row align-items-center">
                 <div class="col-md-3 text-center mb-4 mb-md-0">
-                    <img src="@(Model.Owner.ImageUrl ?? "/images/default-avatar.png")"
+                    <img src="@(Model.Owner.ImageUrl ?? "/avatar.jpg")"
                          class="owner-avatar"
                          alt="@Model.Owner.Name"
-                         onerror="this.src='/images/default-avatar.png';">
+                         onerror="this.src='/avatar.jpg';">
                 </div>
                 <div class="col-md-9 owner-info">
                     <h3 class="owner-name">@Model.Owner.Name</h3>
@@ -659,10 +659,10 @@
                 return `
                     <div class="comment-card" id="comment-${comment.id}">
                         <div class="comment-header">
-                            <img src="${comment.userImageUrl || '/images/default-avatar.png'}"
+                            <img src="${comment.userImageUrl || '/avatar.jpg'}"
                                  class="comment-avatar"
                                  alt="${comment.userName}"
-                                 onerror="this.src='/images/default-avatar.png';">
+                                 onerror="this.src='/avatar.jpg';">
                             <div class="flex-grow-1">
                                 <div class="comment-author">${comment.userName}</div>
                                 <div class="comment-date">Just now</div>
