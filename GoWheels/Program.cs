@@ -54,6 +54,8 @@ builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("Mong
 builder.Services.AddSingleton<MongoMirrorService>();
 builder.Services.AddScoped<NoSqlMirrorInterceptor>();
 builder.Services.AddSingleton<MongoPostsReadService>();
+builder.Services.AddScoped<AiAnalysisService>();
+
 
 
 var remakeDatabase = builder.Configuration.GetValue<bool>("DatabaseSettings:RemakeDatabase");

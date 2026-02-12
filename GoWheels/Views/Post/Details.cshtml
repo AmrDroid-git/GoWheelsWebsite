@@ -457,6 +457,26 @@
         <i class="fa-solid fa-chevron-right"></i>
     </div>
 </div>
+<!-- ================= AI Assistant Bubble ================= -->
+<div id="aiBubbleToggle">
+    <i class="fa-solid fa-robot"></i>
+</div>
+
+<div id="aiBubble">
+    <div id="aiBubbleHeader">
+        <i class="fa-solid fa-robot"></i>
+        <span>AI Assistant</span>
+        <button id="aiBubbleClose">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
+    <div id="aiBubbleContent">
+        <div class="ai-loading">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Generating analysis...
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script>
@@ -692,6 +712,45 @@
                     alert(title + ': ' + message);
                 }
             }
+            // ==================== AI Bubble ====================
+
+            $('#aiBubbleToggle').click(function () {
+                $('#aiBubble').fadeIn();
+                loadAiSummary();
+            });
+
+            $('#aiBubbleClose').click(function () {
+                $('#aiBubble').fadeOut();
+            });
+
+            function loadAiSummary() {
+                const container = $('#aiBubbleContent');
+
+                container.html(`
+                    <div class="ai-loading">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        Generating analysis...
+                    </div>
+                `);
+
+                fetch(`/api/ai/post-summary/${postId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        container.html(`
+                <div style="white-space: pre-wrap;" class="ai-bubble-body">
+                    ${escapeHtml(data.summary)}
+                </div>
+            `);
+                    })
+                    .catch(() => {
+                        container.html(`
+                <div class="text-danger">
+                    Failed to generate AI analysis.
+                </div>
+            `);
+                    });
+            }
+
         });
     </script>
 }

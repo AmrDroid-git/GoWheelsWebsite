@@ -16,7 +16,7 @@ out/
 
 ## Sensitive files (Secrets)
 # Ignoring environment-specific settings to prevent credential leaks
-#appsettings.Development.json
+appsettings.Development.json
 #appsettings.Local.json
 *.pfx
 *.publishsettings

@@ -762,6 +762,89 @@
     animation: spin 1s linear infinite;
 }
 
+/* ================= AI Bubble ================= */
+
+#aiBubbleToggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    z-index: 9999;
+}
+
+#aiBubble {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    width: 350px;
+    max-height: 500px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+#aiBubbleHeader {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+#aiBubbleContent {
+    padding: 15px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#aiBubbleClose {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.ai-loading {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+}
+#aiBubble {
+    width: 360px;          /* comme tu veux */
+    height: 520px;         /* IMPORTANT: fixe une hauteur */
+    display: flex;
+    flex-direction: column;
+}
+
+#aiBubbleHeader {
+    flex: 0 0 auto;        /* header fixe */
+}
+
+#aiBubbleContent {
+    flex: 1 1 auto;        /* prend le reste */
+    overflow-y: auto;      /* scroll ici */
+    padding: 14px;
+}
+
+
+
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
