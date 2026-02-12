@@ -1,9 +1,11 @@
-﻿using GoWheels.Models;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace GoWheels.Models;
 
 public class MongoPost
 {
     [BsonId]
+    [BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public string Id { get; set; } = null!;
 
     public string Constructor { get; set; } = null!;
