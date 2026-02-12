@@ -15,11 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // DataBase:
-builder.Services.AddDbContext<GoWheelsDbContext>(
-    options => options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-        )
-    );
+builder.Services.AddDbContext<GoWheelsDbContext>((serviceProvider, options) =>
+{
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"));
+
+    var interceptor = serviceProvider.GetRequiredService<NoSqlMirrorInterceptor>();
+    options.AddInterceptors(interceptor);
+});
 
 // Identity
 builder.Services.AddDefaultIdentity<ApplicationUser>(
@@ -47,6 +50,10 @@ builder.Services.AddScoped<IAdminLogsService, AdminLogsService>();
 builder.Services.AddScoped<AuthLogsService>();
 builder.Services.AddScoped<DbInitializer>();
 builder.Services.AddScoped<AltSeeder>();
+builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoSettings"));
+builder.Services.AddSingleton<MongoMirrorService>();
+builder.Services.AddScoped<NoSqlMirrorInterceptor>();
+
 
 var remakeDatabase = builder.Configuration.GetValue<bool>("DatabaseSettings:RemakeDatabase");
 var useAltSeeder = builder.Configuration.GetValue<bool>("DatabaseSettings:UseAltSeeder");
