@@ -1,10 +1,11 @@
 services:
+
   postgres:
     image: postgres:15
     container_name: gowheels_postgres
-    restart: always
+    restart: unless-stopped
     environment:
-      POSTGRES_DB: gowheels_db
+      POSTGRES_DB: gowheels
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
@@ -13,27 +14,30 @@ services:
   mongo:
     image: mongo:7
     container_name: gowheels_mongo
-    restart: always
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: gowheels_admin
+      MONGO_INITDB_ROOT_PASSWORD: gowheels_admin_pass
     volumes:
       - mongo_data:/data/db
 
   app:
-    image: medteck07/gowheels-app:latest
+    image: medteck07/gowheels-app:v2
     container_name: gowheels_app
-    restart: always
+    restart: unless-stopped
     depends_on:
       - postgres
       - mongo
     ports:
       - "8080:8080"
     environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=gowheels_db;Username=postgres;Password=postgres
+      ConnectionStrings__DefaultConnection: Host=gowheels_postgres;Port=5432;Database=gowheels;Username=postgres;Password=postgres
+      MongoSettings__ConnectionString: mongodb://gowheels_admin:gowheels_admin_pass@gowheels_mongo:27017/?authSource=admin
+      MongoSettings__DatabaseName: gowheels_mirror
       OpenRouter__ApiKey: ${OPENROUTER_API_KEY}
-    volumes:
-      - dataprotection_keys:/root/.aspnet/DataProtection-Keys
+      DatabaseSettings__RemakeDatabase: "false"
+      DatabaseSettings__UseAltSeeder: "false"
 
 volumes:
   postgres_data:
   mongo_data:
-  dataprotection_keys:

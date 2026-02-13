@@ -102,6 +102,28 @@ if (remakeDatabase)
         }
     }
 }
+else
+{
+    // AUTO-MIGRATION EF CORE (Docker / Prod safe)
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var db = scope.ServiceProvider.GetRequiredService<GoWheelsDbContext>();
+        db.Database.Migrate();
+        if (useAltSeeder)
+        {
+            var altSeeder = services.GetRequiredService<AltSeeder>();
+            var context = services.GetRequiredService<GoWheelsDbContext>();
+            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            await altSeeder.SeedRandomDataAsync(context, userManager);
+        }
+        else
+        {
+            var dbInitializer = services.GetRequiredService<DbInitializer>();
+            await dbInitializer.SeedAsync(services);
+        }
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

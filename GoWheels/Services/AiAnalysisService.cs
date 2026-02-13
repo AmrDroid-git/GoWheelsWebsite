@@ -13,8 +13,8 @@ namespace GoWheels.Services
         public AiAnalysisService(IConfiguration configuration)
         {
             //  Lire la clé depuis variable d’environnement
-            _openRouterKey = Environment.GetEnvironmentVariable("OPENROUTER_API_KEY")
-                ?? throw new Exception("Missing OPENROUTER_API_KEY environment variable.");
+            _openRouterKey = configuration["OpenRouter:ApiKey"]
+                             ?? throw new Exception("Missing OpenRouter:ApiKey configuration.");
 
             //  Lire le modèle depuis appsettings.json
             _model = configuration["OpenRouter:Model"] 
