@@ -500,7 +500,6 @@ namespace GoWheels.Controllers
                 }
 
                 // Update specifications
-                var specifications = new Dictionary<string, string>();
                 if (viewModel.SpecificationKeys != null && viewModel.SpecificationValues != null)
                 {
                     for (int i = 0; i < Math.Min(viewModel.SpecificationKeys.Count, viewModel.SpecificationValues.Count); i++)
@@ -508,11 +507,10 @@ namespace GoWheels.Controllers
                         if (!string.IsNullOrWhiteSpace(viewModel.SpecificationKeys[i]) &&
                             !string.IsNullOrWhiteSpace(viewModel.SpecificationValues[i]))
                         {
-                            specifications[viewModel.SpecificationKeys[i]] = viewModel.SpecificationValues[i];
+                            existingPost.Specifications[viewModel.SpecificationKeys[i]] = viewModel.SpecificationValues[i];
                         }
                     }
                 }
-                existingPost.Specifications = specifications;
                 
                 // Handle image deletions
                 if (viewModel.ImagesToDelete != null && viewModel.ImagesToDelete.Count > 0)
