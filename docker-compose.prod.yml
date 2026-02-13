@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: gowheels_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: gowheels_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:7
+    container_name: gowheels_mongo
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  app:
+    image: medteck07/gowheels-app:latest
+    container_name: gowheels_app
+    restart: always
+    depends_on:
+      - postgres
+      - mongo
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=gowheels_db;Username=postgres;Password=postgres
+      OpenRouter__ApiKey: ${OPENROUTER_API_KEY}
+    volumes:
+      - dataprotection_keys:/root/.aspnet/DataProtection-Keys
+
+volumes:
+  postgres_data:
+  mongo_data:
+  dataprotection_keys:

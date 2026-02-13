@@ -8,16 +8,24 @@ namespace GoWheels.Services
     {
         private readonly HttpClient _httpClient;
         private readonly string _openRouterKey;
+        private readonly string _model;
 
         public AiAnalysisService(IConfiguration configuration)
         {
-            _openRouterKey = configuration["OpenRouter:ApiKey"]!;
+            //  Lire la clé depuis variable d’environnement
+            _openRouterKey = Environment.GetEnvironmentVariable("OPENROUTER_API_KEY")
+                ?? throw new Exception("Missing OPENROUTER_API_KEY environment variable.");
+
+            //  Lire le modèle depuis appsettings.json
+            _model = configuration["OpenRouter:Model"] 
+                ?? "stepfun/step-3.5-flash:free";
+
             _httpClient = new HttpClient();
 
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", _openRouterKey);
 
-            _httpClient.DefaultRequestHeaders.Add("HTTP-Referer", "http://localhost:5237");
+            _httpClient.DefaultRequestHeaders.Add("HTTP-Referer", "https://gowheels.local");
             _httpClient.DefaultRequestHeaders.Add("X-Title", "GoWheels AI");
         }
 
@@ -25,16 +33,14 @@ namespace GoWheels.Services
         {
             var requestBody = new
             {
-                model = "stepfun/step-3.5-flash:free",
+                model = _model,
                 messages = new[]
                 {
                     new { role = "user", content = prompt }
                 }
             };
 
-
             var json = JsonSerializer.Serialize(requestBody);
-
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync(
