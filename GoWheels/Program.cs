@@ -31,6 +31,15 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<GoWheelsDbContext>();
 
+// Configure SecurityStampValidator to validate immediately
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+{
+    // This forces the validaton of the security stamp on every request.
+    // When a user's role changes, their security stamp is updated. 
+    // This setting ensures their cookie (and thus their permissions) are re-evaluated immediately.
+    options.ValidationInterval = TimeSpan.Zero;
+});
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/login";

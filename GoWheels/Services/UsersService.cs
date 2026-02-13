@@ -100,6 +100,13 @@ namespace GoWheels.Services
             }
 
             var addResult = await _userManager.AddToRoleAsync(user, newRole);
+            
+            if (addResult.Succeeded)
+            {
+                // Explicitly update security stamp to invalidate existing cookies/claims immediately
+                await _userManager.UpdateSecurityStampAsync(user);
+            }
+            
             return addResult.Succeeded;
         }
 
