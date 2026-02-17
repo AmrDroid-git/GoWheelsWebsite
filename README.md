@@ -218,14 +218,14 @@ DatabaseSettings__RemakeDatabase=true
 
 # 🎓 Academic Highlights
 
-✔ Clean architecture (Services, Interceptors, DbContext)
-✔ Hybrid SQL + NoSQL architecture
-✔ AI integration (LLM-based summarization & sentiment analysis)
-✔ Containerized infrastructure
-✔ Reproducible deployment
-✔ Role-based authentication
-✔ JSONB usage in PostgreSQL
-✔ EF Core migrations & seeding
+- Clean architecture (Services, Interceptors, DbContext)
+- Hybrid SQL + NoSQL architecture
+- AI integration (LLM-based summarization & sentiment analysis)
+- Containerized infrastructure
+- Reproducible deployment
+- Role-based authentication
+- JSONB usage in PostgreSQL
+- EF Core migrations & seeding
 
 ---
 
