@@ -479,6 +479,7 @@
 </div>
 
 @section Scripts {
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         $(document).ready(function () {
             const postId = "@Model.Id";
@@ -738,7 +739,7 @@
                     .then(data => {
                         container.html(`
                 <div style="white-space: pre-wrap;" class="ai-bubble-body">
-                    ${escapeHtml(data.summary)}
+                    ${marked.parse(data.summary)}
                 </div>
             `);
                     })
